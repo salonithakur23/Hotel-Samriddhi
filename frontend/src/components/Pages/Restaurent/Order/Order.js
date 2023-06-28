@@ -104,7 +104,7 @@ const Order = () => {
               </div>
 
               <div className="col-md-4 position-relative">
-                <label className="label">Booking Date & Time</label>
+                <label className="label">Order Date & Time</label>
                 <input type="datetime-local" name="Booking_Date_Time" className="form-control"
                 // onChange={handleInputChange} value={Booking_Date_Time}
                 />
@@ -118,9 +118,7 @@ const Order = () => {
                             </div> */}
 
 
-              <div className="col-md-4 position-relative"
-              //  controlId="formGridState"
-              >
+              {/* <div className="col-md-4 position-relative" >
                 <label className="form-label"> Category </label>
                 <Form.Select name="Room_Type"
                   onChange={(e) => handletext(e)}
@@ -135,10 +133,10 @@ const Order = () => {
                 <div className='show'>
                   <div className='showtext'>{showtext}</div>
                 </div>
-              </div>
+              </div> */}
 
 
-              <div className="col-md-2 position-relative d-flex">
+              {/* <div className="col-md-2 position-relative d-flex">
                 <Form.Check aria-label="option 1" />&nbsp;&nbsp;
                 <label className="label">Price <sapn>200</sapn></label>
 
@@ -155,7 +153,7 @@ const Order = () => {
                 <Form.Check aria-label="option 1" />&nbsp;&nbsp;
                 <label className="label">Price <sapn>200</sapn></label>
 
-              </div>
+              </div> */}
 
               <center>
 
