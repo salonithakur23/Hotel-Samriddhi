@@ -84,8 +84,8 @@ function App() {
           <Route path="/employees" element={<MainAdminSidebar><Employees /></MainAdminSidebar>} />
           <Route path="/employees-list" element={<MainAdminSidebar><EmployeesList /></MainAdminSidebar>} />
           <Route path="/add-guest" element={<MainAdminSidebar><Guest /></MainAdminSidebar>} />
-          <Route path="/editguest/:id" element={<MainAdminSidebar><EditGuest /></MainAdminSidebar>} />
-          <Route path="/guest-details" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} />
+          <Route path="/guest/:id" element={<MainAdminSidebar><EditGuest /></MainAdminSidebar>} />
+          <Route path="/guest-list" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} />
           <Route path="/view/:id" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} /> 
 
 
