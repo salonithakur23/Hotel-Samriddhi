@@ -1,13 +1,47 @@
-import React from 'react'
-// import HotelSidebar from '../../HotelSidebar'
+import React, { useState } from 'react'
 import { Container, Col, Row, Table, Button } from 'react-bootstrap'
 import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-icons/ai';
-import { RiArrowGoBackLine } from 'react-icons/ri';
 import { IoIosCreate } from 'react-icons/io';
-import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
-import './RoomService.css'
+import { Link, useNavigate } from 'react-router-dom';
+import './RoomService.css';
+import axios from "axios";
+
+
+
+
 const AddService = () => {
+
+    const navigate = useNavigate()
+    const [service_Name, setService_Name] = useState(null);
+    const [servive_Charge, setServive_Charge] = useState(null);
+    // const [city, setCity] = useState(null);
+    // const [nationality, setNationality] = useState(null);
+
+    const submitform = () => {
+        try {
+            axios.post("http://localhost:4000/api/room-service/new", {
+                "Service_Name": service_Name,
+                "Servive_Charge": servive_Charge,
+                // "City": city,
+                // "Nationality": nationality
+            })
+            navigate("/service-list")
+        } catch (error) {
+            // .then((response) => {
+            //     alert("Data submitted successfully")
+            //     navigate("/")
+            // }, (error) => {
+            //     alert("Sorry something went wrong")
+
+            // })
+            console.log(error.response)
+
+        }
+    }
+
+
+
+
   return (
    <>
    
@@ -51,6 +85,7 @@ const AddService = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">Service Name</label>
                                 <input type="text" class="form-control"
+                                value={service_Name} onChange={(e) => setService_Name(e.target.value)} required
 
                                 />
 
@@ -62,7 +97,7 @@ const AddService = () => {
                         <div class="col-md-4 position-relative">
                                 <label className="label">Service Charges</label>
                                 <input type="text" class="form-control"
-
+                                     value={servive_Charge} onChange={(e) => setServive_Charge(e.target.value)} required
                                 />
 
                             </div>
@@ -72,6 +107,7 @@ const AddService = () => {
                                 <Button className="stu_btn"
                                     variant="success"
                                     type="submit"
+                                    onClick={submitform}
                                 >
                                     Submit
                                 </Button>
@@ -91,4 +127,4 @@ const AddService = () => {
   )
 }
 
-export default AddService
+export default AddService;
