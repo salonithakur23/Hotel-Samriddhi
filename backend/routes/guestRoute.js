@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllGuest, createGuest  , updateGuest, deleteGuest} = require("../controllers/GuestController");
+const { getAllGuest, createGuest  , updateGuest, deleteGuest, getGuestDetail} = require("../controllers/GuestController");
 
 
 const router=express.Router();
@@ -8,7 +8,7 @@ const router=express.Router();
 // for all students record
 router.route("/guests").get(getAllGuest);
 router.route("/guest/new").post(createGuest);
-router.route("/guest/:id").put(updateGuest).delete(deleteGuest);
+router.route("/guest/:id").put(updateGuest).delete(deleteGuest).get(getGuestDetail);
 
 
 module.exports= router

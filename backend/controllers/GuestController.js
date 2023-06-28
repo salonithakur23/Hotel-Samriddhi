@@ -1,4 +1,6 @@
+const guestModel = require("../models/guestModel");
 const Guest = require("../models/guestModel");
+const router = require("../routes/guestRoute");
 
 
 
@@ -39,6 +41,64 @@ exports.getAllGuest = async (req, res) => {
 
 }
 
+
+// Get single student
+exports.getGuestDetail = async (req, res, next) => {
+    const guest = await Guest.findById(req.params.id);
+
+    if (!guest) {
+
+
+        return res.status(500).json({
+            success: false,
+            message: "Guest not found",
+        });
+    }
+    res.status(200).json({
+        success: true,
+        guest,
+    });
+};
+
+
+// router.get("/:id", async(req,res)=>{
+    
+//     try{
+//         const GetIDGuest= await Guest.findById(req.body.id);
+//         res.status(200).json(GetIDGuest)
+        
+        
+//     }catch (err){
+//         res.status(500).json(err)
+
+//     }
+// })
+
+exports.deleteGuest = async (req, res, next) => {
+
+    // req.body.student=req.student.id
+    const guest = await Guest.findById(req.params.id);
+
+    if (!guest) {
+        return next(new ErrorHandler("Guest not found ", 404));
+    }
+
+    // ==========================================================================
+
+    // another trick to delete one record
+
+    // await student.deleteOne(req.params.id);
+
+    //   ===========================================================================
+
+    await Guest.findOneAndDelete();
+
+    res.status(200).json({
+        success: true,
+        message: "Guest delete successfully",
+    });
+};
+
 exports.updateGuest = async (req, res, next) => {
     let gue1 = await Guest.findById(req.params.id);
 
@@ -52,7 +112,7 @@ exports.updateGuest = async (req, res, next) => {
     gue1 = await Guest.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true,
-        useFindAndModify: false,
+        useFindAndModify: true,
     });
     res.status(200).json({
         success: true,
@@ -60,28 +120,3 @@ exports.updateGuest = async (req, res, next) => {
     });
 
 }
-
-exports.deleteGuest = async (req, res, next) => {
-
-    // req.body.student=req.student.id
-    const guest = await Guest.findById(req.params.id);
-  
-    if (!guest) {
-      return next(new ErrorHandler("Guest not found ", 404));
-    }
-  
-    // ==========================================================================
-  
-    // another trick to delete one record
-  
-    // await student.deleteOne(req.params.id);
-  
-    //   ===========================================================================
-  
-    await Guest.findOneAndDelete();
-  
-    res.status(200).json({
-      success: true,
-      message: "Guest delete successfully",
-    });
-  } ;
