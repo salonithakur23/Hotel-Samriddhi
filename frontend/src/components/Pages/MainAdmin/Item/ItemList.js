@@ -1,19 +1,44 @@
 import React, { useEffect, useState } from 'react'
 // import MainLayout from '../../Admin/Pages/MainLayout'
 import { Button, Container, Row, Table } from 'react-bootstrap'
-import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { fetchleaves } from '../../reducer/action/leaveAction'
+import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai';
 // import Leave from './Leave'
 import { Link } from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
 import ModalCamp from './ModalCamp';
+import axios from 'axios';
 
 
+const baseURL = "http://localhost:4000/api/v1/items"
 
 
 
 const ItemList = () => {
+  const [get, setGetAll] = useState(null);
+
+  useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setGetAll(response.data);
+      console.log(response)
+
+
+
+    })
+
+
+  }, [get])
+
+  const deleteData = (id) => {
+    // console.log(id)
+    axios.delete(`http://localhost:4000/api/v1/item/${id}`).then(response => {
+      alert("Item has been deleted successfully")
+    })
+      .catch(error => {
+        console.log(error)
+      })
+
+  }
+  if (!get) return null;
 
   return (
 
@@ -60,40 +85,42 @@ const ItemList = () => {
                   <tr>
 
                     <th>Item Name</th>
-                
                     <th>Price</th>
-                    <th>Item Type</th>
+                    <th>Category Type</th>
                     <th>Action Edit</th>
                     <th>Action View</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  {get?.items?.map((items) => (
+                    <tr>
 
-                    <td>keshav</td>
-                    <td>keshav</td>
-                    <td>keshav</td>
-                    <td>keshav</td>
-                    <td>
+                      <td>{items.Item_Name}</td>
+                      <td>{items.price}</td>
+                      <td>{items.Category_Name}</td>
+                      {/* <td>keshav</td> */}
+                      <td>
 
-                      <Link to="/items">
-                      <Button className='table-btn' variant="light" >
-                        &#9998;Edit
-                      </Button>
-                      </Link>
-                    </td>
-                    <td>
-                      <Button className='table-btn' variant="light"
-                       >
-                        &#128065;View
-                      </Button>
-            
-         
+                        <Link to={`/edititem/${items._id}`}>
+                          <Button className='table-btn' variant="light" >
+                            &#9998;Edit
+                          </Button>
+                        </Link>
+                      </td>
+                      <td>
+                        <Button className='table-btn' variant="light" onClick={(e) => { deleteData(items._id) }} value={"Delete"}
+                        >
+                          &#128065;Delete
+                        </Button>
 
-                    </td>
 
-                    {/* <button className="view-btn">View </button> */}
-                  </tr>
+
+                      </td>
+
+                      {/* <button className="view-btn">View </button> */}
+                    </tr>
+                  ))}
+
                 </tbody>
               </table>
             </Table>

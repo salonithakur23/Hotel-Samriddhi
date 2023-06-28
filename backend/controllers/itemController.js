@@ -39,6 +39,25 @@ exports.getAllitems = async (req, res) => {
 
 }
 
+// get single item 
+
+exports.getItemDetail = async (req, res, next) => {
+    const item = await Item.findById(req.params.id);
+
+    if (!item) {
+        return res.status(500).json({
+            success: false,
+            message: "Itme not Found"
+        });
+    }
+
+    res.status(200).json({
+        success: true,
+        item,
+    })
+
+};
+
 exports.updateitem = async (req, res, next) => {
     let item = await Item.findById(req.params.id);
 
@@ -66,23 +85,23 @@ exports.deleteItem = async (req, res, next) => {
 
     // req.body.student=req.student.id
     const item = await Item.findById(req.params.id);
-  
+
     if (!item) {
-      return next(new ErrorHandler("Item not found ", 404));
+        return next(new ErrorHandler("Item not found ", 404));
     }
-  
+
     // ==========================================================================
-  
+
     // another trick to delete one record
-  
+
     // await student.deleteOne(req.params.id);
-  
+
     //   ===========================================================================
-  
+
     await Item.findOneAndDelete();
-  
+
     res.status(200).json({
-      success: true,
-      message: "Item delete successfully",
+        success: true,
+        message: "Item delete successfully",
     });
-  } ;
+};
