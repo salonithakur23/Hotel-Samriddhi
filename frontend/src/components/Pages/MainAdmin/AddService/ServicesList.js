@@ -1,55 +1,58 @@
 import React,{useEffect, useState} from 'react'
-// import MainLayout from '../../Admin/Pages/MainLayout'
 import { Button, Container,Row, Table } from 'react-bootstrap'
 import { AiFillDashboard, AiFillDelete, AiFillEdit,  } from 'react-icons/ai'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { fetchleaves } from '../../reducer/action/leaveAction'
-// import Leave from './Leave'
 import { Link }  from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
 import ModalCamp from './ModalCamp';
 import "./RoomService.css"
+import axios from 'axios';
+
+
+const baseURL = "http://localhost:4000/api/v1/room-services"
+
+
+const ServicesList = () => {
+
+  
+  const [get, setGetAll] = useState(null);
+
+  useEffect(() => {
+      axios.get(baseURL).then((response) => {
+          setGetAll(response.data);
+          console.log(response,"service")
 
 
 
+      })
 
 
-const ServicesList = ({post}) => {
+  }, [get])
+  // console.log(get,"keshav")
 
-  const [open, setOpen] = useState(false);
-  const [user, setUser] = useState({});
-
-
-
-  const handleModel = () => {
-    setOpen(true);
-    setUser(post);
+  const deleteData = (id) => {
+      // console.log(id)
+      axios.delete(`http://localhost:4000/api/v1/room-service/${id}`).then(response => {
+          alert("Service has been deleted successfully")
+      })
+      .catch(error=>{
+          console.log(error)
+      })
 
   }
 
+  if (!get) return null;
 
-//   const dispatch = useDispatch()
-//   const leaves = useSelector(state => state.leaves.item)
-//   const leavesStatus = useSelector(state => state.leaves.status)
-//   const error = useSelector(state => state.leaves.error)
 
- 
 
-//   useEffect(() => {
-//     if (leavesStatus === 'idle') {
-//       dispatch(fetchleaves())
-//     }
-//   }, [leavesStatus, dispatch])
+  // const [open, setOpen] = useState(false);
+  // const [user, setUser] = useState({});
 
-//   let content
+  // const handleModel = () => {
+  //   setOpen(true);
+  //   setUser(post);
 
-//   if (leavesStatus === 'loading') {
-//     content = <div>Loading...</div>
-//   } else if (leavesStatus === 'succeeded') {
-//     content = leaves.map(leave => <Leave key={leave.id} leave={leave} />)
-//   } else if (leavesStatus === 'failed') {
-//     content = <div>{error}</div>
-//   }
+  // }
+
 
 
 
@@ -105,7 +108,22 @@ const ServicesList = ({post}) => {
      </tr>
       </thead>
       <tbody>
-      <tr>
+
+      {get?.ser?.map((items) => (
+                        <tr>
+                            <td>{items.Service_Name}</td>
+                            <td>{items.Servive_Charge}</td>
+                            {/* <td>{items.City}</td>
+                            <td>{items.Nationality}</td> */}
+                            <td><Link to={`/edit/${items._id}`}><button type="button" class="btn btn-primary">Edit</button></Link></td>
+                            <td><button type="button" class="btn btn-danger" onClick={(e) => { deleteData(items._id) }} value={"Delete"}>Delete</button></td>
+                        </tr>
+
+
+                    ))}
+
+
+      {/* <tr>
 
 <td>keshav</td>
 <td>keshav</td>
@@ -127,14 +145,14 @@ const ServicesList = ({post}) => {
             
               open={open}
               setOpen={setOpen}
-              // updatePost={updatePost}
+             
               {...user}
             />
           )}
 </td>
 
-{/* <button className="view-btn">View </button> */}
-</tr>
+
+</tr> */}
       </tbody>
     </table>
     </Table>
@@ -145,7 +163,7 @@ const ServicesList = ({post}) => {
 
     
     
-    
+
     </>
 
   )

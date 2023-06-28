@@ -14,6 +14,7 @@ import ServiceList from "./components/Pages/Hotel/AdminPage/RoomService/ServiceL
 import MainAdminSidebar from "./components/Pages/MainAdmin/MainAdminSidebar/MainAdminSidebar";
 import AdminDashboard from "./components/Pages/MainAdmin/Dashboard/Dashboard";
 import Item from "./components/Pages/MainAdmin/Item/Items";
+import Edititem from "./components/Pages/MainAdmin/Item/EditItem";
 import ItemList from "./components/Pages/MainAdmin/Item/ItemList";
 import Room from "./components/Pages/MainAdmin/Rooms/Rooms";
 import RoomList from "./components/Pages/MainAdmin/Rooms/RoomList";
@@ -76,6 +77,7 @@ function App() {
           <Route path="/main-admin-dashboard" element={<MainAdminSidebar><AdminDashboard /></MainAdminSidebar>} />
           <Route path="/items" element={<MainAdminSidebar><Item /></MainAdminSidebar>} />
           <Route path="/item-list" element={<MainAdminSidebar><ItemList /></MainAdminSidebar>} />
+          <Route path="/edititem/:id" element={<MainAdminSidebar><Edititem /></MainAdminSidebar>} />
           <Route path="/add-rooms" element={<MainAdminSidebar><Room /></MainAdminSidebar>} />
           <Route path="/room-list" element={<MainAdminSidebar><RoomList /></MainAdminSidebar>} />
           {/* <Route path="/room-service-list"  element={<MainAdminSidebar><RoomServiceList/></MainAdminSidebar>}/> */}
@@ -84,8 +86,8 @@ function App() {
           <Route path="/employees" element={<MainAdminSidebar><Employees /></MainAdminSidebar>} />
           <Route path="/employees-list" element={<MainAdminSidebar><EmployeesList /></MainAdminSidebar>} />
           <Route path="/add-guest" element={<MainAdminSidebar><Guest /></MainAdminSidebar>} />
-          <Route path="/editguest/:id" element={<MainAdminSidebar><EditGuest /></MainAdminSidebar>} />
-          <Route path="/guest-details" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} />
+          <Route path="/guest/:id" element={<MainAdminSidebar><EditGuest /></MainAdminSidebar>} />
+          <Route path="/guest-list" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} />
           <Route path="/view/:id" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} /> 
 
 

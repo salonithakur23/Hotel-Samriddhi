@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 // import HotelSidebar from '../../HotelSidebar'
 import { Container, Col, Row, Table, Button } from 'react-bootstrap'
 import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-icons/ai';
@@ -7,7 +7,31 @@ import Form from 'react-bootstrap/Form';
 import { IoIosCreate } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 // import './RoomBooking.css'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 const Item = () => {
+    const navigate = useNavigate()
+    const [item_Name, setItem_Name] = useState(null);
+    const [price, setPrice] = useState(null);
+    const [category_Name, setCategory_Name] = useState(null);
+
+
+
+    const submitform = () => {
+        try {
+            axios.post("http://localhost:4000/api/v1/item/new", {
+                "Item_Name": item_Name,
+                "price": price,
+                "Category_Name": category_Name,
+            })
+            alert("Data submitted successfully")
+            navigate("/item-list")
+        } catch (error) {
+            console.log(error.response)
+
+        }
+    }
     return (
         <>
 
@@ -48,7 +72,7 @@ const Item = () => {
 
                             <div class="col-md-4 position-relative">
                                 <label className="label">Item Name</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" value={item_Name} onChange={(e) => setItem_Name(e.target.value)} required
 
                                 />
 
@@ -56,7 +80,7 @@ const Item = () => {
 
                             <div class="col-md-4 position-relative">
                                 <label className="label">Price.</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" value={price} onChange={(e) => setPrice(e.target.value)} required
 
                                 />
 
@@ -64,21 +88,19 @@ const Item = () => {
 
 
                             <div class="col-md-4 position-relative">
-                                <label className="label">Item Type</label>
-                                <input type="text" class="form-control"
+                                <label className="label">Category Name</label>
+                                <input type="text" class="form-control" value={category_Name} onChange={(e) => setCategory_Name(e.target.value)} required
+
 
                                 />
 
                             </div>
-
-
-
-
                             <center>
 
                                 <Button className="stu_btn"
                                     variant="success"
                                     type="submit"
+                                    onClick={submitform}
                                 >
                                     Submit
                                 </Button>
