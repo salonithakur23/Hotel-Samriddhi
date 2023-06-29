@@ -40,6 +40,7 @@ import Bill from "./components/Pages/Restaurent/Bill/Bill";
 import ItemsForm from "./components/Pages/Restaurent/Items/ItemsForm";
 import ServiceEdit from "./components/Pages/MainAdmin/AddService/ServiceEdit";
 import { ToastContainer } from "react-toastify";
+import RoomEdit from "./components/Pages/MainAdmin/Rooms/RoomEdit";
 
 // import RoomServiceList from "./components/Pages/MainAdmin/Roomservice/RoomServiceList";
 function App() {
@@ -85,6 +86,7 @@ function App() {
           <Route path="/edititem/:id" element={<MainAdminSidebar><Edititem /></MainAdminSidebar>} />
           <Route path="/add-rooms" element={<MainAdminSidebar><Room /></MainAdminSidebar>} />
           <Route path="/room-list" element={<MainAdminSidebar><RoomList /></MainAdminSidebar>} />
+          <Route path="/roomEdit/:id" element={<MainAdminSidebar><RoomEdit /></MainAdminSidebar>} />
           {/* <Route path="/room-service-list"  element={<MainAdminSidebar><RoomServiceList/></MainAdminSidebar>}/> */}
           <Route path="/services" element={<MainAdminSidebar><AddService /></MainAdminSidebar>} />
           <Route path="/service-list" element={<MainAdminSidebar><ServicesList /></MainAdminSidebar>} />
