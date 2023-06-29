@@ -7,6 +7,7 @@ import { Link } from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
 import ModalCamp from './ModalCamp';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 const baseURL = "http://localhost:4000/api/v1/items"
@@ -14,12 +15,15 @@ const baseURL = "http://localhost:4000/api/v1/items"
 
 
 const ItemList = () => {
+
+
+  
   const [get, setGetAll] = useState(null);
 
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setGetAll(response.data);
-      console.log(response)
+      // console.log(response)
 
 
 
@@ -31,7 +35,8 @@ const ItemList = () => {
   const deleteData = (id) => {
     // console.log(id)
     axios.delete(`http://localhost:4000/api/v1/item/${id}`).then(response => {
-      alert("Item has been deleted successfully")
+      // alert("Item has been deleted successfully")
+      toast.success("Item deleted Succesfully")
     })
       .catch(error => {
         console.log(error)

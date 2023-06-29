@@ -7,39 +7,46 @@ import Form from 'react-bootstrap/Form';
 import { IoIosCreate } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+
 
 
 const EditItem = () => {
     const params = useParams();
     const navigate = useNavigate();
-    const [getSpecificItem, setSpecificItem] = useState("");
-    const [Item_Name, setItem_Name] = useState(getSpecificItem.Item_Name);
-    const [price, setPrice] = useState(getSpecificItem.price);
-    const [Category_Name, setCategory_Name] = useState(getSpecificItem.Category_Name);
+    const [specificItem, setSpecificItem] = useState("");
+    const [Item_Name, setItem_Name] = useState(specificItem.Item_Name);
+    const [price, setPrice] = useState(specificItem.price);
+    const [Category_Name, setCategory_Name] = useState(specificItem.Category_Name);
 
-    console.log(getSpecificItem, "Check id from url")
+    console.log(specificItem, "Check id from url")
 
     useEffect(() => {
         axios.get(`http://localhost:4000/api/v1/item/${params.id}`).then((response) => {
             setSpecificItem(response.data);
+            setItem_Name(response.data.item.Item_Name);
+            setPrice(response.data.item.price);
+            setCategory_Name(response.data.Category_Name);
+
         })
     }, [])
 
 
     const submitform = () => {
         try {
-            axios.put(`http://localhost:4000/api/v1/item/${params.id})`, {
+            axios.put(`http://localhost:4000/api/v1/item/${params.id}`, {
                 "Item_Name":Item_Name,
                 "price":price,
                 "Category_Name":Category_Name,
             })
-            alert("Item update Successfully")
+            toast.success("Item Updated Succesfully")
             navigate("/item-list")
         } catch (error) {
             console.log(error.response)
 
         }
     }
+    console.log(specificItem)
 
     return (
         <>
@@ -79,14 +86,14 @@ const EditItem = () => {
 
                             <div class="col-md-4 position-relative">
                                 <label className="label">Item Name</label>
-                                <input type="text" className="form-control" onChange={(e) => setItem_Name(e.target.value)} id="inputname" placeholder={getSpecificItem.Item_Name} required />
+                                <input type="text" className="form-control" value={Item_Name} onChange={(e) => setItem_Name(e.target.value)}   required />
 
 
                             </div>
 
                             <div class="col-md-4 position-relative">
                                 <label className="label">Price.</label>
-                                <input type="text" className="form-control" onChange={(e) => setPrice(e.target.value)} id="inputname" placeholder={getSpecificItem.price} required />
+                                <input type="text" className="form-control" value={price} onChange={(e) => setPrice(e.target.value)}   required />
 
 
                             </div>
@@ -94,7 +101,7 @@ const EditItem = () => {
 
                             <div class="col-md-4 position-relative">
                                 <label className="label">Category Name</label>
-                                <input type="text" className="form-control" onChange={(e) => setCategory_Name(e.target.value)} id="inputname" placeholder={getSpecificItem.Category_Name} required />
+                                <input type="text" className="form-control" value={Category_Name} onChange={(e) => setCategory_Name(e.target.value)}  required />
 
 
                             </div>

@@ -84,7 +84,9 @@ exports.updateitem = async (req, res, next) => {
 exports.deleteItem = async (req, res, next) => {
 
     // req.body.student=req.student.id
+    console.log(res.params)
     const item = await Item.findById(req.params.id);
+   
 
     if (!item) {
         return next(new ErrorHandler("Item not found ", 404));
@@ -94,11 +96,11 @@ exports.deleteItem = async (req, res, next) => {
 
     // another trick to delete one record
 
-    // await student.deleteOne(req.params.id);
+    await item.deleteOne({_id:req.params.id});
 
     //   ===========================================================================
 
-    await Item.findOneAndDelete();
+    // await Item.findOneAndDelete();
 
     res.status(200).json({
         success: true,
