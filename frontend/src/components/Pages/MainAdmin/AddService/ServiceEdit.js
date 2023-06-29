@@ -1,30 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Container, Col, Row, Table, Button } from 'react-bootstrap'
 import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-icons/ai';
 import { IoIosCreate } from 'react-icons/io';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import './RoomService.css';
 import axios from "axios";
 
 
 
 
-const AddService = () => {
+const ServiceEdit = () => {
 
+    const params = useParams();
+    const navigate = useNavigate();
+    const [getSpecificService, setSpecificService] = useState("");
+    const [Service_Name, setService_Name] = useState(getSpecificService.Service_Name);
+    const [Servive_Charge, setServive_Charge] = useState(getSpecificService.Servive_Charge);
+   
 
+    console.log(getSpecificService, "Check id from url")
 
-    const navigate = useNavigate()
-    const [service_Name, setService_Name] = useState(null);
-    const [servive_Charge, setServive_Charge] = useState(null);
+    useEffect(() => {
+        axios.get(`http://localhost:4000/api/v1/room-service/${params.id}`).then((response) => {
+            setSpecificService(response.data);
+        })
+    }, [])
+
 
     const submitform = () => {
         try {
-            axios.post("http://localhost:4000/api/v1/room-service/new", {
-                "Service_Name": service_Name,
-                "Servive_Charge": servive_Charge,
-            
+            axios.put(`http://localhost:4000/api/v1/room-service/${params.id}`, {
+                "Service_Name": Service_Name,
+                "Servive_Charge": Servive_Charge,
+               
             })
-            alert("Data Submit Successfully")
+            alert("User update Successfully")
             navigate("/service-list")
         } catch (error) {
             console.log(error.response)
@@ -34,13 +44,10 @@ const AddService = () => {
 
 
 
-
   return (
-   <>
-   
-   
-  
-                <Container style={{ width: "90%", marginTop: "20px" }} >
+<>
+
+ <Container style={{ width: "90%", marginTop: "20px" }} >
                     <Table striped bordered hover className='main-table'>
                         <thead>
                             <tr>
@@ -78,7 +85,9 @@ const AddService = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">Service Name</label>
                                 <input type="text" class="form-control"
-                                value={service_Name} onChange={(e) => setService_Name(e.target.value)} required
+                                 onChange={(e) => setService_Name(e.target.value)}
+                                  id="inputname" placeholder={getSpecificService.Service_Name} required
+                                // value={service_Name} onChange={(e) => setService_Name(e.target.value)} required
 
                                 />
 
@@ -90,7 +99,9 @@ const AddService = () => {
                         <div class="col-md-4 position-relative">
                                 <label className="label">Service Charges</label>
                                 <input type="text" class="form-control"
-                                     value={servive_Charge} onChange={(e) => setServive_Charge(e.target.value)} required
+                                 onChange={(e) => setServive_Charge(e.target.value)}
+                                 id="inputname" placeholder={getSpecificService.Servive_Charge} required
+                                    //  value={servive_Charge} onChange={(e) => setServive_Charge(e.target.value)} required
                                 />
 
                             </div>
@@ -101,6 +112,7 @@ const AddService = () => {
                                     variant="success"
                                     type="submit"
                                     onClick={submitform}
+                                   
                                 >
                                     Submit
                                 </Button>
@@ -111,13 +123,11 @@ const AddService = () => {
                     </Row>
                 </Container>
                 </div>
-            
 
 
-   
-   
-   </>
+
+</>
   )
 }
 
-export default AddService;
+export default ServiceEdit
