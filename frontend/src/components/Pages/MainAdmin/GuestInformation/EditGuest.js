@@ -5,7 +5,8 @@ import { IoIosCreate } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 
 const EditGuest = () => {
@@ -61,7 +62,7 @@ const EditGuest = () => {
         "Number_Of_Children": Number_Of_Children,
         "Number_Of_Adults": Number_Of_Adults,
       })
-      alert("Guest update Successfully")
+      toast.success("Guest Updated Succesfully")
       navigate("/guest-list")
     } catch (error) {
       console.log(error.response)

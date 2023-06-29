@@ -87,11 +87,11 @@ exports.deleteGuest = async (req, res, next) => {
 
     // another trick to delete one record
 
-    // await student.deleteOne(req.params.id);
+    await guest.deleteOne({_id:req.params.id});
 
     //   ===========================================================================
 
-    await Guest.findOneAndDelete();
+    // await Guest.findOneAndDelete();
 
     res.status(200).json({
         success: true,

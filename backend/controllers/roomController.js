@@ -73,11 +73,11 @@ exports.deleteRoom = async (req, res, next) => {
   
     // another trick to delete one record
   
-    // await student.deleteOne(req.params.id);
+    await room.deleteOne({_id:req.params.id});
   
     //   ===========================================================================
   
-    await Room.findOneAndDelete();
+    // await Room.findOneAndDelete();
   
     res.status(200).json({
       success: true,
