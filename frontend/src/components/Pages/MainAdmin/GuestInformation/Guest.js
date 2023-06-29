@@ -148,7 +148,7 @@ const Guest = () => {
               </div>
               <center>
                 <Button className='stu_btn' id='button' variant='success' type='submit'
-                  onSubmit={submitform}
+                  onClick={submitform}
                 >
                   Submit
                 </Button>
