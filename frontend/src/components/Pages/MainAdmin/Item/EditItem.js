@@ -26,7 +26,7 @@ const EditItem = () => {
             setSpecificItem(response.data);
             setItem_Name(response.data.item.Item_Name);
             setPrice(response.data.item.price);
-            setCategory_Name(response.data.Category_Name);
+            setCategory_Name(response.data.item.Category_Name);
 
         })
     }, [])
