@@ -28,8 +28,8 @@ const Item = () => {
                 "price": price,
                 "Category_Name": category_Name,
             })
-            toast.success("Item Add Succesfully")
-            // navigate("/item-list")
+            toast.danger("Item Add Succesfully")
+            navigate("/item-list")
         } catch (error) {
             console.log(error.response)
 

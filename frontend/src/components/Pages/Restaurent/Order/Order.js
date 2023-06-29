@@ -111,13 +111,6 @@ const Order = () => {
               </div>
 
 
-              {/* <div class="col-md-4 position-relative">
-                                <label className="label">Category</label>
-                                <input type="text" class="form-control"
-                                />
-                            </div> */}
-
-
               <div className="col-md-4 position-relative"
               //  controlId="formGridState"
               >
