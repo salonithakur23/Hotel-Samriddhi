@@ -1,11 +1,11 @@
-import React,{useEffect, useState} from 'react'
-import { Button, Container,Row, Table } from 'react-bootstrap'
-import { AiFillDashboard, AiFillDelete, AiFillEdit,  } from 'react-icons/ai'
-import { Link }  from "react-router-dom"
+import React, { useEffect, useState } from 'react'
+import { Button, Container, Row, Table } from 'react-bootstrap'
+import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai'
+import { Link } from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
-import ModalCamp from './ModalCamp';
 import "./RoomService.css"
 import axios from 'axios';
+
 
 
 const baseURL = "http://localhost:4000/api/v1/room-services"
@@ -13,29 +13,29 @@ const baseURL = "http://localhost:4000/api/v1/room-services"
 
 const ServicesList = () => {
 
-  
+
   const [get, setGetAll] = useState(null);
 
   useEffect(() => {
-      axios.get(baseURL).then((response) => {
-          setGetAll(response.data);
-          console.log(response,"service")
+    axios.get(baseURL).then((response) => {
+      setGetAll(response.data);
+      console.log(response)
 
 
 
-      })
+    })
 
 
   }, [get])
   // console.log(get,"keshav")
 
   const deleteData = (id) => {
-      // console.log(id)
-      axios.delete(`http://localhost:4000/api/v1/room-service/${id}`).then(response => {
-          alert("Service has been deleted successfully")
-      })
-      .catch(error=>{
-          console.log(error)
+    // console.log(id)
+    axios.delete(`http://localhost:4000/api/v1/room-service/${id}`).then(response => {
+      alert("Service has been deleted successfully")
+    })
+      .catch(error => {
+        console.log(error)
       })
 
   }
@@ -59,7 +59,7 @@ const ServicesList = () => {
   return (
 
     <>
-    <Container className='main-col' >
+      <Container className='main-col' >
         <Table striped bordered hover className='main-table'>
           <thead>
             <tr>
@@ -73,7 +73,7 @@ const ServicesList = () => {
               <tr>
                 <th>
                   <div className='table-div' >
-                 
+
                     <Button className='table-btn' variant="light" >
                       <IoIosCreate />&nbsp;<Link to="/services">Create</Link>
                     </Button>
@@ -89,41 +89,51 @@ const ServicesList = () => {
 
       {/* <div className="post-table"> */}
       <div className='form-div' >
-<h5 className="w3-center w3-flat-midnight-blue w3-padding-48 w3-border-blue-grey w3-grey text text-center mb-5 mt-3">Room Service Details</h5>
-<Container>
-  <Row>
-
- 
+        <h5 className="w3-center w3-flat-midnight-blue w3-padding-48 w3-border-blue-grey w3-grey text text-center mb-5 mt-3">Room Service Details</h5>
+        <Container>
+          <Row>
 
 
-<Table responsive>
- <table class="table table-bordered border-secondary">
-      <thead>
-        <tr>
-        
-         <th>Service Name</th>
-          <th>Service Charge</th>
-          <th>Action Edit</th>
-          <th>Action View</th>
-     </tr>
-      </thead>
-      <tbody>
-
-      {get?.ser?.map((items) => (
-                        <tr>
-                            <td>{items.Service_Name}</td>
-                            <td>{items.Servive_Charge}</td>
-                            {/* <td>{items.City}</td>
-                            <td>{items.Nationality}</td> */}
-                            <td><Link to={`/edit/${items._id}`}><button type="button" class="btn btn-primary">Edit</button></Link></td>
-                            <td><button type="button" class="btn btn-danger" onClick={(e) => { deleteData(items._id) }} value={"Delete"}>Delete</button></td>
-                        </tr>
 
 
-                    ))}
+            <Table responsive>
+              <table class="table table-bordered border-secondary">
+                <thead>
+                  <tr>
+
+                    <th>Service Name</th>
+                    <th>Service Charge</th>
+                    <th>Action Edit</th>
+                    <th>Action View</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  {get?.ser?.map((items) => (
+                    <tr>
+                      <td>{items.Service_Name}</td>
+                      <td>{items.Servive_Charge}</td>
+                  
+
+                      <td>
+                        <Link to={`/service/${items._id}`}>
+                        <Button className='table-btn' variant="light" >
+                          &#9998;Edit</Button> </Link>
+                          </td>
+
+                      <td>
+                        <Button className='table-btn' variant="light" 
+                      onClick={(e) => { deleteData(items._id) }}
+                       value={"Delete"} >&#9998;Delete</Button>
+                       </td>
+                      
+                    </tr>
 
 
-      {/* <tr>
+                  ))}
+
+
+                  {/* <tr>
 
 <td>keshav</td>
 <td>keshav</td>
@@ -153,16 +163,16 @@ const ServicesList = () => {
 
 
 </tr> */}
-      </tbody>
-    </table>
-    </Table>
-    </Row>
-    </Container>
+                </tbody>
+              </table>
+            </Table>
+          </Row>
+        </Container>
 
-    </div>
+      </div>
 
-    
-    
+
+
 
     </>
 

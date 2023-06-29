@@ -38,6 +38,7 @@ import Order from "./components/Pages/Restaurent/Order/Order";
 import Kot from "./components/Pages/Restaurent/KOT/Kot";
 import Bill from "./components/Pages/Restaurent/Bill/Bill";
 import ItemsForm from "./components/Pages/Restaurent/Items/ItemsForm";
+import ServiceEdit from "./components/Pages/MainAdmin/AddService/ServiceEdit";
 
 // import RoomServiceList from "./components/Pages/MainAdmin/Roomservice/RoomServiceList";
 function App() {
@@ -83,6 +84,7 @@ function App() {
           {/* <Route path="/room-service-list"  element={<MainAdminSidebar><RoomServiceList/></MainAdminSidebar>}/> */}
           <Route path="/services" element={<MainAdminSidebar><AddService /></MainAdminSidebar>} />
           <Route path="/service-list" element={<MainAdminSidebar><ServicesList /></MainAdminSidebar>} />
+          <Route path="/service/:id" element={<MainAdminSidebar><ServiceEdit /></MainAdminSidebar>} />
           <Route path="/employees" element={<MainAdminSidebar><Employees /></MainAdminSidebar>} />
           <Route path="/employees-list" element={<MainAdminSidebar><EmployeesList /></MainAdminSidebar>} />
           <Route path="/add-guest" element={<MainAdminSidebar><Guest /></MainAdminSidebar>} />
