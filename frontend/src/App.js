@@ -39,6 +39,7 @@ import Kot from "./components/Pages/Restaurent/KOT/Kot";
 import Bill from "./components/Pages/Restaurent/Bill/Bill";
 import ItemsForm from "./components/Pages/Restaurent/Items/ItemsForm";
 import ServiceEdit from "./components/Pages/MainAdmin/AddService/ServiceEdit";
+import { ToastContainer } from "react-toastify";
 
 // import RoomServiceList from "./components/Pages/MainAdmin/Roomservice/RoomServiceList";
 function App() {
@@ -46,8 +47,11 @@ function App() {
   return (
     <>
       <Header />
+      <ToastContainer position="top-center" />
       <Routes>
+  
         <Route>
+ 
           <Route path='/' element={<Home />} />
 
           {/* hotel  sidebar routing start*/}
