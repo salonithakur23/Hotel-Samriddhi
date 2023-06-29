@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import ModalComp from './ModalCamp ';
 
 
+
 const baseURL = "http://localhost:4000/api/v1/items"
 
 
@@ -109,13 +110,16 @@ const ItemList = ({ items }) => {
                       <td>
 
                         <Link to={`/edititem/${items._id}`}>
-                          <Button className='table-btn' variant="light" >
+                          <Button className='table-btn' 
+                          variant="light" >
                             &#9998;Edit
                           </Button>
                         </Link>
                       </td>
                       <td>
-                        <Button className='table-btn' variant="light" onClick={(e) => { deleteData(items._id) }} value={"Delete"}
+                        <Button className='table-btn'
+                         variant="light" onClick={(e) => 
+                          { deleteData(items._id) }} value={"Delete"}
                         >
                           &#128065;Delete
                         </Button>
