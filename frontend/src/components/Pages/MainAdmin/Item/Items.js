@@ -9,6 +9,9 @@ import { Link } from 'react-router-dom';
 // import './RoomBooking.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+
 
 const Item = () => {
     const navigate = useNavigate()
@@ -25,8 +28,8 @@ const Item = () => {
                 "price": price,
                 "Category_Name": category_Name,
             })
-            alert("Data submitted successfully")
-            navigate("/item-list")
+            toast.success("Item Add Succesfully")
+            // navigate("/item-list")
         } catch (error) {
             console.log(error.response)
 
