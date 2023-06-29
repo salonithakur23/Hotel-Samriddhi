@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 
 
 const EditItem = () => {
+    
     const params = useParams();
     const navigate = useNavigate();
     const [specificItem, setSpecificItem] = useState("");
@@ -86,7 +87,9 @@ const EditItem = () => {
 
                             <div class="col-md-4 position-relative">
                                 <label className="label">Item Name</label>
-                                <input type="text" className="form-control" value={Item_Name} onChange={(e) => setItem_Name(e.target.value)}   required />
+                                <input type="text" className="form-control"
+                                 value={Item_Name} onChange={(e) => 
+                                 setItem_Name(e.target.value)}   required />
 
 
                             </div>

@@ -5,7 +5,7 @@ const roomServiceSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter your Item Number"],
     },
-    Servive_Charge: {
+    Service_Charge: {
         type: Number,
         required: [true, "Please enter your Item Price"],
     },

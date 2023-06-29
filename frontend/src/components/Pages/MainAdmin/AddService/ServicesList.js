@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
 import "./RoomService.css"
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 
@@ -32,7 +33,8 @@ const ServicesList = () => {
   const deleteData = (id) => {
     // console.log(id)
     axios.delete(`http://localhost:4000/api/v1/room-service/${id}`).then(response => {
-      alert("Service has been deleted successfully")
+      // alert("Service has been deleted successfully")
+      toast.success("Service deleted Succesfully")
     })
       .catch(error => {
         console.log(error)
@@ -112,12 +114,13 @@ const ServicesList = () => {
                   {get?.ser?.map((items) => (
                     <tr>
                       <td>{items.Service_Name}</td>
-                      <td>{items.Servive_Charge}</td>
+                      <td>{items.Service_Charge}</td>
                   
 
                       <td>
-                        <Link to={`/service/${items._id}`}>
-                        <Button className='table-btn' variant="light" >
+                        <Link to={`/serviceEdit/${items._id}`}>
+                        <Button className='table-btn'
+                         variant="light" >
                           &#9998;Edit</Button> </Link>
                           </td>
 

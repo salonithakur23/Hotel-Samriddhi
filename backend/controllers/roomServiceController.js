@@ -34,7 +34,7 @@ exports.getAllServices = async (req, res) => {
     const ser = await Service.find();
     res.status(200).json({
         success: true,
-        ser
+        ser,
     });
 
 }
@@ -61,10 +61,29 @@ exports.updateService = async (req, res, next) => {
 
 }
 
+exports.getServiceDetail = async (req, res, next) => {
+    const service = await Service.findById(req.params.id);
+
+    if (!service) {
+
+
+        return res.status(500).json({
+            success: false,
+            message: "Guest not found",
+        });
+    }
+    res.status(200).json({
+        success: true,
+        service,
+    });
+};
+
+
 
 exports.deleteService = async (req, res, next) => {
 
     // req.body.student=req.student.id
+    console.log(res.params)
     const service = await Service.findById(req.params.id);
   
     if (!service) {
@@ -75,11 +94,11 @@ exports.deleteService = async (req, res, next) => {
   
     // another trick to delete one record
   
-    // await student.deleteOne(req.params.id);
+    await service.deleteOne({_id:req.params.id});
   
     //   ===========================================================================
   
-    await Service.findOneAndDelete();
+    // await Service.findOneAndDelete();
   
     res.status(200).json({
       success: true,

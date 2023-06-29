@@ -5,6 +5,7 @@ import { IoIosCreate } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import './RoomService.css';
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 
 
@@ -13,16 +14,18 @@ const ServiceEdit = () => {
 
     const params = useParams();
     const navigate = useNavigate();
-    const [getSpecificService, setSpecificService] = useState("");
-    const [Service_Name, setService_Name] = useState(getSpecificService.Service_Name);
-    const [Servive_Charge, setServive_Charge] = useState(getSpecificService.Servive_Charge);
+    const [specificService, setSpecificService] = useState("");
+    const [Service_Name, setService_Name] = useState(specificService.Service_Name);
+    const [Service_Charge, setService_Charge] = useState(specificService.Service_Charge);
    
 
-    console.log(getSpecificService, "Check id from url")
+    console.log(specificService, "Check id from url")
 
     useEffect(() => {
         axios.get(`http://localhost:4000/api/v1/room-service/${params.id}`).then((response) => {
             setSpecificService(response.data);
+            setService_Name(response.data.service.Service_Name)
+            setService_Charge(response.data.service.Service_Charge)
         })
     }, [])
 
@@ -30,17 +33,18 @@ const ServiceEdit = () => {
     const submitform = () => {
         try {
             axios.put(`http://localhost:4000/api/v1/room-service/${params.id}`, {
-                "Service_Name": Service_Name,
-                "Servive_Charge": Servive_Charge,
+                "Service_Name":Service_Name,
+                "Service_Charge":Service_Charge,
                
             })
-            alert("User update Successfully")
+            toast.success("Service Updated Succesfully")
             navigate("/service-list")
         } catch (error) {
             console.log(error.response)
 
         }
     }
+    console.log(specificService)
 
 
 
@@ -51,7 +55,7 @@ const ServiceEdit = () => {
                     <Table striped bordered hover className='main-table'>
                         <thead>
                             <tr>
-                                <th><h5><AiFillDashboard /> &nbsp;Dasboard / Add Service</h5></th>
+                                <th><h5><AiFillDashboard /> &nbsp;Dasboard / Edit Service</h5></th>
                             </tr>
                         </thead>
                     </Table>
@@ -84,9 +88,9 @@ const ServiceEdit = () => {
 
                             <div class="col-md-4 position-relative">
                                 <label className="label">Service Name</label>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" value={Service_Name}
                                  onChange={(e) => setService_Name(e.target.value)}
-                                  id="inputname" placeholder={getSpecificService.Service_Name} required
+                                  id="inputname"  required
                                 // value={service_Name} onChange={(e) => setService_Name(e.target.value)} required
 
                                 />
@@ -98,12 +102,12 @@ const ServiceEdit = () => {
 
                         <div class="col-md-4 position-relative">
                                 <label className="label">Service Charges</label>
-                                <input type="text" class="form-control"
-                                 onChange={(e) => setServive_Charge(e.target.value)}
-                                 id="inputname" placeholder={getSpecificService.Servive_Charge} required
+                                <input type="text" class="form-control" value={Service_Charge}
+                                 onChange={(e) => setService_Charge(e.target.value)}
+                                 id="inputname"  required
                                     //  value={servive_Charge} onChange={(e) => setServive_Charge(e.target.value)} required
                                 />
-
+    
                             </div>
 
                             <center>
