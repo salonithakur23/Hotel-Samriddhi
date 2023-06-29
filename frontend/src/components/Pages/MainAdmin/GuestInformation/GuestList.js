@@ -27,14 +27,14 @@ const GuestList = () => {
   const deleteData = (id) => {
     // console.log(id)
     axios.delete(`http://localhost:4000/api/v1/guest/${id}`).then(response => {
-        alert("Guest has been deleted successfully")
+      alert("Guest has been deleted successfully")
     })
-    .catch(error=>{
+      .catch(error => {
         console.log(error)
-    })
+      })
 
-}
-if (!get) return null;
+  }
+  if (!get) return null;
 
 
 
@@ -94,11 +94,11 @@ if (!get) return null;
                 </tr>
               </thead>
               <tbody>
-              {get?.gue?.map((items) => (
+                {get?.gue?.map((items) => (
                   <tr>
                     <td>{items.Guest_Name}</td>
                     <td>{items.Guest_Number}</td>
-                     <td>{items.Email}</td>
+                    <td>{items.Email}</td>
                     <td>{items.Room_Number}</td>
                     <td>{items.Address}</td>
                     {/* <td>{items.Room_Quantity}</td>
@@ -116,11 +116,11 @@ if (!get) return null;
                       </Link>
                     </td>
                     <td>
-                    <Button className='table-btn' variant="light"
-                    onClick={(e) => { deleteData(items._id) }} value={"Delete"}
-                    >
-                          &#9998; Delete
-                        </Button>
+                      <Button className='table-btn' variant="light"
+                        onClick={(e) => { deleteData(items._id) }} value={"Delete"}
+                      >
+                        &#9998; Delete
+                      </Button>
                     </td>
                   </tr>
 
