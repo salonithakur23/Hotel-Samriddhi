@@ -7,8 +7,18 @@ import Form from 'react-bootstrap/Form';
 import { IoIosCreate } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 // import './RoomBooking.css'
+
+
+
+
+
 const Employees = () => {
+
+
+
     return (
+
+        
         <>
 
             
@@ -79,6 +89,7 @@ const Employees = () => {
 
 
                             <div class="col-md-4 position-relative"
+
                         // controlId="formGridState" className='input2'
                         >
                             <label class="form-label">Gender</label>

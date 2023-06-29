@@ -5,32 +5,44 @@ import { IoIosCreate } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 
 const EditGuest = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const [getSpecificUser, setSpecificUser] = useState("");
-  const [Guest_Name, setGuest_Name] = useState(getSpecificUser.Guest_Name);
-  const [Guest_Number, setGuest_Number] = useState(getSpecificUser.Guest_Number);
-  const [Address, setAddress] = useState(getSpecificUser.Address);
-  const [Email, setEmail] = useState(getSpecificUser.Email);
-  const [Room_Number, setRoom_Number] = useState(getSpecificUser.Room_Number);
-  const [Room_Quantity, setRoom_Quantity] = useState(getSpecificUser.Room_Quantity);
-  const [Booking_Date_Time, setBooking_Date_Time] = useState(getSpecificUser.Booking_Date_Time);
-  const [Checkin_Date_Time, setCheckin_Date_Time] = useState(getSpecificUser.Checkin_Date_Time);
-  const [Checkout_Date_Time, setCheckout_Date_Time] = useState(getSpecificUser.Checkout_Date_Time);
-  const [Number_Of_Children, setNumber_Of_Children] = useState(getSpecificUser.Number_Of_Children);
-  const [Number_Of_Adults, setNumber_Of_Adults] = useState(getSpecificUser.umber_Of_Adults);
+  const [specificGuest, setSpecificGuest] = useState("");
+  const [Guest_Name, setGuest_Name] = useState(specificGuest.Guest_Name);
+  const [Guest_Number, setGuest_Number] = useState(specificGuest.Guest_Number);
+  const [Address, setAddress] = useState(specificGuest.Address);
+  const [Email, setEmail] = useState(specificGuest.Email);
+  const [Room_Number, setRoom_Number] = useState(specificGuest.Room_Number);
+  const [Room_Quantity, setRoom_Quantity] = useState(specificGuest.Room_Quantity);
+  const [Booking_Date_Time, setBooking_Date_Time] = useState(specificGuest.Booking_Date_Time);
+  const [Checkin_Date_Time, setCheckin_Date_Time] = useState(specificGuest.Checkin_Date_Time);
+  const [Checkout_Date_Time, setCheckout_Date_Time] = useState(specificGuest.Checkout_Date_Time);
+  const [Number_Of_Children, setNumber_Of_Children] = useState(specificGuest.Number_Of_Children);
+  const [Number_Of_Adults, setNumber_Of_Adults] = useState(specificGuest.Number_Of_Adults);
 
 
 
-  console.log(getSpecificUser, "Check id from url")
+  console.log(specificGuest, "Check id from url")
 
   useEffect(() => {
     axios.get(`http://localhost:4000/api/v1/guest/${params.id}`).then((response) => {
-      setSpecificUser(response.data);
+      setSpecificGuest(response.data);
+      setGuest_Name(response.data.guest.Guest_Name);
+      setGuest_Number(response.data.guest.Guest_Number);
+      setAddress(response.data.guest.Address);
+      setEmail(response.data.guest.Email);
+      setRoom_Number(response.data.guest.Room_Number);
+      setRoom_Quantity(response.data.guest.Room_Quantity);
+      setBooking_Date_Time(response.data.guest.Booking_Date_Time);
+      setCheckin_Date_Time(response.data.guest.Checkin_Date_Time);
+      setCheckout_Date_Time(response.data.guest.Checkout_Date_Time);
+      setNumber_Of_Children(response.data.guest.Number_Of_Children);
+      setNumber_Of_Adults(response.data.guest.Number_Of_Adults);
     })
   }, [])
 
@@ -50,7 +62,7 @@ const EditGuest = () => {
         "Number_Of_Children": Number_Of_Children,
         "Number_Of_Adults": Number_Of_Adults,
       })
-      alert("User update Successfully")
+      toast.success("Guest Updated Succesfully")
       navigate("/guest-list")
     } catch (error) {
       console.log(error.response)
@@ -98,62 +110,62 @@ const EditGuest = () => {
             <form className='row g-4 p-3 registration-form'>
               <div className='col-md-4 position-relative'>
                 <label htmlFor='Guest_Name' className='label'>Guest Name</label>
-                <input type='text' name='Guest_Name' id='Guest_Name' className='form-control'
-                  onChange={(e) => setGuest_Name(e.target.value)} placeholder={getSpecificUser.Guest_Name} required />
+                <input type='text' className='form-control'
+                 value={Guest_Name}  onChange={(e) => setGuest_Name(e.target.value)}  required />
               </div>
               <div className='col-md-4 position-relative'>
                 <label className='label'>Guest Number</label>
                 <input type='text' name='Guest_Number' className='form-control'
-                  onChange={(e) => setGuest_Number(e.target.value)} placeholder={getSpecificUser.Guest_Number} required />
+                value={Guest_Number}   onChange={(e) => setGuest_Number(e.target.value)}   required />
               </div>
               <div className='col-md-4 position-relative'>
                 <label className='label'>Address</label>
                 <input type='text' name='Address' className='form-control'
-                  onChange={(e) => setAddress(e.target.value)} placeholder={getSpecificUser.Address} required />
+                  value={Address}  onChange={(e) => setAddress(e.target.value)}   />
               </div>
               <div className='col-md-4 position-relative'>
                 <label className='label'>Email</label>
                 <input type='text' name='Email' className='form-control'
-                  onChange={(e) => setEmail(e.target.value)} placeholder={getSpecificUser.Email} required />
+                value={Email}   onChange={(e) => setEmail(e.target.value)}    />
               </div>
               <div className='col-md-4 position-relative'>
                 <label className='label'>Room No.</label>
                 <input type='text' name='Room_Number' className='form-control'
-                  onChange={(e) => setRoom_Number(e.target.value)} placeholder={getSpecificUser.Room_Number} required />
+                value={Room_Number}  onChange={(e) => setRoom_Number(e.target.value)}    />
               </div>
               <div className='col-md-4 position-relative'>
                 <label className='label'>Room Quantity</label>
                 <input type='text' name='Room_Quantity' className='form-control'
-                  onChange={(e) => setRoom_Quantity(e.target.value)} placeholder={getSpecificUser.Room_Quantity} required />
+                 value={Room_Quantity} onChange={(e) => setRoom_Quantity(e.target.value)}    />
               </div>
               <div className='col-md-4 position-relative'>
                 <label className='label'>Booking Date & Time</label>
                 <input type='datetime-local' name='Booking_Date_Time' className='form-control'
-                  onChange={(e) => setBooking_Date_Time(e.target.value)} placeholder={getSpecificUser.Booking_Date_Time} required />
+                 value={Booking_Date_Time} onChange={(e) => setBooking_Date_Time(e.target.value)}    />
               </div>
               <div className='col-md-4 position-relative'>
                 <label className='label'>Check-in Date & Time</label>
                 <input type='datetime-local' name='Checkin_Date_Time' className='form-control'
-                  onChange={(e) => setCheckin_Date_Time(e.target.value)} placeholder={getSpecificUser.Checkin_Date_Time} required />
+                 value={Checkin_Date_Time}  onChange={(e) => setCheckin_Date_Time(e.target.value)}   />
               </div>
               <div className='col-md-4 position-relative'>
                 <label className='label'>Check-Out Date & Time</label>
                 <input type='datetime-local' name='Checkout_Date_Time' className='form-control'
-                  onChange={(e) => setCheckout_Date_Time(e.target.value)} placeholder={getSpecificUser.Checkout_Date_Time} required />
+                 value={Checkout_Date_Time}  onChange={(e) => setCheckout_Date_Time(e.target.value)}   />
               </div>
               <div className='col-md-4 position-relative'>
                 <label className='label'>Number Of Childrens</label>
                 <input type='text' name='Number_Of_Children' className='form-control'
-                  onChange={(e) => setNumber_Of_Children(e.target.value)} placeholder={getSpecificUser.Number_Of_Children} required />
+                 value={Number_Of_Children}  onChange={(e) => setNumber_Of_Children(e.target.value)}   />
               </div>
               <div className='col-md-4 position-relative'>
                 <label className='label'>Number Of Adults</label>
                 <input type='text' name='Number_Of_Adults' className='form-control'
-                  onChange={(e) => setNumber_Of_Adults(e.target.value)} placeholder={getSpecificUser.Number_Of_Adults} required />
+                 value={Number_Of_Adults}  onChange={(e) => setNumber_Of_Adults(e.target.value)}   />
               </div>
               <center>
                 <Button className='stu_btn' id='button' variant='success' type='submit'
-                  onSubmit={submitform}
+                  onClick={submitform}
                 >
                   Submit
                 </Button>

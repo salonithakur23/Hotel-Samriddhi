@@ -5,12 +5,23 @@ import { AiFillDashboard, } from 'react-icons/ai';
 import { Link } from "react-router-dom";
 import { IoIosCreate } from "react-icons/io";
 import axios from "axios";
+import { toast } from 'react-toastify';
+import ModalComp from './ModalCamp ';
 
 
 const baseURL = "http://localhost:4000/api/v1/guests"
 
-const GuestList = () => {
+const GuestList = ({ items }) => {
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState({});
   const [get, setGetAll] = useState(null);
+
+  const handleModel = () => {
+    setOpen(true);
+    setUser(items);
+
+  }
+  
 
   useEffect(() => {
     axios.get(baseURL).then((response) => {
@@ -27,14 +38,15 @@ const GuestList = () => {
   const deleteData = (id) => {
     // console.log(id)
     axios.delete(`http://localhost:4000/api/v1/guest/${id}`).then(response => {
-        alert("Guest has been deleted successfully")
+      // alert("Guest has been deleted successfully")
+      toast.success("Guest has been deleted successfully")
     })
-    .catch(error=>{
+      .catch(error => {
         console.log(error)
-    })
+      })
 
-}
-if (!get) return null;
+  }
+  if (!get) return null;
 
 
 
@@ -90,15 +102,16 @@ if (!get) return null;
                   <th>Room No.</th>
                   <th>Guest Address</th>
                   <th>Action Edit</th>
+                  <th>Action Delete</th>
                   <th>Action View</th>
                 </tr>
               </thead>
               <tbody>
-              {get?.gue?.map((items) => (
+                {get?.gue?.map((items) => (
                   <tr>
                     <td>{items.Guest_Name}</td>
                     <td>{items.Guest_Number}</td>
-                     <td>{items.Email}</td>
+                    <td>{items.Email}</td>
                     <td>{items.Room_Number}</td>
                     <td>{items.Address}</td>
                     {/* <td>{items.Room_Quantity}</td>
@@ -116,12 +129,26 @@ if (!get) return null;
                       </Link>
                     </td>
                     <td>
-                    <Button className='table-btn' variant="light"
-                    onClick={(e) => { deleteData(items._id) }} value={"Delete"}
-                    >
-                          &#9998; Delete
-                        </Button>
+                      <Button className='table-btn' variant="light"
+                        onClick={(e) => { deleteData(items._id) }} value={"Delete"}
+                      >
+                        &#9998; Delete
+                      </Button>
                     </td>
+                    <td>
+                      <Button className='table-btn' variant="light"
+                        onClick={() => handleModel(items)}
+                      >
+                        &#128065;View
+                      </Button>
+                    </td>
+                    {open && (
+                      <ModalComp
+                        open={open}
+                        setOpen={setOpen}
+                        {...user}
+                      />
+                    )}
                   </tr>
 
                 ))}

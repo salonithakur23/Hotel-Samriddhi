@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+
+
 const Guest = () => {
 
   const navigate = useNavigate()
@@ -41,7 +43,7 @@ const Guest = () => {
         "Number_Of_Adults": number_Of_Adults,
 
       })
-      alert("Data Submit Successfully")
+      toast.success("Guest Add Succesfully")
       navigate("/guest-list")
     } catch (error) {
       console.log(error.response)
@@ -148,7 +150,7 @@ const Guest = () => {
               </div>
               <center>
                 <Button className='stu_btn' id='button' variant='success' type='submit'
-                  onSubmit={submitform}
+                  onClick={submitform}
                 >
                   Submit
                 </Button>
