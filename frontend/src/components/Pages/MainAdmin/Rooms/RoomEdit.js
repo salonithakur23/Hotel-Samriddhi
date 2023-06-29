@@ -1,35 +1,51 @@
-import React,{useState} from 'react'
-import { Container, Col, Row, Table, Button } from 'react-bootstrap'
-import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-icons/ai';
-import { RiArrowGoBackLine } from 'react-icons/ri';
-import Form from 'react-bootstrap/Form';
+import React, { useState, useEffect } from 'react'
+import { Container, Col, Row, Table, Button } from 'react-bootstrap';
+import { AiFillDashboard, } from 'react-icons/ai';
 import { IoIosCreate } from 'react-icons/io';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Form from 'react-bootstrap/Form';
+
+const RoomEdit = () => {
+    const params = useParams();
+    const navigate = useNavigate();
+    const [specificGuest, setSpecificGuest] = useState("");
+    const [Room_Number, setRoom_Number] = useState(specificGuest.Room_Number);
+    const [Room_Type, setRoom_Type] = useState(specificGuest.Room_Type);
+    const [Price, setPrice] = useState(specificGuest.Price);
+    const [Avilable_Not, setAvilable_Not] = useState(specificGuest.Avilable_Not);
 
 
-const Room = () => {
+    console.log(specificGuest, "Check id from url")
 
-    const navigate = useNavigate()
-    const [room_Number, setRoom_Number] = useState(null);
-    const [room_Type, setRoom_Type] = useState(null);
-    const [price, setPrice] = useState(null);
-    const [avilable_Not, setAvilable_Not] = useState(null);
+    useEffect(() => {
+        axios.get(`http://localhost:4000/api/v1/room/${params.id}`).then((response) => {
+            setSpecificGuest(response.data);
+            setRoom_Number(response.data.room.Room_Number);
+            setRoom_Type(response.data.room.Room_Type);
+            setPrice(response.data.room.Price);
+            setAvilable_Not(response.data.room.Avilable_Not);
+
+        })
+    }, [])
 
     const submitform = () => {
         try {
-            axios.post("http://localhost:4000/api/v1/room/new", {
-                "Room_Number": room_Number,
-                "Room_Type": room_Type,
-                "Price":price,
-                "Avilable_Not": avilable_Not,
+            axios.put(`http://localhost:4000/api/v1/room/${params.id}`, {
+                "Room_Number": Room_Number,
+                "Room_Type": Room_Type,
+                "Price": Price,
+                "Avilable_Not": Avilable_Not,
+
+
             })
-            toast.success("Room Add Succesfully")
+            toast.success("Room Updated Succesfully")
             navigate("/room-list")
         } catch (error) {
             console.log(error.response)
+
         }
     }
 
@@ -37,12 +53,11 @@ const Room = () => {
     return (
         <>
 
-
             <Container style={{ width: "90%", marginTop: "20px" }} >
                 <Table striped bordered hover className='main-table'>
                     <thead>
                         <tr>
-                            <th><h5><AiFillDashboard /> &nbsp;Dasboard / Add New Room</h5></th>
+                            <th><h5><AiFillDashboard /> &nbsp;Dasboard / Edit Room</h5></th>
                         </tr>
                     </thead>
                 </Table>
@@ -73,14 +88,14 @@ const Room = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">Room No.</label>
                                 <input type="text" class="form-control"
-                                    value={room_Number} onChange={(e) => setRoom_Number(e.target.value)} id="inputname" required
+                                   value={Room_Number}  onChange={(e) => setRoom_Number(e.target.value)}
                                 />
                             </div>
 
                             <div class="col-md-4 position-relative">
                                 <label className="label">Price.</label>
                                 <input type="text" class="form-control"
-                                  value={price} onChange={(e) => setPrice(e.target.value)} id="inputname" required
+                                      value={Price}  onChange={(e) => setPrice(e.target.value)}
                                 />
                             </div>
 
@@ -89,13 +104,13 @@ const Room = () => {
                             >
                                 <label class="form-label">Room Type</label>
                                 <Form.Select
-                                  value={room_Type} onChange={(e) => setRoom_Type(e.target.value)} id="inputname" required
+                                    value={Room_Type}  onChange={(e) => setRoom_Type(e.target.value)}
                                 >
                                     <option>Choose</option>
-                                    <option value="Luxury">Luxury</option>
-                                    <option value="Delux">Delux</option>
-                                    <option value="Normal">Normal</option>
-                                    <option value="Super Delux">Super Delux</option>
+                                    <option value="1">Luxury</option>
+                                    <option value="2">Delux</option>
+                                    <option value="3">Normal</option>
+                                    <option value="4">Super Delux</option>
                                 </Form.Select>
                             </div>
 
@@ -103,11 +118,11 @@ const Room = () => {
                             <div class="col-md-4 position-relative" >
                                 <label class="form-label">Available/Not-Available</label>
                                 <Form.Select
-                                  value={avilable_Not} onChange={(e) => setAvilable_Not(e.target.value)} id="inputname" required
+                                    value={Avilable_Not}  onChange={(e) => setAvilable_Not(e.target.value)}
                                 >
                                     <option>Choose</option>
-                                    <option value="yes">yes</option>
-                                    <option value="No">No</option>
+                                    <option value="1">yes</option>
+                                    <option value="2">No</option>
                                 </Form.Select>
                             </div>
 
@@ -130,4 +145,4 @@ const Room = () => {
     )
 }
 
-export default Room
+export default RoomEdit

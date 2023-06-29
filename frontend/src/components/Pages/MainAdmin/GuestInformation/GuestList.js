@@ -5,12 +5,23 @@ import { AiFillDashboard, } from 'react-icons/ai';
 import { Link } from "react-router-dom";
 import { IoIosCreate } from "react-icons/io";
 import axios from "axios";
+import { toast } from 'react-toastify';
+import ModalComp from './ModalCamp ';
 
 
 const baseURL = "http://localhost:4000/api/v1/guests"
 
-const GuestList = () => {
+const GuestList = ({ items }) => {
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState({});
   const [get, setGetAll] = useState(null);
+
+  const handleModel = () => {
+    setOpen(true);
+    setUser(items);
+
+  }
+  
 
   useEffect(() => {
     axios.get(baseURL).then((response) => {
@@ -27,7 +38,8 @@ const GuestList = () => {
   const deleteData = (id) => {
     // console.log(id)
     axios.delete(`http://localhost:4000/api/v1/guest/${id}`).then(response => {
-      alert("Guest has been deleted successfully")
+      // alert("Guest has been deleted successfully")
+      toast.success("Guest has been deleted successfully")
     })
       .catch(error => {
         console.log(error)
@@ -90,6 +102,7 @@ const GuestList = () => {
                   <th>Room No.</th>
                   <th>Guest Address</th>
                   <th>Action Edit</th>
+                  <th>Action Delete</th>
                   <th>Action View</th>
                 </tr>
               </thead>
@@ -122,6 +135,20 @@ const GuestList = () => {
                         &#9998; Delete
                       </Button>
                     </td>
+                    <td>
+                      <Button className='table-btn' variant="light"
+                        onClick={() => handleModel(items)}
+                      >
+                        &#128065;View
+                      </Button>
+                    </td>
+                    {open && (
+                      <ModalComp
+                        open={open}
+                        setOpen={setOpen}
+                        {...user}
+                      />
+                    )}
                   </tr>
 
                 ))}

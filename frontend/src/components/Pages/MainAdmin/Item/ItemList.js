@@ -5,31 +5,32 @@ import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai';
 // import Leave from './Leave'
 import { Link } from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
-import ModalCamp from './ModalCamp';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import ModalComp from './ModalCamp ';
 
 
 const baseURL = "http://localhost:4000/api/v1/items"
 
 
 
-const ItemList = () => {
+const ItemList = ({ items }) => {
 
 
-  
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState({});
   const [get, setGetAll] = useState(null);
+  const handleModel = () => {
+    setOpen(true);
+    setUser(items);
+
+  }
 
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setGetAll(response.data);
       // console.log(response)
-
-
-
     })
-
-
   }, [get])
 
   const deleteData = (id) => {
@@ -93,6 +94,7 @@ const ItemList = () => {
                     <th>Price</th>
                     <th>Category Type</th>
                     <th>Action Edit</th>
+                    <th>Action Delete</th>
                     <th>Action View</th>
                   </tr>
                 </thead>
@@ -117,12 +119,22 @@ const ItemList = () => {
                         >
                           &#128065;Delete
                         </Button>
-
-
-
                       </td>
-
-                      {/* <button className="view-btn">View </button> */}
+                      <td>
+                      <Button className='table-btn' variant="light"
+                        onClick={() => handleModel(items)}
+                      >
+                        &#128065;View
+                      </Button>
+                    </td>
+                    {open && (
+                      <ModalComp
+                        open={open}
+                        setOpen={setOpen}
+                        {...user}
+                      />
+                    )}
+                    
                     </tr>
                   ))}
 
