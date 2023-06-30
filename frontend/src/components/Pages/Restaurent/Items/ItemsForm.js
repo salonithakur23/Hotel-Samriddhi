@@ -1,104 +1,3 @@
-// import React from 'react'
-// import './Items.css'
-// import { Col, Container, Row, Button } from 'react-bootstrap'
-// import Table from 'react-bootstrap/Table';
-// import { IoIosCreate } from 'react-icons/io';
-// import { Link } from 'react-router-dom';
-// import { AiFillDashboard } from 'react-icons/ai';
-// const ItemsForm = () => {
-//     return (
-//         <>
-//             <Container >
-//                 <Table striped bordered hover className='main-table' style={{ marginTop: "40px" }} >
-//                     <thead>
-//                         <tr>
-//                             <th><h5><AiFillDashboard /> &nbsp; Dashboard / Items </h5></th>
-//                         </tr>
-//                     </thead>
-//                 </Table>
-//                 <Row>
-//                     <Table striped bordered hover>
-//                         <thead>
-//                             <tr>
-//                                 <th>
-//                                     <div className='table-div'>
-
-//                                         <Button className='table-btn' variant="light" >
-//                                             {/* <IoIosCreate />&nbsp;<Link to="#">Go Back</Link> */}
-//                                         </Button>
-
-
-//                                     </div>
-//                                 </th>
-//                             </tr>
-//                         </thead>
-//                     </Table>
-//                     <hr />
-//                 </Row>
-//             </Container>
-
-//             {/* Table section start */}
-//             <Container className='item-table'>
-//                 <Row>
-//                     <Table striped bordered hover>
-//                         <thead>
-//                             <tr>
-
-//                                 <th>Item Name</th>
-//                                 <th>Item Price</th>
-//                                 <th>Category</th>
-//                             </tr>
-//                         </thead>
-//                         <tbody>
-//                             <tr>
-//                                 <td>Pizza</td>
-                              
-//                                 <td>500/</td>
-//                                 {/* <td><Button variant='light' className='plus-btn'>+</Button></td> */}
-//                                 <td>
-//                                     Shankes
-//                                   </td>
-//                             </tr>
-//                             <tr>
-//                                 <td>Dosa</td>
-                              
-//                                 <td>200/</td>
-//                                   {/* <td><Button variant='light' className='plus-btn'>+</Button></td> */}
-//                                   <td>
-//                                     Shankes
-//                                   </td>
-//                             </tr>
-//                             <tr>
-//                                 <td>Burgur</td>
-                             
-//                                 <td>150</td>
-//                                   {/* <td><Button variant='light' className='plus-btn'>+</Button></td> */}
-//                                   <td>
-//                                     Shankes
-//                                   </td>
-//                             </tr>
-//                             <tr>
-//                                 <td>chawmein</td>
-                               
-//                                 <td>250/</td>
-//                                 {/* <td><Button variant='light' className='plus-btn'>+</Button></td> */}
-//                                 <td>
-//                                     Shankes
-//                                   </td>
-//                             </tr>
-//                         </tbody>
-//                     </Table>
-//                 </Row>
-//             </Container>
-
-//         </>
-//     )
-// }
-
-// export default ItemsForm
-
-
-
 import React, { useEffect, useState } from 'react'
 // import MainLayout from '../../Admin/Pages/MainLayout'
 import { Button, Container, Row, Table } from 'react-bootstrap'
@@ -129,16 +28,16 @@ const ItemList = () => {
 
   }, [get])
 
-//   const deleteData = (id) => {
-//     // console.log(id)
-//     axios.delete(`http://localhost:4000/api/v1/item/${id}`).then(response => {
-//       alert("Item has been deleted successfully")
-//     })
-//       .catch(error => {
-//         console.log(error)
-//       })
+  const deleteData = (id) => {
+    // console.log(id)
+    axios.delete(`http://localhost:4000/api/v1/item/${id}`).then(response => {
+      alert("Item has been deleted successfully")
+    })
+      .catch(error => {
+        console.log(error)
+      })
 
-//   }
+  }
   if (!get) return null;
 
   return (
@@ -188,6 +87,8 @@ const ItemList = () => {
                     <th>Item Name</th>
                     <th>Price</th>
                     <th>Category Type</th>
+                    <th>Action Edit</th>
+                    <th>Action View</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -197,6 +98,26 @@ const ItemList = () => {
                       <td>{items.Item_Name}</td>
                       <td>{items.price}</td>
                       <td>{items.Category_Name}</td>
+                      {/* <td>keshav</td> */}
+                      <td>
+
+                        <Link to={`/edititem/${items._id}`}>
+                          <Button className='table-btn' variant="light" >
+                            &#9998;Edit
+                          </Button>
+                        </Link>
+                      </td>
+                      <td>
+                        <Button className='table-btn' variant="light" onClick={(e) => { deleteData(items._id) }} value={"Delete"}
+                        >
+                          &#128065;Delete
+                        </Button>
+
+
+
+                      </td>
+
+                      {/* <button className="view-btn">View </button> */}
                     </tr>
                   ))}
 
