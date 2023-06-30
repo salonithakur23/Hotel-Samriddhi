@@ -22,8 +22,6 @@ const ServicesList = () => {
       setGetAll(response.data);
       console.log(response)
 
-
-
     })
 
 
