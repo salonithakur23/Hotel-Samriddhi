@@ -33,20 +33,7 @@ const Order = () => {
       const show = "Ist ClassFees 800 Rs."
       setShowtext(show);
     }
-    // else if (getvalue == 5) {
-    //     const show = "2nd ClassFees 1000 Rs."
-    //     setShowtext(show);
-    // } else if (getvalue == 6) {
-    //     const show = "3rd ClassFees 1200 Rs."
-    //     setShowtext(show);
-    // } else if (getvalue == 7) {
-    //     const show = "4th ClassFees 1500 Rs."
-    //     setShowtext(show);
-    // } else if (getvalue == 8) {
-    //     const show = "5th ClassFees 1800 Rs."
-    //     setShowtext(show);
-    // }
-
+   
     else {
       const show = "View Category"
       setShowtext(show);
@@ -106,20 +93,12 @@ const Order = () => {
               <div className="col-md-4 position-relative">
                 <label className="label">Booking Date & Time</label>
                 <input type="datetime-local" name="Booking_Date_Time" className="form-control"
-                // onChange={handleInputChange} value={Booking_Date_Time}
                 />
               </div>
 
 
-              {/* <div class="col-md-4 position-relative">
-                                <label className="label">Category</label>
-                                <input type="text" class="form-control"
-                                />
-                            </div> */}
-
 
               <div className="col-md-4 position-relative"
-              //  controlId="formGridState"
               >
                 <label className="form-label"> Category </label>
                 <Form.Select name="Room_Type"

@@ -41,8 +41,11 @@ import ItemsForm from "./components/Pages/Restaurent/Items/ItemsForm";
 import ServiceEdit from "./components/Pages/MainAdmin/AddService/ServiceEdit";
 import { ToastContainer } from "react-toastify";
 import RoomEdit from "./components/Pages/MainAdmin/Rooms/RoomEdit";
+import AddCategoryForm from "./components/Pages/MainAdmin/AddCategory/AddCategoryForm";
+import EditCategory from "./components/Pages/MainAdmin/AddCategory/EditCategory";
+import ListCategory from "./components/Pages/MainAdmin/AddCategory/ListCategory";
 
-// import RoomServiceList from "./components/Pages/MainAdmin/Roomservice/RoomServiceList";
+
 function App() {
 
   return (
@@ -97,7 +100,9 @@ function App() {
           <Route path="/guest/:id" element={<MainAdminSidebar><EditGuest /></MainAdminSidebar>} />
           <Route path="/guest-list" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} />
           <Route path="/view/:id" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} /> 
-         
+          <Route path="/add-category" element={<MainAdminSidebar><AddCategoryForm /></MainAdminSidebar>} /> 
+          <Route path="/list-category" element={<MainAdminSidebar><ListCategory /></MainAdminSidebar>} /> 
+          <Route path="/addcategory/:id" element={<MainAdminSidebar><EditCategory /></MainAdminSidebar>} /> 
 
 
           {/* Admin  sidebar routing end*/}
