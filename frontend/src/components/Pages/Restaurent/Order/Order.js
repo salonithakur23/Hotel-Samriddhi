@@ -115,6 +115,9 @@ const Order = () => {
               <div className="col-md-4 position-relative">
                 <label className="label">Order Date & Time</label>
                 <input type="datetime-local" name="Booking_Date_Time" className="form-control"
+                 value={order_Time} onChange={(e) => 
+                  setOrder_Time(e.target.value)} required
+                // onChange={handleInputChange} value={Booking_Date_Time}
                 />
               </div>
 
