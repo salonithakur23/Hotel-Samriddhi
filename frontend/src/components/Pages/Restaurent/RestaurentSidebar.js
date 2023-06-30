@@ -29,6 +29,7 @@ const RestaurentSidebar = ({ children }) => {
       name: "Order",
       icon: <MdBorderColor />
     },
+   
     {
       path: "/res-billing",
       name: "Bill",

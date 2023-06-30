@@ -54,7 +54,6 @@ const Order = () => {
       const show = "Ist ClassFees 800 Rs."
       setShowtext(show);
     }
-
     else {
       const show = "View Category"
       setShowtext(show);
@@ -116,22 +115,12 @@ const Order = () => {
               <div className="col-md-4 position-relative">
                 <label className="label">Order Date & Time</label>
                 <input type="datetime-local" name="Booking_Date_Time" className="form-control"
-                 value={order_Time} onChange={(e) => 
-                  setOrder_Time(e.target.value)} required
-                // onChange={handleInputChange} value={Booking_Date_Time}
                 />
               </div>
 
 
-              {/* <div class="col-md-4 position-relative">
-                                <label className="label">Category</label>
-                                <input type="text" class="form-control"
-                                />
-                            </div> */}
-
 
               <div className="col-md-4 position-relative"
-              //  controlId="formGridState"
               >
                 <label className="form-label"> Category </label>
                 <Form.Select name="Room_Type"
