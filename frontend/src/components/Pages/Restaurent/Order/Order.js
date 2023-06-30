@@ -54,19 +54,6 @@ const Order = () => {
       const show = "Ist ClassFees 800 Rs."
       setShowtext(show);
     }
-    // else if (getvalue == 5) {
-    //     const show = "2nd ClassFees 1000 Rs."
-    //     setShowtext(show);
-    // } else if (getvalue == 6) {
-    //     const show = "3rd ClassFees 1200 Rs."
-    //     setShowtext(show);
-    // } else if (getvalue == 7) {
-    //     const show = "4th ClassFees 1500 Rs."
-    //     setShowtext(show);
-    // } else if (getvalue == 8) {
-    //     const show = "5th ClassFees 1800 Rs."
-    //     setShowtext(show);
-    // }
 
     else {
       const show = "View Category"
@@ -151,10 +138,10 @@ const Order = () => {
                   onChange={(e) => handletext(e)}
                 >
                   <option>Choose</option>
-                  <option value="1">Biryani</option>
+                  {/* <option value="1">Biryani</option>
                   <option value="2">Dal</option>
                   <option value="3">Pulao</option>
-                  <option value="4">Raita</option>
+                  <option value="4">Raita</option> */}
 
                 </Form.Select>
                 <div className='show'>
