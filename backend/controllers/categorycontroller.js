@@ -1,14 +1,15 @@
-const Item = require("../models/itemModel");
+const Category = require("../models/categorymodel");
 
 
 
 // create student --Admin
-exports.createItem = (async (req, res, next) => {
-    const item = await Item.create(req.body);
+exports.createCategory = (async (req, res, next) => {
+    const category = await Category.create(req.body);
 
     res.status(201).json({
         success: true,
-        item,
+        category,
+
     });
 });
 
@@ -30,65 +31,65 @@ exports.createItem = (async (req, res, next) => {
 //   });
 
 
-exports.getAllitems = async (req, res) => {
-    const items = await Item.find();
+exports.getAllcategories = async (req, res) => {
+    const categories = await Category.find();
     res.status(200).json({
         success: true,
-        items,
+        categories,
     });
 
 }
 
 // get single item 
 
-exports.getItemDetail = async (req, res, next) => {
-    const item = await Item.findById(req.params.id);
+exports.getCategoryDetail = async (req, res, next) => {
+    const category = await Category.findById(req.params.id);
 
-    if (!item) {
+    if (!category) {
         return res.status(500).json({
             success: false,
-            message: "Itme not Found"
+            message: "Category not Found"
         });
     }
 
     res.status(200).json({
         success: true,
-        item,
+        category,
     })
 
 };
 
-exports.updateitem = async (req, res, next) => {
-    let item = await Item.findById(req.params.id);
+exports.updatecategory = async (req, res, next) => {
+    let category = await Category.findById(req.params.id);
 
-    if (!item) {
+    if (!category) {
         // return next(new ErrorHandler("Item not found ", 404));
         return res.status(500).json({
             success: false,
-            message: "Itme not Found"
+            message: "Category not Found"
         });
     }
-    item = await Item.findByIdAndUpdate(req.params.id, req.body, {
+    category = await Category.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true,
         useFindAndModify: false,
     });
     res.status(200).json({
         success: true,
-        item,
+        category,
     });
 
 }
 
 
-exports.deleteItem = async (req, res, next) => {
+exports.deleteCategory = async (req, res, next) => {
 
     // req.body.student=req.student.id
     console.log(res.params)
-    const item = await Item.findById(req.params.id);
+    const category = await Category.findById(req.params.id);
    
 
-    if (!item) {
+    if (!category) {
         return next(new ErrorHandler("Item not found ", 404));
     }
 
@@ -96,7 +97,7 @@ exports.deleteItem = async (req, res, next) => {
 
     // another trick to delete one record
 
-    await item.deleteOne({_id:req.params.id});
+    await category.deleteOne({_id:req.params.id});
 
     //   ===========================================================================
 
@@ -104,6 +105,6 @@ exports.deleteItem = async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        message: "Item delete successfully",
+        message: "Category delete successfully",
     });
 };
