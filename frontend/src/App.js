@@ -52,8 +52,8 @@ function App() {
     <>
       <Header />
       <ToastContainer position="top-center" />
+
       <Routes>
-  
         <Route>
  
           <Route path='/' element={<Home />} />

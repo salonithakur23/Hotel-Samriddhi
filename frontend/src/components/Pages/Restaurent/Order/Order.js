@@ -1,17 +1,38 @@
 import React, { useState } from 'react'
 import './Order.css'
 import { Button, Container, Row, Table } from 'react-bootstrap'
-import { IoIosRemoveCircle } from 'react-icons/io'
-import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-icons/ai';
-import { RiArrowGoBackLine } from 'react-icons/ri';
+import { AiFillDashboard } from 'react-icons/ai';
 import Form from 'react-bootstrap/Form';
 import { IoIosCreate } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 
 
 const Order = () => {
+
+
+  const navigate = useNavigate()
+  const [table_Number, setTable_Number] = useState(null);
+  const [order_Time, setOrder_Time] = useState(null);
+
+
+  const submitform = () => {
+      try {
+          axios.post("http://localhost:4000/api/v1/order/new", {
+              "Table_Number": table_Number,
+              "Order_Time": order_Time,
+          
+          })
+          alert("Order Submit Successfully")
+          navigate("/res-billing")
+      } catch (error) {
+          console.log(error.response)
+
+      }
+  }
+
 
 
   const [showtext, setShowtext] = useState("View Category")
@@ -20,7 +41,7 @@ const Order = () => {
 
     if (getvalue == 1) {
       const show = "Egg Biryani"
-      const item = "Price :500"
+      const item = "Price"
       setShowtext(show, item);
 
     } else if (getvalue == 2) {
@@ -33,7 +54,6 @@ const Order = () => {
       const show = "Ist ClassFees 800 Rs."
       setShowtext(show);
     }
-   
     else {
       const show = "View Category"
       setShowtext(show);
@@ -85,13 +105,15 @@ const Order = () => {
               <div class="col-md-4 position-relative">
                 <label className="label">Table.no</label>
                 <input type="text" class="form-control"
+               value={table_Number} onChange={(e) => 
+                setTable_Number(e.target.value)} required
 
                 />
 
               </div>
 
               <div className="col-md-4 position-relative">
-                <label className="label">Booking Date & Time</label>
+                <label className="label">Order Date & Time</label>
                 <input type="datetime-local" name="Booking_Date_Time" className="form-control"
                 />
               </div>
@@ -105,10 +127,10 @@ const Order = () => {
                   onChange={(e) => handletext(e)}
                 >
                   <option>Choose</option>
-                  <option value="1">Biryani</option>
+                  {/* <option value="1">Biryani</option>
                   <option value="2">Dal</option>
                   <option value="3">Pulao</option>
-                  <option value="4">Raita</option>
+                  <option value="4">Raita</option> */}
 
                 </Form.Select>
                 <div className='show'>
@@ -141,6 +163,7 @@ const Order = () => {
                 <Button className="stu_btn"
                   variant="success"
                   type="submit"
+                  onClick={submitform}
                 >
                   Submit
                 </Button>

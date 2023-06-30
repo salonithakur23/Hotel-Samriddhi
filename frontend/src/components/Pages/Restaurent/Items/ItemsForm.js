@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react'
 import { Button, Container, Row, Table } from 'react-bootstrap'
 import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai';
@@ -20,16 +19,16 @@ const ItemList = () => {
 
   }, [get])
 
-//   const deleteData = (id) => {
-//     // console.log(id)
-//     axios.delete(`http://localhost:4000/api/v1/item/${id}`).then(response => {
-//       alert("Item has been deleted successfully")
-//     })
-//       .catch(error => {
-//         console.log(error)
-//       })
+  const deleteData = (id) => {
+    // console.log(id)
+    axios.delete(`http://localhost:4000/api/v1/item/${id}`).then(response => {
+      alert("Item has been deleted successfully")
+    })
+      .catch(error => {
+        console.log(error)
+      })
 
-//   }
+  }
   if (!get) return null;
 
   return (
@@ -79,6 +78,8 @@ const ItemList = () => {
                     <th>Item Name</th>
                     <th>Price</th>
                     <th>Category Type</th>
+                    <th>Action Edit</th>
+                    <th>Action View</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -88,6 +89,26 @@ const ItemList = () => {
                       <td>{items.Item_Name}</td>
                       <td>{items.price}</td>
                       <td>{items.Category_Name}</td>
+                      {/* <td>keshav</td> */}
+                      <td>
+
+                        <Link to={`/edititem/${items._id}`}>
+                          <Button className='table-btn' variant="light" >
+                            &#9998;Edit
+                          </Button>
+                        </Link>
+                      </td>
+                      <td>
+                        <Button className='table-btn' variant="light" onClick={(e) => { deleteData(items._id) }} value={"Delete"}
+                        >
+                          &#128065;Delete
+                        </Button>
+
+
+
+                      </td>
+
+                      {/* <button className="view-btn">View </button> */}
                     </tr>
                   ))}
 
