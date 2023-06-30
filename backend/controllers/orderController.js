@@ -12,22 +12,6 @@ exports.createOrder = (async (req, res, next) => {
     });
 });
 
-// get all students
-
-// exports.getAllitems = catchAsyncErrors( async (req, res) => {
-//     to seacrhing 
-
-//     const apiFeature= new ApiFeatures(Student.find(),req.query).search().filter();
-
-//   // ======================================================
-//     const allstudents = await Student.find();
-//       const allstudents = await apiFeature.query;
-
-//     res.status(200).json({
-//       success: true,
-//       allstudents,
-//     });
-//   });
 
 
 exports.getAllOrder = async (req, res) => {
@@ -38,6 +22,29 @@ exports.getAllOrder = async (req, res) => {
     });
 
 }
+
+
+// get single item 
+
+exports.getOrderDetail = async (req, res, next) => {
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+        return res.status(500).json({
+            success: false,
+            message: "Order not Found"
+        });
+    }
+
+    res.status(200).json({
+        success: true,
+        order,
+    })
+
+};
+
+
+
 
 exports.updateOrder = async (req, res, next) => {
     let order = await Order.findById(req.params.id);
@@ -75,11 +82,11 @@ exports.deleteOrder = async (req, res, next) => {
   
     // another trick to delete one record
   
-    // await student.deleteOne(req.params.id);
+    await order.deleteOne({_id:req.params.id});
   
     //   ===========================================================================
   
-    await Order.findOneAndDelete();
+    // await Order.findOneAndDelete();
   
     res.status(200).json({
       success: true,

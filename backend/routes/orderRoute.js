@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllOrder, createOrder , updateOrder,deleteOrder} = require("../controllers/orderController");
+const { getAllOrder, createOrder , updateOrder,deleteOrder, getOrderDetail} = require("../controllers/orderController");
 
 
 const router=express.Router();
@@ -8,7 +8,7 @@ const router=express.Router();
 // for all students record
 router.route("/orders").get(getAllOrder);
 router.route("/order/new").post(createOrder);
-router.route("/order/:id").put(updateOrder).delete(deleteOrder);
+router.route("/order/:id").put(updateOrder).delete(deleteOrder).get(getOrderDetail);
 
 
 module.exports= router
