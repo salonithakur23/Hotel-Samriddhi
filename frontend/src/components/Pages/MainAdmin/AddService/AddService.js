@@ -78,7 +78,8 @@ const AddService = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">Service Name</label>
                                 <input type="text" class="form-control"
-                                value={service_Name} onChange={(e) => setService_Name(e.target.value)} required
+                                value={service_Name} onChange={(e) => 
+                                    setService_Name(e.target.value)} required
 
                                 />
 

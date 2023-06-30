@@ -1,13 +1,48 @@
-import React from 'react'
+import React,{useState , useEffect} from 'react'
 import './ResBilling.css'
 import { Button, Col, Container, Row, Table } from 'react-bootstrap'
 import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai'
-import { Link } from "react-router-dom"
+import { Link  } from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
+import axios from "axios"
+import { toast } from 'react-toastify'
+
+
+const baseURL = "http://localhost:4000/api/v1/orders"
+
 
 
 
 const ResBilling = () => {
+
+
+
+  const [get, setGetAll] = useState(null);
+
+  useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setGetAll(response.data);
+      console.log(response)
+
+    })
+
+
+  }, [get])
+  console.log(get,"order")
+
+  const deleteData = (id) => {
+    // console.log(id)
+    axios.delete(`http://localhost:4000/api/v1/order/${id}`).then(response => {
+      // alert("Service has been deleted successfully")
+      toast.success("Service deleted Succesfully")
+    })
+      .catch(error => {
+        console.log(error)
+      })
+
+  }
+
+  if (!get) return null;
 
 
   return (
@@ -43,7 +78,9 @@ const ResBilling = () => {
       <div className='form-div'>
         <Container>
           <Row>
+          {get?.orders?.map((items) => (
             <Col sm={4}>
+           
               <div className='billing-card'>
                 
                 <h3 className='res-name'> Samriddhi </h3>
@@ -51,8 +88,8 @@ const ResBilling = () => {
                 <h5> Phone.no : <span>8796541234</span>  </h5>
                 <h5> Address : <span>mansrowar</span>  </h5>
                 <h5> Gst.no : <span>1</span>  </h5>
-                <h5>Booking Date&Time :<span>2/7/23/ 7:05</span>  </h5>
-                <h5>Table No. :<span>1</span>  </h5>
+                <h5>Order Date&Time :<span>{items.Order_Time}</span>  </h5>
+                <h5>Table No. :<span>{items.Table_Number}</span>  </h5>
                 <Table responsive>
                   <table class="table table-bordered border-secondary">
                     <thead>
@@ -104,12 +141,18 @@ const ResBilling = () => {
 
               </div>
 
-
-              
+              <br/><br/>
+           
              
             </Col>
-            <Col sm={4}></Col>
-            <Col sm={4}></Col>
+          
+            ))}
+            
+          
+
+
+            {/* <Col sm={4}></Col>
+            <Col sm={4}></Col> */}
           </Row>
         </Container>
 
