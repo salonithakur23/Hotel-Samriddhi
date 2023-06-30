@@ -1,6 +1,6 @@
-const guestModel = require("../models/guestModel");
+
 const Guest = require("../models/guestModel");
-const router = require("../routes/guestRoute");
+
 
 
 
