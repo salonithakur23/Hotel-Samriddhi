@@ -15,13 +15,13 @@ const AddService = () => {
 
     const navigate = useNavigate()
     const [service_Name, setService_Name] = useState(null);
-    const [servive_Charge, setServive_Charge] = useState(null);
+    const [service_Charge, setService_Charge] = useState(null);
 
     const submitform = () => {
         try {
             axios.post("http://localhost:4000/api/v1/room-service/new", {
                 "Service_Name": service_Name,
-                "Servive_Charge": servive_Charge,
+                "Service_Charge": service_Charge,
             
             })
             alert("Data Submit Successfully")
@@ -90,7 +90,7 @@ const AddService = () => {
                         <div class="col-md-4 position-relative">
                                 <label className="label">Service Charges</label>
                                 <input type="text" class="form-control"
-                                     value={servive_Charge} onChange={(e) => setServive_Charge(e.target.value)} required
+                                     value={service_Charge} onChange={(e) => setService_Charge(e.target.value)} required
                                 />
 
                             </div>

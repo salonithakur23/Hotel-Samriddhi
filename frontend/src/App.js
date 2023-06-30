@@ -90,14 +90,14 @@ function App() {
           {/* <Route path="/room-service-list"  element={<MainAdminSidebar><RoomServiceList/></MainAdminSidebar>}/> */}
           <Route path="/services" element={<MainAdminSidebar><AddService /></MainAdminSidebar>} />
           <Route path="/service-list" element={<MainAdminSidebar><ServicesList /></MainAdminSidebar>} />
-          <Route path="/service/:id" element={<MainAdminSidebar><ServiceEdit /></MainAdminSidebar>} />
+          <Route path="/serviceEdit/:id" element={<MainAdminSidebar><ServiceEdit /></MainAdminSidebar>} />
           <Route path="/employees" element={<MainAdminSidebar><Employees /></MainAdminSidebar>} />
           <Route path="/employees-list" element={<MainAdminSidebar><EmployeesList /></MainAdminSidebar>} />
           <Route path="/add-guest" element={<MainAdminSidebar><Guest /></MainAdminSidebar>} />
           <Route path="/guest/:id" element={<MainAdminSidebar><EditGuest /></MainAdminSidebar>} />
           <Route path="/guest-list" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} />
           <Route path="/view/:id" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} /> 
-
+         
 
 
           {/* Admin  sidebar routing end*/}
