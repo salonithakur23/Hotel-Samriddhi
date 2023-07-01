@@ -93,15 +93,29 @@ const Item = () => {
         <Container>
           <Row>
 
-
             <form className="row g-4 p-3 registration-form">
               <Link to='/add-category'>
                 <Button variant='success' className='float-end'>Add Category</Button>
               </Link>
               <div className="col-md-4 position-relative">
                 <label className="label">Item Name</label>
-                <input type="text" class="form-control" value={item_Name} onChange={(e) => setItem_Name(e.target.value)} required
-
+                <input
+                  type="text"
+                  className="form-control"
+                  value={item_Name}
+                  onChange={(e) => setItem_Name(e.target.value)}
+                  required
+                />
+              </div>
+              
+              <div className="col-md-4 position-relative">
+                <label className="label">Price</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  required
                 />
 
               </div>
