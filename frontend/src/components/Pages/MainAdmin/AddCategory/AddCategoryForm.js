@@ -13,15 +13,15 @@ const AddCategoryForm = () => {
 
     // form Function start
     const navigate = useNavigate()
-    const [category_Name, setCategory_Name] = useState(null);
+    const [category_Type, setCategory_Type] = useState(null);
     const submitform = () => {
         try {
-            axios.post("http://localhost:4000/api/v1/item/new", {
+            axios.post(" http://localhost:4000/api/v1/category/new", {
 
-                "Category_Name": category_Name,
+                "Category_Type": category_Type,
             })
             toast.danger("Item Add Succesfully")
-            navigate("/item-list")
+            navigate("/category-list")
         } catch (error) {
             console.log(error.response)
 
@@ -69,7 +69,7 @@ const AddCategoryForm = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">Category Name</label>
                                 <input type="text" class="form-control"
-                                    value={category_Name} onChange={(e) => setCategory_Name(e.target.value)} required
+                                    value={category_Type} onChange={(e) => setCategory_Type(e.target.value)} required
                                 />
                             </div>
                             <br />

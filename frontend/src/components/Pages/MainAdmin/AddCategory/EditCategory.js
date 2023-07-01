@@ -12,26 +12,26 @@ const EditCategory = () => {
     const params = useParams();
     const navigate = useNavigate();
     const [specificItem, setSpecificItem] = useState("");
-    const [Category_Name, setCategory_Name] = useState(specificItem.Category_Name);
+    const [Category_Type, setCategory_Type] = useState(specificItem.Category_Type);
 
     console.log(specificItem, "Check id from url")
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/api/v1/item/${params.id}`).then((response) => {
+        axios.get(`http://localhost:4000/api/v1/category${params.id}`).then((response) => {
             setSpecificItem(response.data);
-            setCategory_Name(response.data.item.Category_Name);
+            setCategory_Type(response.data.category.Category_Type);
 
         })
     }, [])
-
+    console.log(specificItem)
 
     const submitform = () => {
         try {
-            axios.put(`http://localhost:4000/api/v1/item/${params.id}`, {
-                "Category_Name": Category_Name,
+            axios.put(`http://localhost:4000/api/v1/category${params.id}`, {
+                "Category_Type": Category_Type,
             })
             toast.success("Item Updated Succesfully")
-            navigate("/category-list")
+            navigate("/list-category")
         } catch (error) {
             console.log(error.response)
 
@@ -56,9 +56,9 @@ const EditCategory = () => {
                                 <th>
                                     <div className='table-div'>
 
-                                        {/* <Button className='table-btn' variant="light" >
-                                            <IoIosCreate />&nbsp;<Link to="/item-list">Go Back</Link>
-                                        </Button> */}
+                                        <Button className='table-btn' variant="light" >
+                                            <IoIosCreate />&nbsp;<Link to="/list-category">Go Back</Link>
+                                        </Button>
                                     </div>
                                 </th>
                             </tr>
@@ -75,7 +75,7 @@ const EditCategory = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">Category Name</label>
                                 <input type="text" class="form-control"
-                                    value={Category_Name} onChange={(e) => setCategory_Name(e.target.value)} required
+                                    value={Category_Type} onChange={(e) => setCategory_Type(e.target.value)} required
                                 />
                             </div>
                             <br />

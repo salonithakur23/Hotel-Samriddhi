@@ -9,16 +9,27 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+const baseURL = " http://localhost:4000/api/v1/categories"
 
 
 const EditItem = () => {
-    
+
+    const [get, setGetAll] = useState(null);
+
+    useEffect(() => {
+        axios.get(baseURL).then((response) => {
+            setGetAll(response.data);
+            // console.log(response)
+        })
+    }, [get])
+  
     const params = useParams();
     const navigate = useNavigate();
     const [specificItem, setSpecificItem] = useState("");
     const [Item_Name, setItem_Name] = useState(specificItem.Item_Name);
     const [price, setPrice] = useState(specificItem.price);
     const [Category_Name, setCategory_Name] = useState(specificItem.Category_Name);
+    const [category_Type, setCategory_Type]=useState(null)
 
     console.log(specificItem, "Check id from url")
 
@@ -36,9 +47,10 @@ const EditItem = () => {
     const submitform = () => {
         try {
             axios.put(`http://localhost:4000/api/v1/item/${params.id}`, {
-                "Item_Name":Item_Name,
-                "price":price,
-                "Category_Name":Category_Name,
+                "Item_Name": Item_Name,
+                "price": price,
+                // "Category_Name": Category_Name,
+                "Category_Name":category_Type,
             })
             toast.success("Item Updated Succesfully")
             navigate("/item-list")
@@ -88,25 +100,32 @@ const EditItem = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">Item Name</label>
                                 <input type="text" className="form-control"
-                                 value={Item_Name} onChange={(e) => 
-                                 setItem_Name(e.target.value)}   required />
+                                    value={Item_Name} onChange={(e) =>
+                                        setItem_Name(e.target.value)} required />
 
 
                             </div>
 
                             <div class="col-md-4 position-relative">
                                 <label className="label">Price.</label>
-                                <input type="text" className="form-control" value={price} onChange={(e) => setPrice(e.target.value)}   required />
+                                <input type="text" className="form-control" value={price} onChange={(e) => setPrice(e.target.value)} required />
 
 
                             </div>
 
 
-                            <div class="col-md-4 position-relative">
+                            <div className="col-md-4 position-relative">
                                 <label className="label">Category Name</label>
-                                <input type="text" className="form-control" value={Category_Name} onChange={(e) => setCategory_Name(e.target.value)}  required />
-
-
+                                <select
+                                    className="form-control"
+                                    onChange={(e) => setCategory_Type(e.target.value)}
+                                    required
+                                >
+                                    <option value={category_Type}>select a category</option>
+                                    {get?.categories?.map((items) => (
+                                        <option >{items.Category_Type}</option>
+                                    ))}
+                                </select>
                             </div>
                             <center>
 
