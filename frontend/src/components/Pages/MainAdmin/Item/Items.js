@@ -14,26 +14,45 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 
+const baseURL = " http://localhost:4000/api/v1/categories"
 
 
 
 const Item = () => {
-  const navigate = useNavigate()
+
+
+  const [get, setGetAll] = useState(null);
+
+  useEffect(() => {
+      axios.get(baseURL).then((response) => {
+          setGetAll(response.data);
+          // console.log(response)
+      })
+  }, [get])
+
+
+
+
+  const navigate = useNavigate();
   const [item_Name, setItem_Name] = useState(null);
   const [price, setPrice] = useState(null);
-  const [category_Name, setCategory_Name] = useState(null);
+  const [category_Name, setCategory_Name]=useState(null)
+  const [category_Type, setCategory_Type]=useState(null)
+
+ 
 
 
-
-  const submitform = () => {
+  const submitForm = async () => {
     try {
-      axios.post("http://localhost:4000/api/v1/item/new", {
+      const itemResponse = await axios.post("http://localhost:4000/api/v1/item/new", {
         "Item_Name": item_Name,
         "price": price,
-        "Category_Name": category_Name,
-      })
-      toast.danger("Item Add Succesfully")
-      navigate("/item-list")
+        "Category_Name":category_Type,
+          // "Category_Type":category_Type,
+
+      });
+      toast.danger("Item Add Successfully");
+      navigate("/item-list");
     } catch (error) {
       console.log(error.response)
 
@@ -75,9 +94,11 @@ const Item = () => {
           <Row>
 
 
-            <form className="row g-4 p-3 registration-form" >
-
-              <div class="col-md-4 position-relative">
+            <form className="row g-4 p-3 registration-form">
+              <Link to='/add-category'>
+                <Button variant='success' className='float-end'>Add Category</Button>
+              </Link>
+              <div className="col-md-4 position-relative">
                 <label className="label">Item Name</label>
                 <input type="text" class="form-control" value={item_Name} onChange={(e) => setItem_Name(e.target.value)} required
 
@@ -85,23 +106,19 @@ const Item = () => {
 
               </div>
 
-              <div class="col-md-4 position-relative">
-                <label className="label">Price.</label>
-                <input type="text" class="form-control" value={price} onChange={(e) => setPrice(e.target.value)} required
-
-                />
-
-              </div>
-
-
-              <div class="col-md-4 position-relative">
+            
+              <div className="col-md-4 position-relative">
                 <label className="label">Category Name</label>
-                <input type="text" class="form-control"
-                  value={category_Name} onChange={(e) =>
-                    setCategory_Name(e.target.value)} required
-
-                />
-
+                <select
+                className="form-control"
+                onChange={(e) => setCategory_Type(e.target.value)}
+                required
+                >
+                   <option value={category_Type}>select a category</option>
+                   {get?.categories?.map((items) => (
+                   <option >{items.Category_Type}</option>
+                   ))} 
+                </select> 
               </div>
               <center>
 
@@ -127,4 +144,35 @@ const Item = () => {
   )
 }
 
-export default Item
+export default Item;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
