@@ -8,22 +8,25 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
-const baseURL = " http://localhost:4000/api/v1/categories"
+const baseURL = "http://localhost:4000/api/v1/categories"
 
+const allItem= "http://localhost:4000/api/v1/items?Category_Name="
 
-const baseURLS = "http://localhost:4000/api/v1/items"
 
 const Order = () => {
 
   const [get, setGetAll] = useState(null);
-  const [gets, setGets] = useState(null)
+  
 
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setGetAll(response.data);
       console.log("keshav", response)
     })
-  }, [get])
+  }, [])
+
+
+
 
 
   useEffect(() => {
@@ -38,7 +41,8 @@ const Order = () => {
   const [table_Number, setTable_Number] = useState(null);
   const [order_Time, setOrder_Time] = useState(null);
   const [category_Type, setCategory_Type] = useState(null)
-  const pooja =["keshva" , "keshavhshsbg"]
+  const [items, setItems]=useState([])
+
 
   const submitform = () => {
     try {
@@ -55,11 +59,31 @@ const Order = () => {
     }
   }
 
+  const handleCategoriesItem=(val)=>{
+    setCategory_Type(val)
+    axios.get(allItem+val).then((response) => {
+      setItems(response.data.items);
+      // console.log(response,"vv")
+    })
+    
+
+  }
 
 
 
+console.log(items)
+const selectedItems = ()=>{
+ return  items?.map((item)=>{
+  
+  return  <div> 
+    <Form.Check aria-label="option 1" />&nbsp;&nbsp;
+    <label className="label">{item.Item_Name} <sapn>{item.price}</sapn></label>
+
+  </div>
 
 
+})
+}
   return (
     <>
 
@@ -125,7 +149,7 @@ const Order = () => {
               >
                 <label className="form-label"> Category </label>
                 <Form.Select name="Room_Type"
-                  onChange={(e) => setCategory_Type(e.target.value)}
+                  onChange={(e) => handleCategoriesItem(e.target.value)}
                 >
                   <option value={category_Type}>select a category</option>
                   {get?.categories?.map((items) => (
@@ -136,31 +160,9 @@ const Order = () => {
 
 
 
+      
 
-              {gets?.items?.map((items) => (
-
-
-              <div className="col-md-2 position-relative d-flex">
-                <Form.Check aria-label="option 1" value={items.Item_Name} />&nbsp;&nbsp;
-                {/* <label className="label">{items.Item_Name} <sapn>{items.price}</sapn></label> */}
-                {items.Item_Name}&nbsp;  <sapn>{items.price}</sapn>
-              </div>
-             ))}
-
-            
-              {/* <div className="col-md-2 position-relative d-flex">
-                <Form.Check aria-label="option 1"  />&nbsp;&nbsp;
-                <label className="label">Price <sapn>200</sapn></label>
-
-              </div>
-
-              <div className="col-md-2 position-relative d-flex">
-                <Form.Check aria-label="option 1" />&nbsp;&nbsp;
-                <label className="label">Price <sapn>200</sapn></label>
-
-              </div> */}
-
-
+             
 
 
               <center>
@@ -176,7 +178,7 @@ const Order = () => {
 
 
               </center>
-
+              {selectedItems()}
             </form>
           </Row>
         </Container>

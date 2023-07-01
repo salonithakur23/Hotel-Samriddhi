@@ -1,4 +1,5 @@
 const Item = require("../models/itemModel");
+const ApiFeatures = require("../utils/apifeatures");
 
 
 
@@ -31,7 +32,11 @@ exports.createItem = (async (req, res, next) => {
 
 
 exports.getAllitems = async (req, res) => {
-    const items = await Item.find();
+
+
+    const apiFeature = new ApiFeatures(Item.find(), req.query).search().filter();
+
+    const items = await apiFeature.query;
     res.status(200).json({
         success: true,
         items,
@@ -86,7 +91,7 @@ exports.deleteItem = async (req, res, next) => {
     // req.body.student=req.student.id
     console.log(res.params)
     const item = await Item.findById(req.params.id);
-   
+
 
     if (!item) {
         return next(new ErrorHandler("Item not found ", 404));
@@ -96,7 +101,7 @@ exports.deleteItem = async (req, res, next) => {
 
     // another trick to delete one record
 
-    await item.deleteOne({_id:req.params.id});
+    await item.deleteOne({ _id: req.params.id });
 
     //   ===========================================================================
 
