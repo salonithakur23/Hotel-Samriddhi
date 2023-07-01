@@ -44,6 +44,7 @@ import RoomEdit from "./components/Pages/MainAdmin/Rooms/RoomEdit";
 import AddCategoryForm from "./components/Pages/MainAdmin/AddCategory/AddCategoryForm";
 import EditCategory from "./components/Pages/MainAdmin/AddCategory/EditCategory";
 import ListCategory from "./components/Pages/MainAdmin/AddCategory/ListCategory";
+import SeeAllCategory from "./components/Pages/MainAdmin/AddCategory/SeeAllCategory/SeeAllCategory";
 
 
 function App() {
@@ -103,6 +104,7 @@ function App() {
           <Route path="/add-category" element={<MainAdminSidebar><AddCategoryForm /></MainAdminSidebar>} /> 
           <Route path="/list-category" element={<MainAdminSidebar><ListCategory /></MainAdminSidebar>} /> 
           <Route path="/addcategory/:id" element={<MainAdminSidebar><EditCategory /></MainAdminSidebar>} /> 
+          <Route path="/seeallcategory" element={<MainAdminSidebar><SeeAllCategory /></MainAdminSidebar>} /> 
 
 
           {/* Admin  sidebar routing end*/}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Col, Row, Table, Button } from 'react-bootstrap'
-import { AiFillDashboard, AiFillDelete } from 'react-icons/ai';
+import { AiFillDashboard, AiFillDelete, AiFillEye } from 'react-icons/ai';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import { IoIosCreate } from 'react-icons/io';
@@ -30,7 +30,7 @@ const AddCategoryForm = () => {
 
     // form Function end
 
-  
+
 
     return (
         <>
@@ -52,7 +52,11 @@ const AddCategoryForm = () => {
                                         <Button className='table-btn' variant="light" >
                                             <IoIosCreate />&nbsp;<Link to="/list-category">Go Back</Link>
                                         </Button>
+                                        <Button className='table-btn' variant="light" >
+                                            <AiFillEye />&nbsp;<Link to="/seeallcategory">See-All-Category</Link>
+                                        </Button>
                                     </div>
+
                                 </th>
                             </tr>
                         </thead>
@@ -90,7 +94,7 @@ const AddCategoryForm = () => {
             </div>
             <br />
 
-        
+
 
         </>
     )
