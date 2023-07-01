@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Order.css'
 import { Button, Container, Row, Table } from 'react-bootstrap'
 import { AiFillDashboard } from 'react-icons/ai';
@@ -10,23 +10,35 @@ import axios from 'axios';
 
 const baseURL = " http://localhost:4000/api/v1/categories"
 
+
+const baseURLS = "http://localhost:4000/api/v1/items"
+
 const Order = () => {
 
   const [get, setGetAll] = useState(null);
+  const [gets, setGets] = useState(null)
 
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setGetAll(response.data);
-      // console.log(response)
+      console.log("keshav", response)
     })
   }, [get])
+
+
+  useEffect(() => {
+    axios.get(baseURLS).then((response) => {
+      setGets(response.data);
+      console.log("item", response)
+    })
+  }, [gets])
 
 
   const navigate = useNavigate()
   const [table_Number, setTable_Number] = useState(null);
   const [order_Time, setOrder_Time] = useState(null);
   const [category_Type, setCategory_Type] = useState(null)
-
+  const pooja =["keshva" , "keshavhshsbg"]
 
   const submitform = () => {
     try {
@@ -78,6 +90,7 @@ const Order = () => {
         </Row>
       </Container>
 
+      
 
 
       <div className='form-div' >
@@ -122,24 +135,33 @@ const Order = () => {
               </div>
 
 
+
+
+              {gets?.items?.map((items) => (
+
+
               <div className="col-md-2 position-relative d-flex">
-                <Form.Check aria-label="option 1" />&nbsp;&nbsp;
+                <Form.Check aria-label="option 1" value={items.Item_Name} />&nbsp;&nbsp;
+                {/* <label className="label">{items.Item_Name} <sapn>{items.price}</sapn></label> */}
+                {items.Item_Name}&nbsp;  <sapn>{items.price}</sapn>
+              </div>
+             ))}
+
+            
+              {/* <div className="col-md-2 position-relative d-flex">
+                <Form.Check aria-label="option 1"  />&nbsp;&nbsp;
                 <label className="label">Price <sapn>200</sapn></label>
 
               </div>
 
-
               <div className="col-md-2 position-relative d-flex">
                 <Form.Check aria-label="option 1" />&nbsp;&nbsp;
                 <label className="label">Price <sapn>200</sapn></label>
 
-              </div>
+              </div> */}
 
-              <div className="col-md-2 position-relative d-flex">
-                <Form.Check aria-label="option 1" />&nbsp;&nbsp;
-                <label className="label">Price <sapn>200</sapn></label>
 
-              </div>
+
 
               <center>
 
@@ -150,6 +172,8 @@ const Order = () => {
                 >
                   Submit
                 </Button>
+
+
 
               </center>
 
