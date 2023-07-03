@@ -28,12 +28,10 @@ import GuestList from "./components/Pages/MainAdmin/GuestInformation/GuestList";
 
 import ResDashboard from "./components/Pages/Restaurent/ResDashboard/ResDashboard";
 import RestaurentSidebar from "./components/Pages/Restaurent/RestaurentSidebar";
-// import Items from "./components/Pages/Restaurent/Items/Items";
-// import Order from "./components/Pages/Restaurent/Order/Order";
 import Rooms from "./components/Pages/Hotel/AdminPage/Rooms/Rooms";
-// import ResBilling from "./components/Pages/Restaurent/Res-Billing/ResBilling";
 import EditGuest from "./components/Pages/MainAdmin/GuestInformation/EditGuest";
-import ResBilling from "./components/Pages/Restaurent/Res-Billing/ResBilling";
+// import ResBilling from "./components/Pages/Restaurent/Res-Billing/ResBilling";
+import ResBilling from './components/Pages/Restaurent/Res-Billing/ResBilling'
 import Order from "./components/Pages/Restaurent/Order/Order";
 import Kot from "./components/Pages/Restaurent/KOT/Kot";
 import Bill from "./components/Pages/Restaurent/Bill/Bill";
@@ -76,6 +74,7 @@ function App() {
           <Route path="/order" element={<RestaurentSidebar><Order /></RestaurentSidebar>} />
           <Route path="/res-items" element={<RestaurentSidebar><ItemsForm /></RestaurentSidebar>} />
           <Route path="/res-billing" element={<RestaurentSidebar><ResBilling /></RestaurentSidebar>} />
+          {/* <Route path="/res-billing" element={<RestaurentSidebar><ResBilli /></RestaurentSidebar>} /> */}
           <Route path="/KOT" element={<RestaurentSidebar><Kot /></RestaurentSidebar>} />
           <Route path="/BILL" element={<RestaurentSidebar><Bill /></RestaurentSidebar>} />
 
