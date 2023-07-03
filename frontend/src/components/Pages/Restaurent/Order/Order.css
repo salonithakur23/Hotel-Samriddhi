@@ -108,8 +108,37 @@
     width: 300px;
     margin: auto !important;
 }
-
-
+.increase{
+    width: 50px;
+    height: 50px;
+    background-color: #EBEBEB;
+    border: none;
+}
+.decrease{
+    width: 50px;
+    height: 50px;
+    background-color: #EBEBEB;
+    border: none;
+  
+}
+.decrease:hover{
+    background-color: gray;
+}
+.increase:hover{
+    background-color: gray;
+}
+/* .qnatity{
+    margin-left: 50px;
+} */
+.Opretor{
+    display: flex;
+    justify-content: space-evenly;
+}
+.Item-container{
+    display: flex !important;
+    /* flex-wrap: wrap !important; */
+    margin-top: 20px;
+}
 
 
 
