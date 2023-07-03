@@ -1,21 +1,21 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Order.css'
-import { Button, Container, Row, Table } from 'react-bootstrap'
+import { Button, Col, Container, Row, Table } from 'react-bootstrap'
 import { AiFillDashboard } from 'react-icons/ai';
 import Form from 'react-bootstrap/Form';
 import { IoIosCreate } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import Card from 'react-bootstrap/Card';
 
 const baseURL = "http://localhost:4000/api/v1/categories"
 
-const allItem= "http://localhost:4000/api/v1/items?Category_Name="
+const allItem = "http://localhost:4000/api/v1/items?Category_Name="
 
 const Order = () => {
 
   const [get, setGetAll] = useState(null);
-  
+
 
   useEffect(() => {
     axios.get(baseURL).then((response) => {
@@ -32,7 +32,10 @@ const Order = () => {
   const [table_Number, setTable_Number] = useState(null);
   const [order_Time, setOrder_Time] = useState(null);
   const [category_Type, setCategory_Type] = useState(null)
-  const [items, setItems]=useState([])
+  const [items, setItems] = useState([])
+  
+
+
 
 
   const submitform = () => {
@@ -40,7 +43,9 @@ const Order = () => {
       axios.post("http://localhost:4000/api/v1/order/new", {
         "Table_Number": table_Number,
         "Order_Time": order_Time,
-        "Category_Name": category_Type,
+        // "Category_Name": category_Type,
+      
+
       })
       alert("Order Submit Successfully")
       navigate("/res-billing")
@@ -50,31 +55,55 @@ const Order = () => {
     }
   }
 
-  const handleCategoriesItem=(val)=>{
+  const handleCategoriesItem = (val) => {
     setCategory_Type(val)
-    axios.get(allItem+val).then((response) => {
+    axios.get(allItem + val).then((response) => {
       setItems(response.data.items);
       // console.log(response,"vv")
     })
-    
+
 
   }
 
 
 
-console.log(items)
-const selectedItems = ()=>{
- return  items?.map((item)=>{
-  
-  return  <div> 
-    <Form.Check aria-label="option 1" />&nbsp;&nbsp;
-    <label className="label">{item.Item_Name} <sapn>{item.price}</sapn></label>
+  console.log(items)
+  const selectedItems = () => {
+    return items?.map((item) => {
 
-  </div>
+      return <div >
+        <Container >
+          <Row >
+            <Col sm={3}>
+              <Card style={{ width: "15rem" }}>
+                <Card.Body>
+                  <Card.Text>
+                    <Form.Check aria-label="option 1" />&nbsp;&nbsp;
+                    <p
+                    
+                      className="label"><span><b>Item Name</b></span>- {item.Item_Name} </p>
+                    <p
+                   
+                    ><span><b>Price</b></span> -{item.price}</p>
+                    <div className="Opretor">
+                      <button className='decrease'>-</button>
+                      <p className='qnatity'
+                      >0</p>
+                      <button  className='increase'>+</button>
+                    </div>
+
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+
+      </div>
 
 
-})
-}
+    })
+  }
   return (
     <>
 
@@ -148,15 +177,11 @@ const selectedItems = ()=>{
                 </Form.Select>
               </div>
 
-
-
-      
-
-             
-
+              <Col sm={3} className='Item-container' >
+                {selectedItems()}
+              </Col>
 
               <center>
-
                 <Button className="stu_btn"
                   variant="success"
                   type="submit"
@@ -166,11 +191,11 @@ const selectedItems = ()=>{
                 </Button>
 
               </center>
-              {selectedItems()}
+
             </form>
           </Row>
         </Container>
-      </div>
+      </div >
 
 
 

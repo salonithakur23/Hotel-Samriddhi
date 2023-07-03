@@ -1,24 +1,22 @@
-import React,{useState , useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import './ResBilling.css'
 import { Button, Col, Container, Row, Table } from 'react-bootstrap'
 import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai'
-import { Link  } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
 import axios from "axios"
 import { toast } from 'react-toastify'
 
 
 const baseURL = "http://localhost:4000/api/v1/orders"
-
-
+// const baseItemURL = "http://localhost:4000/api/v1/items"
+// const baseCategoryURL = " http://localhost:4000/api/v1/categories"
 
 
 const ResBilling = () => {
 
 
-
   const [get, setGetAll] = useState(null);
-
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setGetAll(response.data);
@@ -26,23 +24,14 @@ const ResBilling = () => {
 
     })
 
-
   }, [get])
-  console.log(get,"order")
+  console.log(get, "order")
 
-  const deleteData = (id) => {
-    // console.log(id)
-    axios.delete(`http://localhost:4000/api/v1/order/${id}`).then(response => {
-      // alert("Service has been deleted successfully")
-      toast.success("Service deleted Succesfully")
-    })
-      .catch(error => {
-        console.log(error)
-      })
 
-  }
 
-  if (!get) return null;
+  
+
+
 
 
   return (
@@ -78,11 +67,11 @@ const ResBilling = () => {
       <div className='form-div'>
         <Container>
           <Row>
-          {get?.orders?.map((items) => (
+            {get?.orders?.map((items) => (
             <Col sm={4}>
-           
+
               <div className='billing-card'>
-                
+
                 <h3 className='res-name'> Samriddhi </h3>
 
                 <h5> Phone.no : <span>8796541234</span>  </h5>
@@ -97,20 +86,19 @@ const ResBilling = () => {
 
                         <th>Item</th>
                         <th>Price</th>
-                        {/* <th>Total</th> */}
+                        <th>Quantity</th>
 
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
 
-                        <td>Veg</td>
-                        <td>100</td>
-                        {/* <td>100</td> */}
+                        <td>{items.Item_Name}</td>
+                        <td>{items.Price}</td>
+                        <td>{items.Quantity}</td>
+
                       </tr>
                     </tbody>
-
-
                   </table>
                   <hr></hr>
 
@@ -121,16 +109,16 @@ const ResBilling = () => {
                 <div className='d-flex text-center'>
 
                   <Link to='/KOT'>
-                  <Button className='table-btn ' variant="light" >
-                    &#128065;KOT
-                  </Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button className='table-btn ' variant="light" >
+                      &#128065;KOT
+                    </Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </Link>
-               
+
                   <Button className='table-btn ' variant="light" >
                     &#9998; Edit
                   </Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-             
+
                   <Link to="/BILL">
                     <Button className='table-btn ' variant="light" >
                       &#128065; Bill
@@ -140,23 +128,13 @@ const ResBilling = () => {
                 </div>
 
               </div>
-
-              <br/><br/>
-           
-             
+              <br /><br />
             </Col>
-          
-            ))}
-            
-          
 
-
-            {/* <Col sm={4}></Col>
-            <Col sm={4}></Col> */}
+          ))} 
           </Row>
         </Container>
-
-</div>
+      </div>
 
 
 
@@ -164,4 +142,4 @@ const ResBilling = () => {
   )
 }
 
-export default ResBilling
+export default ResBilling;
