@@ -7,6 +7,7 @@ import { IoIosCreate } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
+import { toast } from 'react-toastify';
 
 const baseURL = "http://localhost:4000/api/v1/categories";
 const allItem = "http://localhost:4000/api/v1/items?Category_Name=";
@@ -18,6 +19,8 @@ const Order = () => {
   const [category_Type, setCategory_Type] = useState('');
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [itemQuantities, setItemQuantities] = useState({});
+  const [canSubmit, setCanSubmit] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,11 +39,21 @@ const Order = () => {
   const handleCheckboxChange = (event, item) => {
     if (event.target.checked) {
       setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
+      setItemQuantities((prevItemQuantities) => ({
+        ...prevItemQuantities,
+        [item.Item_Name]: 1
+      }));
     } else {
       setSelectedItems((prevSelectedItems) =>
         prevSelectedItems.filter((selectedItem) => selectedItem !== item)
       );
+      setItemQuantities((prevItemQuantities) => {
+        const updatedQuantities = { ...prevItemQuantities };
+        delete updatedQuantities[item.Item_Name];
+        return updatedQuantities;
+      });
     }
+    setCanSubmit(event.target.checked);
   };
 
   const selectedItemsList = items?.map((item) => (
@@ -60,9 +73,33 @@ const Order = () => {
                   </p>
                   <p><span><b>Price</b></span> -{item.price}</p>
                   <div className="Opretor">
-                    <button className='decrease'>-</button>
-                    <p className='qnatity'>0</p>
-                    <button className='increase'>+</button>
+                    <button
+                      type="button"
+                      className='decrease'
+                      onClick={() => {
+                        if (itemQuantities[item.Item_Name] > 1) {
+                          setItemQuantities((prevItemQuantities) => ({
+                            ...prevItemQuantities,
+                            [item.Item_Name]: prevItemQuantities[item.Item_Name] - 1
+                          }));
+                        }
+                      }}
+                    >
+                      -
+                    </button>
+                    <p className='quantity'>{itemQuantities[item.Item_Name] || 1}</p>
+                    <button
+                      type="button"
+                      className='increase'
+                      onClick={() => {
+                        setItemQuantities((prevItemQuantities) => ({
+                          ...prevItemQuantities,
+                          [item.Item_Name]: (prevItemQuantities[item.Item_Name] || 1) + 1
+                        }));
+                      }}
+                    >
+                      +
+                    </button>
                   </div>
                 </Card.Text>
               </Card.Body>
@@ -72,10 +109,11 @@ const Order = () => {
       </Container>
     </div>
   ));
+  const submitform = async (event) => {
+    event.preventDefault(); // Prevent the default form submission
 
-  const submitform = async () => {
     if (!table_Number || !order_Time || selectedItems.length === 0) {
-      alert('Please fill in all the required fields and select at least one item.');
+      toast.alert('Please fill in all the required fields and select at least one item.');
       return;
     }
 
@@ -86,15 +124,19 @@ const Order = () => {
         Items: selectedItems.map(item => ({
           Item_Name: item.Item_Name,
           Price: item.price,
-          Quantity: 1 // You can modify this value as per your requirements
+          Quantity: itemQuantities[item.Item_Name] || 1
         }))
       });
-      alert("Order Submitted Successfully");
+      toast.success("Order Submitted Successfully");
       navigate("/res-billing");
     } catch (error) {
       console.log(error.response);
     }
   };
+
+
+
+
 
   return (
     <>
@@ -175,6 +217,7 @@ const Order = () => {
                   className="stu_btn"
                   variant="success"
                   type="submit"
+                  disabled={!canSubmit}
                   onClick={submitform}
                 >
                   Submit
