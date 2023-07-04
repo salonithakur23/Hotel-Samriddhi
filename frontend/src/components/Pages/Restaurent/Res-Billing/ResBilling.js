@@ -13,9 +13,11 @@ const baseURL = "http://localhost:4000/api/v1/orders"
 // const baseCategoryURL = " http://localhost:4000/api/v1/categories"
 
 
+
 const ResBilling = () => {
 
 
+  
   const [get, setGetAll] = useState(null);
   useEffect(() => {
     axios.get(baseURL).then((response) => {
@@ -35,7 +37,10 @@ const ResBilling = () => {
 
 
   return (
+
+
     <>
+    
 
       <Container className='main-col' >
         <Table striped bordered hover className='main-table'>

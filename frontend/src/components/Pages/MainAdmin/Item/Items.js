@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 // import HotelSidebar from '../../HotelSidebar'
 import { Container, Col, Row, Table, Button } from 'react-bootstrap'
 import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-icons/ai';
@@ -139,7 +139,7 @@ const Item = () => {
                 <Button className="stu_btn"
                   variant="success"
                   type="submit"
-                  onClick={submitform}
+                  onClick={submitForm}
                 >
                   Submit
                 </Button>

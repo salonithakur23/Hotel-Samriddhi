@@ -29,14 +29,6 @@ const Order = () => {
 
 
 
-  useEffect(() => {
-    axios.get(baseURLS).then((response) => {
-      setGets(response.data);
-      console.log("item", response)
-    })
-  }, [gets])
-
-
   const navigate = useNavigate()
   const [table_Number, setTable_Number] = useState(null);
   const [order_Time, setOrder_Time] = useState(null);
