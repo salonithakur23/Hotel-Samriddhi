@@ -11,18 +11,18 @@ import { toast } from 'react-toastify';
 const baseURL = "http://localhost:4000/api/v1/rooms"
 
 
-const RoomList = ({ post }) => {
+const RoomList = ({ items }) => {
 
   const [get, setGetAll] = useState(null);
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState({});
   const handleModel = () => {
     setOpen(true);
-    setUser(post);
+    setUser(items);
   }
 
 
-  
+
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setGetAll(response.data);
@@ -98,44 +98,44 @@ const RoomList = ({ post }) => {
                 </tr>
               </thead>
               <tbody>
-              {get?.rom?.map((items) => (
-                <tr>
-                  <td>{items.Room_Number}</td>
-                  <td>{items.Room_Type}</td>
-                  <td>{items.Price}</td>
-                  <td>{items.Avilable_Not}</td>
-              
-                  <td>
+                {get?.rom?.map((items) => (
+                  <tr>
+                    <td>{items.Room_Number}</td>
+                    <td>{items.Room_Type}</td>
+                    <td>{items.Price}</td>
+                    <td>{items.Avilable_Not}</td>
 
-                    <Link to={`/roomEdit/${items._id}`}>
+                    <td>
 
-                      <Button className='table-btn' variant="light" >
-                        &#9998;Edit
+                      <Link to={`/roomEdit/${items._id}`}>
+                        <Button className='table-btn'
+                          variant="light" >
+                          &#9998;Edit
+                        </Button>
+                      </Link>
+                    </td>
+                    <td>
+                      <Button className='table-btn' variant="light"
+                        onClick={(e) => { deleteData(items._id) }} value={"Delete"}
+                      >
+                        &#9998;Delete
                       </Button>
-                    </Link>
-                  </td>
-                  <td>
-                    <Button className='table-btn' variant="light"
-                      onClick={(e) => { deleteData(items._id) }} value={"Delete"}
-                    >
-                      &#9998;Delete
-                    </Button>
-                  </td>
-                  <td>
-                    <Button className='table-btn' variant="light"
-                      onClick={() => handleModel()} >
-                      &#128065;View
-                    </Button>
-                    {open && (
-                      <ModalCamp
-                        open={open}
-                        setOpen={setOpen}
-                        {...user}
-                      />
-                    )}
-                  </td>
-                </tr>
-                   ))}
+                    </td>
+                    <td>
+                      <Button className='table-btn' variant="light"
+                        onClick={() => handleModel()} >
+                        &#128065;View
+                      </Button>
+                      {open && (
+                        <ModalCamp
+                          open={open}
+                          setOpen={setOpen}
+                          {...user}
+                        />
+                      )}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </Table>

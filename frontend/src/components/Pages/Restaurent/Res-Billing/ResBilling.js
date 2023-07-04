@@ -1,52 +1,45 @@
-import React, { useState, useEffect } from 'react'
-import './ResBilling.css'
-import { Button, Col, Container, Row, Table } from 'react-bootstrap'
-import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai'
-import { Link } from "react-router-dom"
-import { IoIosCreate } from "react-icons/io";
-import axios from "axios"
-import { toast } from 'react-toastify'
+import React, { useState, useEffect } from 'react';
+import './ResBilling.css';
+import { Button, Col, Container, Row, Table } from 'react-bootstrap';
+import { AiFillDashboard, AiFillDelete, AiFillEdit } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import { IoIosCreate } from 'react-icons/io';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
-
-const baseURL = "http://localhost:4000/api/v1/orders"
-// const baseItemURL = "http://localhost:4000/api/v1/items"
-// const baseCategoryURL = " http://localhost:4000/api/v1/categories"
-
+const baseURL = 'http://localhost:4000/api/v1/orders';
 
 
 const ResBilling = () => {
+  const [orders, setOrders] = useState([]);
 
-
-  
-  const [get, setGetAll] = useState(null);
   useEffect(() => {
     axios.get(baseURL).then((response) => {
-      setGetAll(response.data);
-      console.log(response)
+      setOrders(response.data?.orders);
+    });
+  }, []);
 
-    })
-
-  }, [get])
-  console.log(get, "order")
-
-
-
-  
-
-
-
+  const calculateTotal = (items) => {
+    let total = 0;
+    items.forEach((item) => {
+      total += item.Price * item.Quantity;
+    });
+    return total;
+  };
 
   return (
 
 
     <>
-    
-
-      <Container className='main-col' >
-        <Table striped bordered hover className='main-table'>
+      <Container className="main-col">
+        <Table striped bordered hover className="main-table">
           <thead>
             <tr>
-              <th><h5><AiFillDashboard /> &nbsp; Dashboard/ Order-Details</h5></th>
+              <th>
+                <h5>
+                  <AiFillDashboard /> &nbsp; Dashboard/ Order-Details
+                </h5>
+              </th>
             </tr>
           </thead>
         </Table>
@@ -55,9 +48,8 @@ const ResBilling = () => {
             <thead>
               <tr>
                 <th>
-                  <div className='table-div' >
-
-                    <Button className='table-btn' variant="light" >
+                  <div className="table-div">
+                    <Button className="table-btn" variant="light">
                       <IoIosCreate />&nbsp;<Link to="/order">Create</Link>
                     </Button>
                   </div>
@@ -69,82 +61,80 @@ const ResBilling = () => {
         </Row>
       </Container>
 
-      <div className='form-div'>
+      <div className="form-div">
         <Container>
           <Row>
-            {get?.orders?.map((items) => (
-            <Col sm={4}>
-
-              <div className='billing-card'>
-
-                <h3 className='res-name'> Samriddhi </h3>
-
-                <h5> Phone.no : <span>8796541234</span>  </h5>
-                <h5> Address : <span>mansrowar</span>  </h5>
-                <h5> Gst.no : <span>1</span>  </h5>
-                <h5>Order Date&Time :<span>{items.Order_Time}</span>  </h5>
-                <h5>Table No. :<span>{items.Table_Number}</span>  </h5>
-                <Table responsive>
-                  <table class="table table-bordered border-secondary">
-                    <thead>
-                      <tr>
-
-                        <th>Item</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-
-                        <td>{items.Item_Name}</td>
-                        <td>{items.Price}</td>
-                        <td>{items.Quantity}</td>
-
-                      </tr>
-                    </tbody>
-                  </table>
-                  <hr></hr>
-
-                  <h5 className='mt-2'>Total: <span className='float-end'>100</span> </h5>
-
-                </Table>
-
-                <div className='d-flex text-center'>
-
-                  <Link to='/KOT'>
-                    <Button className='table-btn ' variant="light" >
-                      &#128065;KOT
-                    </Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </Link>
-
-                  <Button className='table-btn ' variant="light" >
-                    &#9998; Edit
-                  </Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-                  <Link to="/BILL">
-                    <Button className='table-btn ' variant="light" >
-                      &#128065; Bill
+            {orders.map((order) => (
+              <Col sm={4} key={order._id}>
+                <div className="billing-card">
+                  <h3 className="res-name">Samriddhi</h3>
+                  <h5>
+                    Phone.no : <span>8796541234</span>
+                  </h5>
+                  <h5>
+                    Address : <span>mansrowar</span>
+                  </h5>
+                  <h5>
+                    Gst.no : <span>1</span>
+                  </h5>
+                  <h5>
+                    Order Date&Time :<span>{order.Order_Time}</span>
+                  </h5>
+                  <h5>
+                    Table No. :<span>{order.Table_Number}</span>
+                  </h5>
+                  <Table responsive>
+                    <table className="table table-bordered border-secondary">
+                      <thead>
+                        <tr>
+                          <th>Item</th>
+                          <th>Price</th>
+                          <th>Quantity</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {order.Items.map((item) => (
+                          <tr key={item._id}>
+                            <td>{item.Item_Name}</td>
+                            <td>{item.Price}</td>
+                            <td>{item.Quantity}</td>
+                            <td>{item.Price * item.Quantity}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <hr></hr>
+                    <h5 className="mt-2">
+                      Total: <span className="float-end">{calculateTotal(order.Items)}</span>
+                    </h5>
+                  </Table>
+                  <div className="d-flex text-center">
+                    <Link to="/KOT">
+                      <Button className="table-btn " variant="light">
+                        &#128065;KOT
+                      </Button>
+                    </Link>
+                    <Button className="table-btn " variant="light">
+                      &#9998; Edit
                     </Button>
-                  </Link>
-
+                    <Link to="/BILL">
+                      <Button className="table-btn " variant="light">
+                        &#128065; Bill
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
-
-              </div>
-              <br /><br />
-            </Col>
-
-          ))} 
+                <br />
+                <br />
+              </Col>
+            ))}
           </Row>
         </Container>
       </div>
-
-
-
     </>
-  )
-}
+  );
+};
 
 export default ResBilling;
+

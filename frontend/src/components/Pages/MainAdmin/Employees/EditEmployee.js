@@ -1,47 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Col, Row, Table, Button, Form } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
-import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-icons/ai';
+import React, { useState, useEffect } from 'react'
+import { Container, Col, Row, Table, Button,Form } from 'react-bootstrap';
+import { AiFillDashboard, } from 'react-icons/ai';
 import { IoIosCreate } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
+const EditEmployee = () => {
 
+    const params = useParams();
+    const navigate = useNavigate();
+    const [specificGuest, setSpecificGuest] = useState("");
+    const [Employee_Name, setEmployee_Name] = useState(specificGuest.Employee_Name);
+    const [Phone_Number, setPhone_Number] = useState(specificGuest.Phone_Number);
+    const [Address, setAddress] = useState(specificGuest.Address);
+    const [Email, setEmail] = useState(specificGuest.Email);
+    const [Gender, setGender] = useState(specificGuest.Gender);
+    const [Dob, setDob] = useState(specificGuest.Dob);
+    const [Role, setRole] = useState(specificGuest.Room_Number);
+    const [Salary, setSalary] = useState(specificGuest.Salary);
 
-const Employees = () => {
-    const navigate = useNavigate()
-    const [employee_Name, setEmployee_Name] = useState(null);
-    const [phone_Number, setPhone_Number] = useState(null);
-    const [address, setAddress] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [gender, setGender] = useState(null);
-    const [dob, setDob] = useState(null);
-    const [role, setRole] = useState(null);
-    const [salary, setSalary] = useState(null);
+    console.log(specificGuest, "Check id from url")
+
+    useEffect(() => {
+        axios.get(`http://localhost:4000/api/v1/employee/${params.id}`).then((response) => {
+            setSpecificGuest(response.data);
+            setEmployee_Name(response.data.employee.Employee_Name);
+            setPhone_Number(response.data.employee.Phone_Number);
+            setAddress(response.data.employee.Address);
+            setEmail(response.data.employee.Email);
+            setGender(response.data.employee.Gender);
+            setDob(response.data.employee.Dob);
+            setRole(response.data.employee.Role);
+            setSalary(response.data.employee.Salary);
+        })
+    }, [])
+
 
     const submitform = () => {
         try {
-            axios.post("http://localhost:4000/api/v1/employee/new", {
-                "Employee_Name": employee_Name,
-                "Phone_Number": phone_Number,
-                "Address": address,
-                "Email": email,
-                "Gender": gender,
-                "Dob": dob,
-                "Role": role,
-                "Salary": salary,
-
+            axios.put(`http://localhost:4000/api/v1/employee/${params.id}`, {
+                "Employee_Name": Employee_Name,
+                "Phone_Number": Phone_Number,
+                "Address": Address,
+                "Email": Email,
+                "Gender": Gender,
+                "Dob": Dob,
+                "Role": Role,
+                "Salary": Salary,
 
             })
-            toast.success("Guest Add Succesfully")
+            toast.success("Guest Updated Succesfully")
             navigate("/employee-list")
         } catch (error) {
             console.log(error.response)
+
         }
     }
-
-
 
     return (
         <>
@@ -63,7 +79,7 @@ const Employees = () => {
                                     <div className='table-div'>
 
                                         <Button className='table-btn' variant="light" >
-                                            <IoIosCreate />&nbsp;<Link to="/employee-list">Go Back</Link>
+                                            <IoIosCreate />&nbsp;<Link to="/employees-list">Go Back</Link>
                                         </Button>
                                     </div>
                                 </th>
@@ -84,7 +100,7 @@ const Employees = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">Employee Name</label>
                                 <input type="text" class="form-control"
-                                    value={employee_Name} onChange={(e) => setEmployee_Name(e.target.value)}
+                                    value={Employee_Name} onChange={(e) => setEmployee_Name(e.target.value)}
                                 />
 
                             </div>
@@ -92,7 +108,7 @@ const Employees = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">Phone Aumber</label>
                                 <input type="text" class="form-control"
-                                    value={phone_Number} onChange={(e) => setPhone_Number(e.target.value)}
+                                    value={Phone_Number} onChange={(e) => setPhone_Number(e.target.value)}
                                 />
 
                             </div>
@@ -100,14 +116,14 @@ const Employees = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">Address</label>
                                 <input type="text" class="form-control"
-                                    value={address} onChange={(e) => setAddress(e.target.value)}
+                                    value={Address} onChange={(e) => setAddress(e.target.value)}
                                 />
 
                             </div>
                             <div class="col-md-4 position-relative">
                                 <label className="label">Email</label>
                                 <input type="text" class="form-control"
-                                    value={email} onChange={(e) => setEmail(e.target.value)}
+                                    value={Email} onChange={(e) => setEmail(e.target.value)}
                                 />
 
                             </div>
@@ -119,7 +135,7 @@ const Employees = () => {
                             >
                                 <label class="form-label">Gender</label>
                                 <Form.Select
-                                    value={gender} onChange={(e) => setGender(e.target.value)}
+                                    value={Gender} onChange={(e) => setGender(e.target.value)}
                                 >
                                     <option>Choose</option>
                                     <option value="Male">Male</option>
@@ -130,21 +146,21 @@ const Employees = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">DOB</label>
                                 <input type="date" class="form-control"
-                                    value={dob} onChange={(e) => setDob(e.target.value)}
+                                    value={Dob} onChange={(e) => setDob(e.target.value)}
                                 />
 
                             </div>
                             <div class="col-md-4 position-relative">
                                 <label className="label">Role</label>
                                 <input type="text" class="form-control"
-                                    value={role} onChange={(e) => setRole(e.target.value)}
+                                    value={Role} onChange={(e) => setRole(e.target.value)}
                                 />
 
                             </div>
                             <div class="col-md-4 position-relative">
                                 <label className="label">Salary</label>
                                 <input type="text" class="form-control"
-                                    value={salary} onChange={(e) => setSalary(e.target.value)}
+                                    value={Salary} onChange={(e) => setSalary(e.target.value)}
                                 />
 
                             </div>
@@ -167,9 +183,8 @@ const Employees = () => {
 
 
 
-
         </>
     )
 }
 
-export default Employees
+export default EditEmployee

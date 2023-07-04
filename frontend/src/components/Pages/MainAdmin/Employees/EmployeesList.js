@@ -1,62 +1,49 @@
-import React,{useEffect, useState} from 'react'
-// import MainLayout from '../../Admin/Pages/MainLayout'
-import { Button, Container,Row, Table } from 'react-bootstrap'
-import { AiFillDashboard, AiFillDelete, AiFillEdit,  } from 'react-icons/ai'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { fetchleaves } from '../../reducer/action/leaveAction'
-// import Leave from './Leave'
-import { Link }  from "react-router-dom"
+import React, { useEffect, useState } from 'react'
+import { Button, Container, Row, Table } from 'react-bootstrap'
+import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai'
+import { Link } from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
 import ModalCamp from './ModalCamp';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 
+const baseURL = "http://localhost:4000/api/v1/employees"
 
-
-
-const EmployeesList = ({post}) => {
+const EmployeesList = ({ post }) => {
 
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState({});
-
-
-
+  const [get, setGetAll] = useState(null);
   const handleModel = () => {
     setOpen(true);
     setUser(post);
 
   }
+  useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setGetAll(response.data);
+    })
 
 
-//   const dispatch = useDispatch()
-//   const leaves = useSelector(state => state.leaves.item)
-//   const leavesStatus = useSelector(state => state.leaves.status)
-//   const error = useSelector(state => state.leaves.error)
+  }, [get])
 
- 
+  const deleteData = (id) => {
+    axios.delete(`http://localhost:4000/api/v1/employee/${id}`).then(response => {
+      toast.success("Guest has been deleted successfully")
+    })
+      .catch(error => {
+        console.log(error)
+      })
 
-//   useEffect(() => {
-//     if (leavesStatus === 'idle') {
-//       dispatch(fetchleaves())
-//     }
-//   }, [leavesStatus, dispatch])
-
-//   let content
-
-//   if (leavesStatus === 'loading') {
-//     content = <div>Loading...</div>
-//   } else if (leavesStatus === 'succeeded') {
-//     content = leaves.map(leave => <Leave key={leave.id} leave={leave} />)
-//   } else if (leavesStatus === 'failed') {
-//     content = <div>{error}</div>
-//   }
-
-
+  }
+  if (!get) return null;
 
   return (
 
     <>
-    <Container className='main-col' >
+      <Container className='main-col' >
         <Table striped bordered hover className='main-table'>
           <thead>
             <tr>
@@ -70,7 +57,7 @@ const EmployeesList = ({post}) => {
               <tr>
                 <th>
                   <div className='table-div' >
-                 
+
                     <Button className='table-btn' variant="light" >
                       <IoIosCreate />&nbsp;<Link to="/employees">Create</Link>
                     </Button>
@@ -87,69 +74,82 @@ const EmployeesList = ({post}) => {
       {/* <div className="post-table"> */}
       <div className='form-div'>
 
-<h5 className="w3-center w3-flat-midnight-blue w3-padding-48 w3-border-blue-grey w3-grey text text-center mb-5 mt-3">Room-Details</h5>
-<Container>
+        <h5 className="w3-center w3-flat-midnight-blue w3-padding-48 w3-border-blue-grey w3-grey text text-center mb-5 mt-3">Room-Details</h5>
+        <Container>
 
 
-<Table responsive>
- <table class="table table-bordered border-secondary">
-      <thead>
-        <tr>
-        
-         <th>Employee Name</th>
-          <th>Phone Number</th>
-          <th>Gender</th>
-          <th>Salary</th>
-          <th>Role</th>
-          <th>Action Edit</th>
-          <th>Action View</th>
-     </tr>
-      </thead>
-      <tbody>
-      <tr>
+          <Table responsive>
+            <table class="table table-bordered border-secondary">
+              <thead>
+                <tr>
 
-<td>keshav</td>
-<td>keshav</td>
-<td>keshav</td>
-<td>keshav</td>
-<td>keshav</td>
-<td>
-  <Link to="/employees">
-  
-    <Button className='table-btn' variant="light" >
-        &#9998;Edit
-    </Button> 
-    </Link>                   
-</td>
-<td>
-    <Button className='table-btn' variant="light" 
-      onClick={() => handleModel()}>
-        &#128065;View
-    </Button>
-    {open && (
-            <ModalCamp
-            
-              open={open}
-              setOpen={setOpen}
-              // updatePost={updatePost}
-              {...user}
-            />
-          )}
+                  <th>Employee Name</th>
+                  <th>Phone Number</th>
+                  <th>Address</th>
+                  <th>Email</th>
+                  <th>Gender</th>
+                  <th>Dob</th>
+                  <th>Role</th>
+                  <th>Salary</th>
+                  <th>Action Edit</th>
+                  <th>Action Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {get?.emp?.map((items) => (
+                  <tr>
 
-</td>
+                    <td>{items.Employee_Name}</td>
+                    <td>{items.Phone_Number}</td>
+                    <td>{items.Address}</td>
+                    <td>{items.Email}</td>
+                    <td>{items.Gender}</td>
+                    <td>{items.Dob}</td>
+                    <td>{items.Role}</td>
+                    <td>{items.Salary}</td>
 
-{/* <button className="view-btn">View </button> */}
-</tr>
-      </tbody>
-    </table>
-    </Table>
-    </Container>
+                    <td>
+                      <Link to={`/EditEmp/${items._id}`}>
+                        <Button className='table-btn' variant="light" >
+                          &#9998;Edit
+                        </Button>
+                      </Link>
+                    </td>
 
-    </div>
+                    <td>
+                      <Button className='table-btn' variant="light"
+                        onClick={(e) => { deleteData(items._id) }} value={"Delete"}
+                      >
+                        &#9998; Delete
+                      </Button>
+                    </td>
 
-    
-    
-    
+                    {/* <td>
+                      <Button className='table-btn' variant="light"
+                        onClick={() => handleModel()}>
+                        &#128065;View
+                      </Button>
+                      {open && (
+                        <ModalCamp
+                          open={open}
+                          setOpen={setOpen}
+                          {...user}
+                        />
+                      )}
+
+                    </td> */}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Table>
+        </Container>
+
+      </div>
+
+
+
+
     </>
 
   )
