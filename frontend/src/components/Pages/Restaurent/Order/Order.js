@@ -113,7 +113,7 @@ const Order = () => {
     event.preventDefault(); // Prevent the default form submission
 
     if (!table_Number || !order_Time || selectedItems.length === 0) {
-      toast.alert('Please fill in all the required fields and select at least one item.');
+      toast.error('Please fill in all the required fields and select at least one item.');
       return;
     }
 
@@ -133,10 +133,6 @@ const Order = () => {
       console.log(error.response);
     }
   };
-
-
-
-
 
   return (
     <>
