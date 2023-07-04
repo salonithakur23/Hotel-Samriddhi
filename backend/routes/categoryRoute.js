@@ -8,7 +8,7 @@ const router=express.Router();
 // for all students record
 router.route("/categories").get(getAllcategories);
 router.route("/category/new").post(createCategory);
-router.route("/category/:id").put(updatecategory).delete(deleteCategory).get(getCategoryDetail);
+router.route("/category/:id").put(updatecategory).get(getCategoryDetail).delete(deleteCategory);
 
 
 module.exports= router
