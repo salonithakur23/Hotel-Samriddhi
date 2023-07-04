@@ -12,18 +12,18 @@ const OrderSchema = new mongoose.Schema({
         // enum: ['Luxury', 'Delux', 'Normal', 'Super Delux']
     },
 
-    Item_Name: {
-        type: String,
-        required: [true, "Please enter your Item Name"],
-    },
-    Price: {
-        type: Number,
-        required: [true, "Please enter your Item Number"],
-    },
-    Quantity: {
-        type: Number,
-        required: [true, "Please enter your Item Quantity"],
-    },
+    // Item_Name: {
+    //     type: String,
+    //     required: [true, "Please enter your Item Name"],
+    // },
+    // Price: {
+    //     type: Number,
+    //     required: [true, "Please enter your Item Number"],
+    // },
+    // Quantity: {
+    //     type: Number,
+    //     required: [true, "Please enter your Item Quantity"],
+    // },
     // Avilable_Not: {
     //     type: String,
     //     required: [true, "Room Avialable or Not "],

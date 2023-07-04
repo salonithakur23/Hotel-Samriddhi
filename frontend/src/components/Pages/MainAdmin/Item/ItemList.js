@@ -96,7 +96,6 @@ const ItemList = ({ items }) => {
                     <th>Category Type</th>
                     <th>Action Edit</th>
                     <th>Action Delete</th>
-                    <th>Action View</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -124,7 +123,7 @@ const ItemList = ({ items }) => {
                           &#128065;Delete
                         </Button>
                       </td>
-                      <td>
+                      {/* <td>
                       <Button className='table-btn' variant="light"
                         onClick={() => handleModel(items)}
                       >
@@ -137,7 +136,7 @@ const ItemList = ({ items }) => {
                         setOpen={setOpen}
                         {...user}
                       />
-                    )}
+                    )} */}
                     
                     </tr>
                   ))}

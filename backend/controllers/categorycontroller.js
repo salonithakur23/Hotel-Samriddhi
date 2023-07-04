@@ -59,6 +59,9 @@ exports.getCategoryDetail = async (req, res, next) => {
 
 };
 
+
+
+
 exports.updatecategory = async (req, res, next) => {
     let category = await Category.findById(req.params.id);
 

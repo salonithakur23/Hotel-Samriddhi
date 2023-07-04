@@ -33,7 +33,7 @@ const Order = () => {
   const [order_Time, setOrder_Time] = useState(null);
   const [category_Type, setCategory_Type] = useState(null)
   const [items, setItems] = useState([])
-  
+
 
 
 
@@ -44,7 +44,7 @@ const Order = () => {
         "Table_Number": table_Number,
         "Order_Time": order_Time,
         // "Category_Name": category_Type,
-      
+
 
       })
       alert("Order Submit Successfully")
@@ -61,13 +61,9 @@ const Order = () => {
       setItems(response.data.items);
       // console.log(response,"vv")
     })
-
-
   }
-
-
-
   console.log(items)
+
   const selectedItems = () => {
     return items?.map((item) => {
 
@@ -79,19 +75,13 @@ const Order = () => {
                 <Card.Body>
                   <Card.Text>
                     <Form.Check aria-label="option 1" />&nbsp;&nbsp;
-                    <p
-                    
-                      className="label"><span><b>Item Name</b></span>- {item.Item_Name} </p>
-                    <p
-                   
-                    ><span><b>Price</b></span> -{item.price}</p>
+                    <p className="label"><span><b>Item Name</b></span>- {item.Item_Name} </p>
+                    <p><span><b>Price</b></span> -{item.price}</p>
                     <div className="Opretor">
                       <button className='decrease'>-</button>
-                      <p className='qnatity'
-                      >0</p>
-                      <button  className='increase'>+</button>
+                      <p className='qnatity'>0</p>
+                      <button className='increase'>+</button>
                     </div>
-
                   </Card.Text>
                 </Card.Body>
               </Card>
