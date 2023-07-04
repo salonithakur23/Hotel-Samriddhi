@@ -101,14 +101,14 @@ const EditItem = () => {
                                 <label className="label">Item Name</label>
                                 <input type="text" className="form-control"
                                     value={Item_Name} onChange={(e) =>
-                                        setItem_Name(e.target.value)} required />
+                                        setItem_Name(e.target.value)}  />
 
 
                             </div>
 
                             <div class="col-md-4 position-relative">
                                 <label className="label">Price.</label>
-                                <input type="text" className="form-control" value={price} onChange={(e) => setPrice(e.target.value)} required />
+                                <input type="text" className="form-control" value={price} onChange={(e) => setPrice(e.target.value)}  />
 
 
                             </div>

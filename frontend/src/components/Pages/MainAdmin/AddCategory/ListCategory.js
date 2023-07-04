@@ -83,7 +83,7 @@ const ListCategory = () => {
                                         <tr>
                                             <td>{items.Category_Type}</td>
                                             <td>
-                                                <Link to={`/addcategory/${items._id}`}>
+                                                <Link to={`/Editcategory/${items._id}`}>
                                                     <Button className='table-btn'
 
                                                         variant="light" >

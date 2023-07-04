@@ -5,7 +5,6 @@ import { IoIosCreate } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-// import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
 

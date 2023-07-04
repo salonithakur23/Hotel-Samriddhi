@@ -62,6 +62,26 @@ exports.updateEmployee = async (req, res, next) => {
 }
 
 
+// get one employeee
+
+exports.getEmployeeDetail = async (req, res, next) => {
+    const employee = await Employee.findById(req.params.id);
+
+    if (!employee) {
+        return res.status(500).json({
+            success: false,
+            message: "Itme not Found"
+        });
+    }
+
+    res.status(200).json({
+        success: true,
+        employee,
+    })
+
+};
+
+
 exports.deleteEmployee = async (req, res, next) => {
 
     // req.body.student=req.student.id

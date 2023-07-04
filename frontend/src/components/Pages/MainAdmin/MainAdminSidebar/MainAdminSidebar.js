@@ -24,6 +24,11 @@ const MainAdminSidebar = ({children}) => {
       name: "Item ",
       icon: <BiFoodTag />
     },
+    {
+      path: "/add-category",
+      name: "Category ",
+      icon: <BiFoodTag />
+    },
     
     {
       path: "/add-rooms",
