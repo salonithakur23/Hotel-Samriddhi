@@ -5,10 +5,7 @@ const CategorySchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter your Item Number"],
     },
-    // Category_Price: {
-    //     type: Number,
-    //     required: [true, "Please enter your Item Number"],
-    // },
+
 });
 
 module.exports = mongoose.model("Category",CategorySchema);

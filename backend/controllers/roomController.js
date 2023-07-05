@@ -37,6 +37,24 @@ exports.getAllRoom = async (req, res) => {
 
 }
 
+// get single room 
+exports.getRoomDetail = async (req, res, next) => {
+    const room = await Room.findById(req.params.id);
+
+    if (!room) {
+        return res.status(500).json({
+            success: false,
+            message: "Room not Found"
+        });
+    }
+
+    res.status(200).json({
+        success: true,
+        room,
+    })
+
+};
+
 exports.updateRoom = async (req, res, next) => {
     let room1 = await Room.findById(req.params.id);
 

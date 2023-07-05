@@ -84,10 +84,9 @@ const AddCategoryForm = () => {
                                     type="submit"
                                     onClick={submitform}
                                 >
-                                    Submit
-                                </Button>
+                                  Submit
+                               </Button>
                             </center>
-
                         </form>
                     </Row>
                 </Container>

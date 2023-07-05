@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Col, Row, Table, Button } from 'react-bootstrap';
-import { AiFillDashboard } from 'react-icons/ai';
+
+
+import React, { useState ,useEffect} from 'react'
+// import HotelSidebar from '../../HotelSidebar'
+import { Container, Col, Row, Table, Button } from 'react-bootstrap'
+import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-icons/ai';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import Form from 'react-bootstrap/Form';
 import { IoIosCreate } from 'react-icons/io';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import './RoomBooking.css'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 
 const baseURL = " http://localhost:4000/api/v1/categories"
+
+
 
 const Item = () => {
 
@@ -47,19 +54,19 @@ const Item = () => {
       toast.danger("Item Add Successfully");
       navigate("/item-list");
     } catch (error) {
-      console.log(error.response);
-    }
-  };
+      console.log(error.response)
 
+    }
+  }
   return (
     <>
-      <Container style={{ width: "90%", marginTop: "20px" }}>
+
+
+      <Container style={{ width: "90%", marginTop: "20px" }} >
         <Table striped bordered hover className='main-table'>
           <thead>
             <tr>
-              <th>
-                <h5><AiFillDashboard /> &nbsp;Dasboard / Add New Item</h5>
-              </th>
+              <th><h5><AiFillDashboard /> &nbsp;Dasboard / Add New Item</h5></th>
             </tr>
           </thead>
         </Table>
@@ -69,7 +76,8 @@ const Item = () => {
               <tr>
                 <th>
                   <div className='table-div'>
-                    <Button className='table-btn' variant="light">
+
+                    <Button className='table-btn' variant="light" >
                       <IoIosCreate />&nbsp;<Link to="/item-list">Go Back</Link>
                     </Button>
                   </div>
@@ -80,7 +88,8 @@ const Item = () => {
           <hr />
         </Row>
       </Container>
-      <div className='form-div'>
+      {/* form section start */}
+      <div className='form-div' >
         <Container>
           <Row>
 
@@ -108,6 +117,7 @@ const Item = () => {
                   onChange={(e) => setPrice(e.target.value)}
                   required
                 />
+
               </div>
 
             
@@ -124,25 +134,29 @@ const Item = () => {
                    ))} 
                 </select> 
               </div>
-
-
               <center>
-                <Button
-                  className="stu_btn"
+
+                <Button className="stu_btn"
                   variant="success"
                   type="submit"
                   onClick={submitForm}
                 >
                   Submit
                 </Button>
+
               </center>
+
             </form>
           </Row>
         </Container>
       </div>
+
+
+
+
     </>
-  );
-};
+  )
+}
 
 export default Item;
 

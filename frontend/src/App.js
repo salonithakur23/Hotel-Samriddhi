@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Header from './components/Header/Header';
 import Home from './components/Pages/Home/Home';
 import Dashboard from './components/Pages/Hotel/AdminPage/Dashboard/Dashboard'
 import HotelSidebar from './components/Pages/Hotel/HotelSidebar';
@@ -20,17 +19,14 @@ import Room from "./components/Pages/MainAdmin/Rooms/Rooms";
 import RoomList from "./components/Pages/MainAdmin/Rooms/RoomList";
 import AddService from "./components/Pages/MainAdmin/AddService/AddService";
 import ServicesList from "./components/Pages/MainAdmin/AddService/ServicesList";
-
 import Employees from "./components/Pages/MainAdmin/Employees/Employees";
 import EmployeesList from "./components/Pages/MainAdmin/Employees/EmployeesList";
 import Guest from "./components/Pages/MainAdmin/GuestInformation/Guest";
 import GuestList from "./components/Pages/MainAdmin/GuestInformation/GuestList";
-
 import ResDashboard from "./components/Pages/Restaurent/ResDashboard/ResDashboard";
 import RestaurentSidebar from "./components/Pages/Restaurent/RestaurentSidebar";
 import Rooms from "./components/Pages/Hotel/AdminPage/Rooms/Rooms";
 import EditGuest from "./components/Pages/MainAdmin/GuestInformation/EditGuest";
-// import ResBilling from "./components/Pages/Restaurent/Res-Billing/ResBilling";
 import ResBilling from './components/Pages/Restaurent/Res-Billing/ResBilling'
 import Order from "./components/Pages/Restaurent/Order/Order";
 import Kot from "./components/Pages/Restaurent/KOT/Kot";
@@ -43,6 +39,7 @@ import AddCategoryForm from "./components/Pages/MainAdmin/AddCategory/AddCategor
 import EditCategory from "./components/Pages/MainAdmin/AddCategory/EditCategory";
 import ListCategory from "./components/Pages/MainAdmin/AddCategory/ListCategory";
 import SeeAllCategory from "./components/Pages/MainAdmin/AddCategory/SeeAllCategory/SeeAllCategory";
+import EditEmployee from "./components/Pages/MainAdmin/Employees/EditEmployee";
 
 
 function App() {
@@ -51,12 +48,10 @@ function App() {
     <>
       <Header />
       <ToastContainer position="top-center" />
-
       <Routes>
-        <Route>
- 
-          <Route path='/' element={<Home />} />
 
+        <Route>
+          <Route path='/' element={<Home />} />
           {/* hotel  sidebar routing start*/}
           <Route path="hotel-dashboard" element={<HotelSidebar><Dashboard /></HotelSidebar>} />
           <Route path='/roombooking' element={<RoomBooking />} />
@@ -74,7 +69,6 @@ function App() {
           <Route path="/order" element={<RestaurentSidebar><Order /></RestaurentSidebar>} />
           <Route path="/res-items" element={<RestaurentSidebar><ItemsForm /></RestaurentSidebar>} />
           <Route path="/res-billing" element={<RestaurentSidebar><ResBilling /></RestaurentSidebar>} />
-          {/* <Route path="/res-billing" element={<RestaurentSidebar><ResBilli /></RestaurentSidebar>} /> */}
           <Route path="/KOT" element={<RestaurentSidebar><Kot /></RestaurentSidebar>} />
           <Route path="/KOT/:orderId" element={<RestaurentSidebar><Kot /></RestaurentSidebar>} />
           <Route path="/BILL" element={<RestaurentSidebar><Bill /></RestaurentSidebar>} />
@@ -92,62 +86,23 @@ function App() {
           <Route path="/add-rooms" element={<MainAdminSidebar><Room /></MainAdminSidebar>} />
           <Route path="/room-list" element={<MainAdminSidebar><RoomList /></MainAdminSidebar>} />
           <Route path="/roomEdit/:id" element={<MainAdminSidebar><RoomEdit /></MainAdminSidebar>} />
-          {/* <Route path="/room-service-list"  element={<MainAdminSidebar><RoomServiceList/></MainAdminSidebar>}/> */}
           <Route path="/services" element={<MainAdminSidebar><AddService /></MainAdminSidebar>} />
           <Route path="/service-list" element={<MainAdminSidebar><ServicesList /></MainAdminSidebar>} />
           <Route path="/serviceEdit/:id" element={<MainAdminSidebar><ServiceEdit /></MainAdminSidebar>} />
           <Route path="/employees" element={<MainAdminSidebar><Employees /></MainAdminSidebar>} />
-          <Route path="/employees-list" element={<MainAdminSidebar><EmployeesList /></MainAdminSidebar>} />
+          <Route path="/employee-list" element={<MainAdminSidebar><EmployeesList /></MainAdminSidebar>} />
+          <Route path="/EditEmp/:id" element={<MainAdminSidebar><EditEmployee /></MainAdminSidebar>} />
           <Route path="/add-guest" element={<MainAdminSidebar><Guest /></MainAdminSidebar>} />
           <Route path="/guest/:id" element={<MainAdminSidebar><EditGuest /></MainAdminSidebar>} />
           <Route path="/guest-list" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} />
           <Route path="/view/:id" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} /> 
           <Route path="/add-category" element={<MainAdminSidebar><AddCategoryForm /></MainAdminSidebar>} /> 
           <Route path="/list-category" element={<MainAdminSidebar><ListCategory /></MainAdminSidebar>} /> 
-          <Route path="/addcategory/:id" element={<MainAdminSidebar><EditCategory /></MainAdminSidebar>} /> 
+          <Route path="/Editcategory/:id" element={<MainAdminSidebar><EditCategory /></MainAdminSidebar>} /> 
           <Route path="/seeallcategory" element={<MainAdminSidebar><SeeAllCategory /></MainAdminSidebar>} /> 
-
-
           {/* Admin  sidebar routing end*/}
-
-
-
-          {/* <Route
-            exact
-            path="/roombooking"
-            element={
-              <PrivateRoute>
-                <HotelSidebar>
-                  <RoomBooking />
-                </HotelSidebar>
-              </PrivateRoute>
-            }
-          /> */}
         </Route>
       </Routes>
-
-
-      {/* <Router>
-        <AuthProvider value={{ currentUser, timeActive, setTimeActive }}>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path="/hotel" element={<HotelSidebar />} />
-            <Route path="/restauren" element={<RestaurentSidebar />} />
-            <Route
-              exact
-              path="/roombooking"
-              element={
-                <PrivateRoute>
-                  <HotelSidebar>
-                    <RoomBooking />
-                  </HotelSidebar>
-                </PrivateRoute>
-              }
-            />
-
-          </Routes>
-        </AuthProvider>
-      </Router> */}
     </>
   );
 }
