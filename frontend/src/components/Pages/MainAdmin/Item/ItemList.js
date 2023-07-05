@@ -8,7 +8,7 @@ import { IoIosCreate } from "react-icons/io";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import ModalComp from './ModalCamp ';
-
+import './item.css'
 
 
 const baseURL = "http://localhost:4000/api/v1/items"
@@ -120,7 +120,7 @@ const ItemList = ({ items }) => {
                          variant="light" onClick={(e) => 
                           { deleteData(items._id) }} value={"Delete"}
                         >
-                          &#128065;Delete
+                        <span className='delete-icon'>&#x2717;</span>Delete
                         </Button>
                       </td>
                       {/* <td>
