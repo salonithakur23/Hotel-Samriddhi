@@ -179,6 +179,12 @@ const SeeAllCategory = () => {
               </div>
               <hr></hr>
 
+             
+
+
+           
+
+
               
 
               {/* <center>
@@ -197,6 +203,8 @@ const SeeAllCategory = () => {
               <Col sm={3} className='Item-container' >
                 {selectedItems()}
               </Col>
+
+             
 
             </form>
           </Row>

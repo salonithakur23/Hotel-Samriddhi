@@ -1,7 +1,8 @@
 .nav-container {
     width: 100%;
     height: 100px;
-    background-image: linear-gradient(rgb(8, 17, 24), rgb(63, 85, 104));
+    /* background-image: linear-gradient(rgb(8, 17, 24), rgb(63, 85, 104)); */
+    background-color: #063a41;
 }
 
 .logo-link {

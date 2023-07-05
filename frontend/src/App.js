@@ -40,6 +40,7 @@ import EditCategory from "./components/Pages/MainAdmin/AddCategory/EditCategory"
 import ListCategory from "./components/Pages/MainAdmin/AddCategory/ListCategory";
 import SeeAllCategory from "./components/Pages/MainAdmin/AddCategory/SeeAllCategory/SeeAllCategory";
 import EditEmployee from "./components/Pages/MainAdmin/Employees/EditEmployee";
+import EditResBilling from "./components/Pages/Restaurent/Res-Billing/EditResBilling";
 
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
           <Route path="/restaurent-dashboard" element={<RestaurentSidebar><ResDashboard /></RestaurentSidebar>} />
           <Route path="/order" element={<RestaurentSidebar><Order /></RestaurentSidebar>} />
           <Route path="/res-items" element={<RestaurentSidebar><ItemsForm /></RestaurentSidebar>} />
+          <Route path="/Editres/:id" element={<RestaurentSidebar><EditResBilling /></RestaurentSidebar>} />
           <Route path="/res-billing" element={<RestaurentSidebar><ResBilling /></RestaurentSidebar>} />
           <Route path="/KOT" element={<RestaurentSidebar><Kot /></RestaurentSidebar>} />
           <Route path="/BILL" element={<RestaurentSidebar><Bill /></RestaurentSidebar>} />
