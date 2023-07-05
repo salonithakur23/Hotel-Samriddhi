@@ -96,7 +96,7 @@ const ListCategory = () => {
                                                     variant="light"
                                                     onClick={(e) => { deleteData(items._id) }} value={"Delete"}
                                                 >
-                                                    &#128065;Delete
+                                                    <span className='delete-icon'>&#x2717;</span>Delete
                                                 </Button>
                                             </td>
                                         </tr>

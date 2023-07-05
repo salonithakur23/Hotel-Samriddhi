@@ -120,7 +120,7 @@ const EmployeesList = ({ post }) => {
                       <Button className='table-btn' variant="light"
                         onClick={(e) => { deleteData(items._id) }} value={"Delete"}
                       >
-                        &#9998; Delete
+                        <span className='delete-icon'>&#x2717;</span>Delete
                       </Button>
                     </td>
 

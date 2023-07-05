@@ -4,8 +4,9 @@ import { FaBars,FaBookReader, FaTh, FaBowlFood, } from 'react-icons/fa'
 import {  AiOutlineOrderedList, AiOutlineProfile } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import { BiFoodTag } from "react-icons/bi";
-import { MdOutlineMeetingRoom,MdRoomService ,MdOutlineControlPointDuplicate} from 'react-icons/md';
-
+import { MdOutlineMeetingRoom,MdRoomService ,MdOutlineControlPointDuplicate, MdOutlineCategory} from 'react-icons/md';
+import { GrCircleInformation } from "react-icons/gr";
+import { IoIosInformationCircle } from 'react-icons/io';
 
 const MainAdminSidebar = ({children}) => {
 
@@ -27,7 +28,7 @@ const MainAdminSidebar = ({children}) => {
     {
       path: "/add-category",
       name: "Category ",
-      icon: <BiFoodTag />
+      icon: <MdOutlineCategory />
     },
     
     {
@@ -49,13 +50,9 @@ const MainAdminSidebar = ({children}) => {
       {
         path: "/add-guest",
         name: "Guest Information",
-        icon: <AiOutlineOrderedList />
+        icon: <IoIosInformationCircle />
       },
-      {
-        path: "/dublicate-bills",
-        name: "Dublicate Bills",
-        icon: <MdOutlineControlPointDuplicate />
-      },
+    
 
 ]
   return (
