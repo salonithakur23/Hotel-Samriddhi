@@ -27,6 +27,17 @@ const ResBilling = () => {
     return total;
   };
 
+  if (orders.length === 0) {
+    return (
+      <div className="no-orders">
+        <h3>There is no order yet.</h3>
+        <Button className="table-btn" variant="light">
+          <IoIosCreate />&nbsp;<Link to="/order">Create an Order</Link>
+        </Button>
+      </div>
+    );
+  }
+
   return (
 
 
