@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 
 const baseURL = 'http://localhost:4000/api/v1/orders';
 
+
 const ResBilling = () => {
   const [orders, setOrders] = useState([]);
 
@@ -27,6 +28,8 @@ const ResBilling = () => {
   };
 
   return (
+
+
     <>
       <Container className="main-col">
         <Table striped bordered hover className="main-table">
@@ -107,15 +110,17 @@ const ResBilling = () => {
                     </h5>
                   </Table>
                   <div className="d-flex text-center">
-                    <Link to="/KOT">
+                  <Link to={`/KOT/${order._id}`}>
                       <Button className="table-btn " variant="light">
-                        &#128065;KOT
+                        &#128065; KOT
                       </Button>
                     </Link>
-                    <Button className="table-btn " variant="light">
-                      &#9998; Edit
-                    </Button>
-                    <Link to="/BILL">
+                    <Link to={`/Edit/${order._id}`}>
+                      <Button className="table-btn " variant="light">
+                        &#128065; Edit
+                      </Button>
+                    </Link>
+                    <Link to={`/bill/${order._id}`}>
                       <Button className="table-btn " variant="light">
                         &#128065; Bill
                       </Button>
