@@ -69,7 +69,7 @@ function App() {
           <Route path="/restaurent-dashboard" element={<RestaurentSidebar><ResDashboard /></RestaurentSidebar>} />
           <Route path="/order" element={<RestaurentSidebar><Order /></RestaurentSidebar>} />
           <Route path="/res-items" element={<RestaurentSidebar><ItemsForm /></RestaurentSidebar>} />
-          <Route path="/Editres/:id" element={<RestaurentSidebar><EditResBilling /></RestaurentSidebar>} />
+          <Route path="/EditResBilling/:id" element={<RestaurentSidebar><EditResBilling /></RestaurentSidebar>} />
           <Route path="/res-billing" element={<RestaurentSidebar><ResBilling /></RestaurentSidebar>} />
           <Route path="/KOT" element={<RestaurentSidebar><Kot /></RestaurentSidebar>} />
           <Route path="/KOT/:orderId" element={<RestaurentSidebar><Kot /></RestaurentSidebar>} />
