@@ -1,23 +1,28 @@
-.category{
-    width: 100%;
-    height: 50px; 
-    background-color: rgba(244, 237, 237, 0.716);
-    text-align: center;
-    padding-top: 15px;
+
+
+  .item-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    color: white !important;
+   
+  }
+  
+  .item-container {
+    flex: 0 0 25%;
+     /* Adjust this value to control the width of each column */
+    margin-bottom: 20px;
     
+  
+  }
+  .card-item {
 
+    /* background-color: #19535b; */
+    /* color: white !important; */
+    background-color: rgb(218, 210, 210);
+
+   
     
-}
+  }
 
-.btn-category{
-    background-color: #063a41 !important;
-    width: 50%;
-    height: 50px;
-    margin-left: 50px;
-}
-
-.card-item{
-    width: 100%;
-    height: 50px;
-    background-color:beige;
-}
+  

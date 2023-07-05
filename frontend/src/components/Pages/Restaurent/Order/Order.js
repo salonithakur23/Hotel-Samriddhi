@@ -58,10 +58,10 @@ const Order = () => {
   };
 
   const selectedItemsList = items?.map((item) => (
-    <div key={item.Item_Name}>
-      <Container>
+    <div key={item.Item_Name} className="item-container">
+      {/* <Container>
         <Row>
-          <Col sm={3}>
+          <Col sm={3}> */}
             <Card style={{ width: "15rem" }}>
               <Card.Body>
                 <Card.Text>
@@ -105,9 +105,9 @@ const Order = () => {
                 </Card.Text>
               </Card.Body>
             </Card>
-          </Col>
+          {/* </Col>
         </Row>
-      </Container>
+      </Container> */}
     </div>
   ));
   const submitform = async (event) => {
@@ -205,9 +205,15 @@ const Order = () => {
                 </Form.Select>
               </div>
 
-              <Col sm={3} className='Item-container'>
+              <hr></hr>
+
+              {/* <Col sm={3} className='Item-container'> */}
+              <Container>
+    <div className="item-row">
                 {selectedItemsList}
-              </Col>
+                </div>
+                </Container>
+              {/* </Col> */}
 
               <center>
                 <Button
