@@ -126,7 +126,7 @@ const ResBilling = () => {
                         &#128065; KOT
                       </Button>
                     </Link>
-                    <Link to={`/Edit/${order._id}`}>
+                    <Link to={`/EditResBilling/${order._id}`}>
                       <Button className="table-btn " variant="light">
                         &#128065; Edit
                       </Button>
