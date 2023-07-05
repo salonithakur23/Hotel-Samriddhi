@@ -21,6 +21,7 @@ const roomservice = require("./routes/roomServiceRoute")
 const roombooking = require("./routes/roomBookingRoute")
 const order = require("./routes/orderRoute")
 const category = require("./routes/categoryRoute")
+const bill = require("./routes/billRoute")
 
 
 
@@ -32,7 +33,9 @@ app.use("/api/v1",guest);
 app.use("/api/v1",roomservice);
 app.use("/api/v1",roombooking);
 app.use("/api/v1",order);
-app.use("/api/v1",category)
+app.use("/api/v1",category);
+app.use("/api/v1",bill)
+
 
 
 
