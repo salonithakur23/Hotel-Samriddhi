@@ -70,7 +70,10 @@ function App() {
           <Route path="/res-items" element={<RestaurentSidebar><ItemsForm /></RestaurentSidebar>} />
           <Route path="/res-billing" element={<RestaurentSidebar><ResBilling /></RestaurentSidebar>} />
           <Route path="/KOT" element={<RestaurentSidebar><Kot /></RestaurentSidebar>} />
+          <Route path="/KOT/:orderId" element={<RestaurentSidebar><Kot /></RestaurentSidebar>} />
           <Route path="/BILL" element={<RestaurentSidebar><Bill /></RestaurentSidebar>} />
+          <Route path="/bill/:orderId" element={<RestaurentSidebar><Bill /></RestaurentSidebar>} />
+
           {/* Restaurent  sidebar routing end*/}
 
 
