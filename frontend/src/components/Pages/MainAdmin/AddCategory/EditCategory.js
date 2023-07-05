@@ -7,7 +7,11 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 
+
+
 const EditCategory = () => {
+
+
   const params = useParams();
   const navigate = useNavigate();
   const [specificItem, setSpecificItem] = useState("");
@@ -19,6 +23,7 @@ const EditCategory = () => {
       setCategory_Type(response.data.category.Category_Type);
     });
   }, []);
+  
 
   const submitForm = () => {
     try {
@@ -33,7 +38,10 @@ const EditCategory = () => {
   };
 
   return (
+
     <>
+
+
       <Container style={{ width: "90%", marginTop: "20px" }}>
         <Table striped bordered hover className="main-table">
           <thead>
