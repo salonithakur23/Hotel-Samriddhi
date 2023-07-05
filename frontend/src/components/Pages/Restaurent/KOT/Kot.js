@@ -25,13 +25,25 @@ const Kot = () => {
     fetchOrder();
   }, [orderId]);
 
+  // const handlePrintKOT = () => {
+  //   const printContent = document.getElementById('billing-card').innerHTML;
+  //   const originalContent = document.body.innerHTML;
+  //   document.body.innerHTML = printContent;
+  //   window.print();
+  //   document.body.innerHTML = originalContent;
+  // };
   const handlePrintKOT = () => {
+    const printButton = document.getElementById('print-button');
+    printButton.style.display = 'none';
+  
     const printContent = document.getElementById('billing-card').innerHTML;
     const originalContent = document.body.innerHTML;
     document.body.innerHTML = printContent;
     window.print();
     document.body.innerHTML = originalContent;
+  
   };
+  
 
   if (!order) {
     return <div>Loading...</div>;
@@ -81,7 +93,7 @@ const Kot = () => {
                     <thead>
                       <tr>
                         <th>Item</th>
-                        <th>Price</th>
+                        {/* <th>Price</th> */}
                         <th>Quantity</th>
                       </tr>
                     </thead>
@@ -89,7 +101,7 @@ const Kot = () => {
                       {order.Items.map((item) => (
                         <tr key={item._id}>
                           <td>{item.Item_Name}</td>
-                          <td>{item.Price}</td>
+                          {/* <td>{item.Price}</td> */}
                           <td>{item.Quantity}</td>
                         </tr>
                       ))}
@@ -99,7 +111,7 @@ const Kot = () => {
                 </Table>
 
                 <div className="d-flex text-center">
-                  <Button className="table-btn d-flex" variant="light" onClick={handlePrintKOT}>
+                  <Button className="table-btn d-flex" id="print-button" variant="light" onClick={handlePrintKOT}>
                     &#128065; Print KOT
                   </Button>
                 </div>

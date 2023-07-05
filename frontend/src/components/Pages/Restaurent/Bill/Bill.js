@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Row, Table } from 'react-bootstrap'
-import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai'
-import { Link } from "react-router-dom"
-import { IoIosCreate } from "react-icons/io";
-import './Bill.css'
+import { Button, Col, Container, Row, Table } from 'react-bootstrap';
+import { AiFillDashboard } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import { IoIosCreate } from 'react-icons/io';
+import './Bill.css';
 
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -11,6 +11,7 @@ import axios from 'axios';
 const Bill = () => {
   const { orderId } = useParams();
   const [order, setOrder] = useState(null);
+  const [gstAmount, setGstAmount] = useState(0);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -35,13 +36,22 @@ const Bill = () => {
         // ...
       };
 
-      axios.post(billAPI, resbillingData)
-        .then(response => {
+      axios
+        .post(billAPI, resbillingData)
+        .then((response) => {
           console.log(response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Error:', error);
         });
+    }
+  }, [order]);
+
+  useEffect(() => {
+    if (order) {
+      const total = calculateTotal(order.Items);
+      const gst = (total * 5) / 100; // Calculate GST amount
+      setGstAmount(gst);
     }
   }, [order]);
 
@@ -59,11 +69,15 @@ const Bill = () => {
 
   return (
     <>
-      <Container className='main-col'>
-        <Table striped bordered hover className='main-table'>
+      <Container className="main-col">
+        <Table striped bordered hover className="main-table">
           <thead>
             <tr>
-              <th><h5><AiFillDashboard /> &nbsp; Dashboard/ Bill</h5></th>
+              <th>
+                <h5>
+                  <AiFillDashboard /> &nbsp; Dashboard/ Bill
+                </h5>
+              </th>
             </tr>
           </thead>
         </Table>
@@ -72,8 +86,8 @@ const Bill = () => {
             <thead>
               <tr>
                 <th>
-                  <div className='table-div' >
-                    <Button className='table-btn' variant="light" >
+                  <div className="table-div">
+                    <Button className="table-btn" variant="light">
                       <IoIosCreate />&nbsp;<Link to="/order">Create</Link>
                     </Button>
                   </div>
@@ -85,12 +99,12 @@ const Bill = () => {
         </Row>
       </Container>
 
-      <div className='form-div'>
+      <div className="form-div">
         <Container>
           <Row>
             <Col sm={4}>
-              <div className='billing-card'>
-                <h3 className='res-name'>Samriddhi</h3>
+              <div className="billing-card">
+                <h3 className="res-name">Samriddhi</h3>
                 <h5>Phone.no: <span>8796541234</span></h5>
                 <h5>Address: <span>mansrowar</span></h5>
                 <h5>Gst.no: <span>1</span></h5>
@@ -111,7 +125,7 @@ const Bill = () => {
                         <tr key={item._id}>
                           <td>{item.Item_Name}</td>
                           <td>{item.Price}</td>
-                          <td>{ item.Quantity}</td>
+                          <td>{item.Quantity}</td>
                           <td>{item.Price * item.Quantity}</td>
                         </tr>
                       ))}
@@ -119,6 +133,8 @@ const Bill = () => {
                   </table>
                   <hr />
                   <h5 className="mt-2">Total: <span className="float-end">{calculateTotal(order.Items)}</span></h5>
+                  <h5 className="mt-2">GST (5%): <span className="float-end">{gstAmount.toFixed(2)}</span></h5>
+                  <h5 className="mt-2">Total (incl. GST): <span className="float-end">{(calculateTotal(order.Items) + gstAmount).toFixed(2)}</span></h5>
                 </Table>
 
                 <div className="d-flex text-center">
