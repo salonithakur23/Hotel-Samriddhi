@@ -11,6 +11,7 @@ import axios from 'axios';
 const Bill = () => {
   const { orderId } = useParams();
   const [order, setOrder] = useState(null);
+  const [gstAmount, setGstAmount] = useState(0);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -24,6 +25,37 @@ const Bill = () => {
 
     fetchOrder();
   }, [orderId]);
+  useEffect(() => {
+    if (order) {
+      const billAPI = 'http://localhost:4000/api/v1/bills'; // Replace with the actual URL of your Bill API endpoint
+
+      const resbillingData = {
+        orderId: order._id,
+        // Extract other required data from the order object and pass it to the Bill API
+        // ...
+      };
+
+      axios
+        .post(billAPI, resbillingData)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+  }, [order]);
+  useEffect(() => {
+    if (order) {
+      const total = calculateTotal(order.Items);
+      const gst = (total * 5) / 100; // Calculate GST amount
+      setGstAmount(gst);
+    }
+  }, [order]);
+
+  if (!order) {
+    return <div>Loading...</div>;
+  }
 
   const calculateTotal = (items) => {
     let total = 0;
@@ -156,6 +188,8 @@ const Bill = () => {
                   <h5 className="mt-2">
                     Total Price: <span className="float-end">{calculateTotal(order.Items)}</span>
                   </h5>
+                  <h5 className="mt-2">GST (5%): <span className="float-end">{gstAmount.toFixed(2)}</span></h5>
+                  <h5 className="mt-2">Total (incl. GST): <span className="float-end">{(calculateTotal(order.Items) + gstAmount).toFixed(2)}</span></h5>
                 </Table>
 
                 <div className="d-flex text-center">
