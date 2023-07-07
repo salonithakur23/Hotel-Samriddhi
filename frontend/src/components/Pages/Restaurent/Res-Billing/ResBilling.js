@@ -78,21 +78,21 @@ const ResBilling = () => {
             {orders.map((order) => (
               <Col sm={4} key={order._id}>
                 <div className="billing-card">
-                  <h3 className="res-name">Samriddhi</h3>
+                  <h3 className="res-name">Samriddhi Hotel</h3>
                   <h5>
                     Phone.no : <span>8796541234</span>
                   </h5>
                   <h5>
-                    Address : <span>mansrowar</span>
+                    Address : <span>Mansrowar</span>
                   </h5>
                   <h5>
                     Gst.no : <span>1</span>
                   </h5>
                   <h5>
-                    Order Date&Time :<span>{order.Order_Time}</span>
+                    Order Date&Time :<span> {order.Order_Time}</span>
                   </h5>
                   <h5>
-                    Table No. :<span>{order.Table_Number}</span>
+                    Table No :<span> {order.Table_Number}</span>
                   </h5>
                   <Table responsive>
                     <table className="table table-bordered border-secondary">

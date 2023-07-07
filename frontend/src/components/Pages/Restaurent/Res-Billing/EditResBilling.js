@@ -88,9 +88,6 @@ const EditResBilling = () => {
       setSelectedItems(updatedItems);
     }
   };
-
-
-
   const selectedItemsList = items?.map((item) => (
     <div key={item.Item_Name}>
       <Container>
@@ -153,7 +150,6 @@ const EditResBilling = () => {
   const [Order_Time, setOrder_Time] = useState(specificGuest.Order_Time);
   const [Category_Type, setCategory_Type] = useState(specificGuest.Category_Type)
 
-  // console.log(specificGuest, "Check id from url")
   useEffect(() => {
     axios.get(`http://localhost:4000/api/v1/order/${params.id}`).then((response) => {
       setSpecificGuest(response.data);
@@ -202,7 +198,7 @@ const EditResBilling = () => {
           <thead>
             <tr>
               <th>
-                <h5><AiFillDashboard /> &nbsp;Dashboard / Add New Order</h5>
+                <h5><AiFillDashboard /> &nbsp;Dashboard / Edit Order</h5>
               </th>
             </tr>
           </thead>
