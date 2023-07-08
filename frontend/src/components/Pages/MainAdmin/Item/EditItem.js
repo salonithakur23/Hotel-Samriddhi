@@ -8,6 +8,7 @@ import { IoIosCreate } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Layout from '../../../Header/Layout';
 
 const baseURL = " http://localhost:4000/api/v1/categories"
 
@@ -63,6 +64,8 @@ const EditItem = () => {
 
     return (
         <>
+
+        <Layout />
             <Container style={{ width: "90%", marginTop: "20px" }} >
                 <Table striped bordered hover className='main-table'>
                     <thead>

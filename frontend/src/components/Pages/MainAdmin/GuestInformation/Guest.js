@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import Layout from '../../../Header/Layout';
 
 
 const Guest = () => {
@@ -55,6 +56,7 @@ const Guest = () => {
 
   return (
     <>
+    <Layout />
       <ToastContainer position='top-center' />
 
       <Container style={{ width: '90%', marginTop: '20px' }}>

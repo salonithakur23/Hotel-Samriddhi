@@ -9,6 +9,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import ModalComp from './ModalCamp ';
 import './item.css'
+import Layout from '../../../Header/Layout';
 
 
 const baseURL = "http://localhost:4000/api/v1/items"
@@ -47,9 +48,11 @@ const ItemList = ({ items }) => {
   }
   if (!get) return null;
 
+
   return (
 
     <>
+    <Layout />
       <Container className='main-col'  >
         <Table striped bordered hover className='main-table'>
           <thead>

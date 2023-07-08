@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { IoIosCreate } from 'react-icons/io';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Layout from '../../../Header/Layout';
 
 const baseURL = 'http://localhost:4000/api/v1/orders';
 
@@ -67,6 +68,7 @@ const ResBilling = () => {
 
 
     <>
+    <Layout />
       <Container className="main-col">
         <Table striped bordered hover className="main-table">
           <thead>

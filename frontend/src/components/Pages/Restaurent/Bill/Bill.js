@@ -7,6 +7,7 @@ import './Bill.css';
 
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Layout from '../../../Header/Layout';
 
 const Bill = () => {
   const { orderId } = useParams();
@@ -101,6 +102,7 @@ const Bill = () => {
 
   return (
     <>
+    <Layout />
       <Container className="main-col">
         <Table striped bordered hover className="main-table">
           <thead>

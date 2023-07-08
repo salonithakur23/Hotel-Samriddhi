@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Layout from '../../../Header/Layout';
 
 
 const EditGuest = () => {
@@ -71,6 +72,7 @@ const EditGuest = () => {
 
   return (
     <>
+    <Layout />
       <Container style={{ width: '90%', marginTop: '20px' }}>
         <Table striped bordered hover className='main-table'>
           <thead>
