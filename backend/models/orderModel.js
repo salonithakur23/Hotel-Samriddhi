@@ -10,6 +10,11 @@ const OrderSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter the order time"],
   },
+  Status:{
+    type:String,
+    required:true,
+
+  },
   Items: [
     {
       Item_Name: {

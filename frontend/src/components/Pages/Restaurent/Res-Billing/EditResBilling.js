@@ -155,6 +155,7 @@ const EditResBilling = () => {
       setSpecificGuest(response.data);
       setTable_Number(response.data.order.Table_Number);
       setOrder_Time(response.data.order.Order_Time);
+      
       const selectedItemsFromOrder = response.data.order.Items.map((item) => ({
         Item_Name: item.Item_Name,
         price: item.Price
