@@ -64,7 +64,7 @@ const Kot = () => {
                                 <th>
                                     <div className='table-div' >
                                         <Button className='table-btn' variant="light" >
-                                            <IoIosCreate />&nbsp;<Link to="/order">Create</Link>
+                                            <IoIosCreate />&nbsp;<Link to="/res-billing">Create</Link>
                                         </Button>
                                     </div>
                                 </th>

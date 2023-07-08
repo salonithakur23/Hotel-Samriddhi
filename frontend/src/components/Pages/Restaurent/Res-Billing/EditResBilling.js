@@ -7,6 +7,7 @@ import { IoIosCreate } from 'react-icons/io'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import ModalCamp from '../Order/ModalCamp'
 import Layout from '../../../Header/Layout'
 
 
@@ -14,8 +15,15 @@ import Layout from '../../../Header/Layout'
 const baseURL = "http://localhost:4000/api/v1/categories";
 const allItem = "http://localhost:4000/api/v1/items?Category_Name=";
 
+const EditResBilling = ({post}) => {
 
-const EditResBilling = () => {
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState({});
+  const handleModel = () => {
+    setOpen(true);
+    setUser(post);
+  };
+
   const [get, setGetAll] = useState(null);
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -209,6 +217,23 @@ const EditResBilling = () => {
       <div className='form-div'>
         <Container>
           <Row>
+          <td>
+              <Button
+                onClick={handleModel}
+                variant="success"
+                className="All-order float-end"
+              >
+                Preview
+              </Button>
+              {open && (
+                <ModalCamp
+                  open={open}
+                  setOpen={setOpen}
+                  selectedItems={selectedItems}
+                  itemQuantities={itemQuantities}
+                />
+              )}
+            </td>
             <form className="row g-4 p-3 registration-form">
               <div className="col-md-4 position-relative">
                 <label className="label">Table Number</label>

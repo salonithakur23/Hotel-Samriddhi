@@ -158,7 +158,7 @@ const ResBilling = () => {
                     </Link>
                     <Link to={`/EditResBilling/${order._id}`}>
                       <Button className="table-btn " variant="light">
-                        &#128065; Edit
+                        &#128065;Edit
                       </Button>
                     </Link>
                     <Link to={`/bill/${order._id}`}>
