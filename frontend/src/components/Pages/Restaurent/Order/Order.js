@@ -12,7 +12,6 @@ import { toast } from 'react-toastify';
 const baseURL = "http://localhost:4000/api/v1/categories";
 const allItem = "http://localhost:4000/api/v1/items?Category_Name=";
 
-
 const Order = () => {
   const [get, setGetAll] = useState(null);
   const [table_Number, setTable_Number] = useState('');
@@ -32,9 +31,15 @@ const Order = () => {
 
   const handleCategoriesItem = (val) => {
     setCategory_Type(val);
-    axios.get(allItem + val).then((response) => {
-      setItems(response.data.items);
-    });
+    if (val === "See All") {
+      axios.get("http://localhost:4000/api/v1/items").then((response) => {
+        setItems(response.data.items);
+      });
+    } else {
+      axios.get(allItem + val).then((response) => {
+        setItems(response.data.items);
+      });
+    }
   };
 
   const handleCheckboxChange = (event, item) => {
@@ -59,57 +64,52 @@ const Order = () => {
 
   const selectedItemsList = items?.map((item) => (
     <div key={item.Item_Name} className="item-container">
-      {/* <Container>
-        <Row>
-          <Col sm={3}> */}
-            <Card style={{ width: "15rem" }}>
-              <Card.Body>
-                <Card.Text>
-                  <Form.Check
-                    aria-label="option 1"
-                    onChange={(e) => handleCheckboxChange(e, item)}
-                  />&nbsp;&nbsp;
-                  <p className="label">
-                    <span><b>Item Name</b></span>- {item.Item_Name}
-                  </p>
-                  <p><span><b>Price</b></span> -{item.price}</p>
-                  <div className="Opretor">
-                    <button
-                      type="button"
-                      className='decrease'
-                      onClick={() => {
-                        if (itemQuantities[item.Item_Name] > 1) {
-                          setItemQuantities((prevItemQuantities) => ({
-                            ...prevItemQuantities,
-                            [item.Item_Name]: prevItemQuantities[item.Item_Name] - 1
-                          }));
-                        }
-                      }}
-                    >
-                      -
-                    </button>
-                    <p className='quantity'>{itemQuantities[item.Item_Name] || 1}</p>
-                    <button
-                      type="button"
-                      className='increase'
-                      onClick={() => {
-                        setItemQuantities((prevItemQuantities) => ({
-                          ...prevItemQuantities,
-                          [item.Item_Name]: (prevItemQuantities[item.Item_Name] || 1) + 1
-                        }));
-                      }}
-                    >
-                      +
-                    </button>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          {/* </Col>
-        </Row>
-      </Container> */}
+      <Card style={{ width: "15rem" }}>
+        <Card.Body>
+          <Card.Text>
+            <Form.Check
+              aria-label="option 1"
+              onChange={(e) => handleCheckboxChange(e, item)}
+            />&nbsp;&nbsp;
+            <p className="label">
+              <span><b>Item Name</b></span>- {item.Item_Name}
+            </p>
+            <p><span><b>Price</b></span> -{item.price}</p>
+            <div className="Opretor">
+              <button
+                type="button"
+                className='decrease'
+                onClick={() => {
+                  if (itemQuantities[item.Item_Name] > 1) {
+                    setItemQuantities((prevItemQuantities) => ({
+                      ...prevItemQuantities,
+                      [item.Item_Name]: prevItemQuantities[item.Item_Name] - 1
+                    }));
+                  }
+                }}
+              >
+                -
+              </button>
+              <p className='quantity'>{itemQuantities[item.Item_Name] || 1}</p>
+              <button
+                type="button"
+                className='increase'
+                onClick={() => {
+                  setItemQuantities((prevItemQuantities) => ({
+                    ...prevItemQuantities,
+                    [item.Item_Name]: (prevItemQuantities[item.Item_Name] || 1) + 1
+                  }));
+                }}
+              >
+                +
+              </button>
+            </div>
+          </Card.Text>
+        </Card.Body>
+      </Card>
     </div>
   ));
+
   const submitform = async (event) => {
     event.preventDefault(); // Prevent the default form submission
 
@@ -202,18 +202,17 @@ const Order = () => {
                   {get?.categories?.map((category) => (
                     <option key={category.Category_Type}>{category.Category_Type}</option>
                   ))}
+                  <option value="See All">See All</option>
                 </Form.Select>
               </div>
 
-              <hr></hr>
+              <hr />
 
-              {/* <Col sm={3} className='Item-container'> */}
               <Container>
-    <div className="item-row">
-                {selectedItemsList}
+                <div className="item-row">
+                  {selectedItemsList}
                 </div>
-                </Container>
-              {/* </Col> */}
+              </Container>
 
               <center>
                 <Button
@@ -235,3 +234,5 @@ const Order = () => {
 };
 
 export default Order;
+
+
