@@ -4,6 +4,10 @@ import { AiFillDashboard, AiFillEdit, } from "react-icons/ai";
 import { IoIosCreate } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import ModalCamp from './ModalCamp';
+import Layout from "../../../../Header/Layout"
+
+
+
 const Rooms = ({post}) => {
 
     const [open, setOpen] = useState(false);
@@ -15,6 +19,8 @@ const Rooms = ({post}) => {
     }
     return (
         <>
+        
+        <Layout />
             <Container style={{ width: "90%", marginTop: "30px" }} >
                 <Table striped bordered hover className='main-table'>
                     <thead>

@@ -8,6 +8,7 @@ import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai'
 import { Link } from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
 import ModalCamp from './ModalCamp';
+import Layout from '../../../../Header/Layout';
 
 
 
@@ -55,6 +56,8 @@ const ServiceList = ({ post }) => {
   return (
 
     <>
+
+    <Layout />
       <Container className='mt-4' >
         <Table striped bordered hover className='main-table'>
           <thead>

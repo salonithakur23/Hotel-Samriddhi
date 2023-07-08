@@ -7,6 +7,7 @@ import { IoIosCreate } from "react-icons/io";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import ModalComp from './ModalCamp ';
+import Layout from '../../../Header/Layout';
 
 
 const baseURL = "http://localhost:4000/api/v1/guests"
@@ -54,6 +55,7 @@ const GuestList = ({ items }) => {
 
   return (
     <>
+    <Layout />
       <Container className='main-col'>
         <Table striped bordered hover className='main-table'>
           <thead>

@@ -6,6 +6,7 @@ import { IoIosCreate } from 'react-icons/io';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
+import Layout from '../../../Header/Layout';
 
 
 
@@ -41,7 +42,7 @@ const EditCategory = () => {
 
     <>
 
-
+<Layout />
       <Container style={{ width: "90%", marginTop: "20px" }}>
         <Table striped bordered hover className="main-table">
           <thead>

@@ -5,6 +5,7 @@ import { IoIosCreate } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 import './RoomService.css';
 import axios from "axios";
+import Layout from '../../../Header/Layout';
 
 
 
@@ -39,7 +40,7 @@ const AddService = () => {
    <>
    
    
-  
+  <Layout />
                 <Container style={{ width: "90%", marginTop: "20px" }} >
                     <Table striped bordered hover className='main-table'>
                         <thead>

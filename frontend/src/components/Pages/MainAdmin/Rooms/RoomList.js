@@ -6,6 +6,7 @@ import { IoIosCreate } from "react-icons/io";
 import ModalCamp from './ModalCamp';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Layout from '../../../Header/Layout';
 
 
 const baseURL = "http://localhost:4000/api/v1/rooms"
@@ -51,6 +52,7 @@ const RoomList = ({ items }) => {
   return (
 
     <>
+    <Layout/>
       <Container className='main-col' >
         <Table striped bordered hover className='main-table'>
           <thead>

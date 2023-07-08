@@ -6,14 +6,15 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import { IoIosCreate } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
-
 import Card from 'react-bootstrap/Card';
+
 
 
 
 const baseURL = "http://localhost:4000/api/v1/categories"
 
 const allItem = "http://localhost:4000/api/v1/items?Category_Name="
+
 
 
 const SeeAllCategory = () => {
@@ -102,8 +103,8 @@ const SeeAllCategory = () => {
             </tr>
           </thead>
         </Table>
-        <Row>
-          <Table striped bordered hover>
+        {/* <Row> */}
+          {/* <Table striped bordered hover>
             <thead>
               <tr>
                 <th>
@@ -114,9 +115,9 @@ const SeeAllCategory = () => {
                 </th>
               </tr>
             </thead>
-          </Table>
+          </Table> */}
           <hr />
-        </Row>
+        {/* </Row> */}
       </Container>
 
       <div className='form-div' >

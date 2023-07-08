@@ -12,11 +12,11 @@ const Header = () => {
     <>
        <Navbar className="nav-container" expand="lg">
       <Container>
-        <Link className="logo-link" to="/">Hotel Application</Link>
+        <Link className="logo-link" to="/home">Hotel Application</Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto">
-            <Link className="item-links" to="/"></Link>
+            <Link className="item-links" to="/home"></Link>
             <Link className="item-links" to="/hotel-dashboard">Hotel</Link>
             <Link className="item-links" to="/restaurent-dashboard">Restaurant</Link>
             <Link className="item-links" to="/main-admin-dashboard">Admin</Link>

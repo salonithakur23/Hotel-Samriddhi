@@ -6,6 +6,7 @@ import { IoIosCreate } from "react-icons/io";
 import ModalCamp from './ModalCamp';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Layout from '../../../Header/Layout';
 
 
 
@@ -43,6 +44,7 @@ const EmployeesList = ({ post }) => {
   return (
 
     <>
+    <Layout />
       <Container className='main-col' >
         <Table striped bordered hover className='main-table'>
           <thead>

@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import './RoomService.css';
 import axios from "axios";
 import { toast } from 'react-toastify';
+import Layout from '../../../Header/Layout';
 
 
 
@@ -50,7 +51,7 @@ const ServiceEdit = () => {
 
   return (
 <>
-
+<Layout />
  <Container style={{ width: "90%", marginTop: "20px" }} >
                     <Table striped bordered hover className='main-table'>
                         <thead>

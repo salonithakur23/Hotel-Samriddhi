@@ -8,6 +8,7 @@ import './Bill.css';
 
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Layout from '../../../Header/Layout';
 
 const Bill = () => {
   const { orderId } = useParams();
@@ -27,11 +28,10 @@ const Bill = () => {
 
     fetchOrder();
   }, [orderId]);
-
   useEffect(() => {
     if (order) {
       const total = calculateTotal(order.Items);
-      const gst = (total * 5) / 100; // Calculate GST amount
+      const gst = (total * 5) / 100;
       setGstAmount(gst);
     }
   }, [order]);
@@ -64,10 +64,9 @@ const Bill = () => {
       try {
         const billAPI = 'http://localhost:4000/api/v1/bill/new';
         const total = calculateTotal(order.Items);
-
         const billData = {
           orderId: order._id,
-          resName: 'Hotel Samriddhi',
+          resName: 'Samriddhi Hotel ',
           phoneNumber: '8796541234',
           address: 'Mansrowar',
           gstNumber: '1',
@@ -102,6 +101,7 @@ const Bill = () => {
 
   return (
     <>
+    <Layout />
       <Container className="main-col">
         <Table striped bordered hover className="main-table">
           <thead>

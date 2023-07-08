@@ -6,6 +6,7 @@ import { IoIosCreate } from "react-icons/io";
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Layout from '../../../Header/Layout';
 
 const Kot = () => {
     const { orderId } = useParams();
@@ -47,6 +48,7 @@ const Kot = () => {
 
     return (
         <>
+        <Layout />
             <Container className='main-col'>
                 <Table striped bordered hover className='main-table'>
                     <thead>
