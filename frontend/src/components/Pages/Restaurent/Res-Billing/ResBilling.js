@@ -27,6 +27,31 @@ const ResBilling = () => {
     return total;
   };
 
+  const handleKOTClick = async (orderId) => {
+    try {
+      const updatedOrder = await axios.put(`http://localhost:4000/api/v1/order/${orderId}`, {
+        newStatus: "Order in the Kitchen"
+      });
+      toast.success("Order status updated successfully");
+    } catch (error) {
+      console.log(error.response);
+      toast.error("Failed to update order status");
+    }
+  };
+
+  const handleBillClick = async (orderId) => {
+    try {
+      const updatedOrder = await axios.put(`http://localhost:4000/api/v1/order/${orderId}`, {
+        newStatus: " Order Complete"
+      });
+      toast.success("Order status updated successfully");
+    } catch (error) {
+      console.log(error.response);
+      toast.error("Failed to update order status");
+    }
+  };
+
+
   if (orders.length === 0) {
     return (
       <div className="no-orders">
@@ -78,21 +103,24 @@ const ResBilling = () => {
             {orders.map((order) => (
               <Col sm={4} key={order._id}>
                 <div className="billing-card">
-                  <h3 className="res-name">Samriddhi</h3>
+                  <h5>
+                    Status: <span>{order.Status}</span>
+                  </h5>
+                  <h3 className="res-name">Samriddhi Hotel</h3>
                   <h5>
                     Phone.no : <span>8796541234</span>
                   </h5>
                   <h5>
-                    Address : <span>mansrowar</span>
+                    Address : <span>Mansrowar</span>
                   </h5>
                   <h5>
                     Gst.no : <span>1</span>
                   </h5>
                   <h5>
-                    Order Date&Time :<span>{order.Order_Time}</span>
+                    Order Date&Time :<span> {order.Order_Time}</span>
                   </h5>
                   <h5>
-                    Table No. :<span>{order.Table_Number}</span>
+                    Table No :<span> {order.Table_Number}</span>
                   </h5>
                   <Table responsive>
                     <table className="table table-bordered border-secondary">
@@ -121,8 +149,8 @@ const ResBilling = () => {
                     </h5>
                   </Table>
                   <div className="d-flex text-center">
-                  <Link to={`/KOT/${order._id}`}>
-                      <Button className="table-btn " variant="light">
+                    <Link to={`/KOT/${order._id}`}>
+                      <Button className="table-btn" variant="light" onClick={() => handleKOTClick(order._id)}>
                         &#128065; KOT
                       </Button>
                     </Link>
@@ -132,7 +160,7 @@ const ResBilling = () => {
                       </Button>
                     </Link>
                     <Link to={`/bill/${order._id}`}>
-                      <Button className="table-btn " variant="light">
+                      <Button className="table-btn" variant="light" onClick={() => handleBillClick(order._id)}>
                         &#128065; Bill
                       </Button>
                     </Link>
