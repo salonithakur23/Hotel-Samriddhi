@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
+import Layout from '../../../Header/Layout';
 
 
 const Room = () => {
@@ -36,7 +37,7 @@ const Room = () => {
 
     return (
         <>
-
+<Layout/>
 
             <Container style={{ width: "90%", marginTop: "20px" }} >
                 <Table striped bordered hover className='main-table'>

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Table, Button, Form, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -6,9 +7,13 @@ import { IoIosCreate } from 'react-icons/io'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Layout from '../../../Header/Layout'
+
+
 
 const baseURL = "http://localhost:4000/api/v1/categories";
 const allItem = "http://localhost:4000/api/v1/items?Category_Name=";
+
 
 const EditResBilling = () => {
   const [get, setGetAll] = useState(null);
@@ -22,6 +27,11 @@ const EditResBilling = () => {
       setGetAll(response.data);
     });
   }, []);
+
+  
+
+
+
   const handleCategoriesItem = (val) => {
     setCategory_Type(val);
     axios.get(allItem + val).then((response) => {
@@ -51,11 +61,10 @@ const EditResBilling = () => {
     setCanSubmit(event.target.checked);
   };
 
+
   const selectedItemsList = items?.map((item) => (
-    <div key={item.Item_Name}>
-      <Container>
-        <Row>
-          <Col sm={3}>
+    <div key={item.Item_Name} className="item-container">
+     
             <Card style={{ width: "15rem" }}>
               <Card.Body>
                 <Card.Text>
@@ -99,9 +108,6 @@ const EditResBilling = () => {
                 </Card.Text>
               </Card.Body>
             </Card>
-          </Col>
-        </Row>
-      </Container>
     </div>
   ));
 
@@ -112,21 +118,25 @@ const EditResBilling = () => {
   const [Order_Time, setOrder_Time] = useState(specificGuest.Order_Time);
   const [Category_Type, setCategory_Type] = useState(specificGuest.Category_Type)
 
+  console.log(Category_Type,"category")
+
   console.log(specificGuest, "Check id from url")
   useEffect(() => {
     axios.get(`http://localhost:4000/api/v1/order/${params.id}`).then((response) => {
       setSpecificGuest(response.data);
       setTable_Number(response.data.order.Table_Number);
       setOrder_Time(response.data.order.Order_Time);
-
-
+      setItems(response.data.order.Items);
+      setCategory_Type(response.data.order.Items);
     })
   }, [])
+ 
   const submitform = () => {
     try {
       axios.put(`http://localhost:4000/api/v1/order/${params.id}`, {
         "Table_Number": Table_Number,
         "Order_Time": Order_Time,
+        "Category_Type":Category_Type,
          Items: selectedItems.map(item => ({
           Item_Name: item.Item_Name,
           Price: item.price,
@@ -145,12 +155,16 @@ const EditResBilling = () => {
 
     <>
 
+    <Layout />
+
+
+
       <Container style={{ width: "90%", marginTop: "20px" }}>
         <Table striped bordered hover className='main-table'>
           <thead>
             <tr>
               <th>
-                <h5><AiFillDashboard /> &nbsp;Dashboard / Add New Order</h5>
+                <h5><AiFillDashboard /> &nbsp;Dashboard / Edit Order</h5>
               </th>
             </tr>
           </thead>
@@ -178,7 +192,7 @@ const EditResBilling = () => {
           <Row>
             <form className="row g-4 p-3 registration-form">
               <div className="col-md-4 position-relative">
-                <label className="label">Table.no</label>
+                <label className="label">Table Number</label>
                 <input
                   type="text"
                   className="form-control"
@@ -188,25 +202,13 @@ const EditResBilling = () => {
                 />
               </div>
 
-              <div className="col-md-4 position-relative">
-                <label className="label">Order Date & Time</label>
-                <input
-                  type="datetime-local"
-                  name="Booking_Date_Time"
-                  className="form-control"
-
-                  value={Order_Time}
-                  onChange={(e) => setOrder_Time(e.target.value)}
-
-                />
-              </div>
+            
 
               <div className="col-md-4 position-relative">
-                <label className="form-label"> Category </label>
+                <label className="label"> Category </label>
                 <Form.Select
                   name="Room_Type"
                   onChange={(e) => handleCategoriesItem(e.target.value)}
-
                 >
                   <option
                     value={Category_Type}
@@ -218,9 +220,18 @@ const EditResBilling = () => {
                 </Form.Select>
               </div>
 
-              <Col sm={3} className='Item-container'>
+              <hr></hr>
+
+
+
+          <Container>
+
+         
+              <div className="item-row">
                 {selectedItemsList}
-              </Col>
+                </div>
+                </Container>
+             
 
               <center>
                 <Button
@@ -248,16 +259,6 @@ const EditResBilling = () => {
 }
 
 export default EditResBilling
-
-
-
-
-
-
-
-
-
-
 
 
 

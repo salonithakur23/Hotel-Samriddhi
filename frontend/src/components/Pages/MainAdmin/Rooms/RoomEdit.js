@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Form from 'react-bootstrap/Form';
+import Layout from '../../../Header/Layout';
 
 
 
@@ -55,6 +56,8 @@ const RoomEdit = () => {
 
     return (
         <>
+
+        <Layout />
 
             <Container style={{ width: "90%", marginTop: "20px" }} >
                 <Table striped bordered hover className='main-table'>

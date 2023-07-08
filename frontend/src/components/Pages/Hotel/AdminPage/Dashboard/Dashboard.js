@@ -1,9 +1,16 @@
 import React from 'react'
 import './Dashboard.css'
 import { Container, Row } from 'react-bootstrap'
+import Layout from '../../../../Header/Layout'
+
+
+
 const Dashboard = () => {
+
+
   return (
     <>
+    <Layout />
       <marquee className="mar-bg">
         <p className='Dash-title'> Welcome to the Dasboard of Our Hotel ! A hotel dashboard is a tool used by hotel management to monitor and analyze various aspects of their hotel's operations. </p>
       </marquee>

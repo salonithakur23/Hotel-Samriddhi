@@ -41,18 +41,23 @@ import ListCategory from "./components/Pages/MainAdmin/AddCategory/ListCategory"
 import SeeAllCategory from "./components/Pages/MainAdmin/AddCategory/SeeAllCategory/SeeAllCategory";
 import EditEmployee from "./components/Pages/MainAdmin/Employees/EditEmployee";
 import EditResBilling from "./components/Pages/Restaurent/Res-Billing/EditResBilling";
+import Login from "./login/Login";
 
 
 function App() {
 
   return (
     <>
-      <Header />
+    
+     
       <ToastContainer position="top-center" />
       <Routes>
 
         <Route>
-          <Route path='/' element={<Home />} />
+        <Route path='/' element={<Login />} />
+
+        {/* <Header /> */}
+          <Route path='/home' element={<Home />} />
           {/* hotel  sidebar routing start*/}
           <Route path="hotel-dashboard" element={<HotelSidebar><Dashboard /></HotelSidebar>} />
           <Route path='/roombooking' element={<RoomBooking />} />

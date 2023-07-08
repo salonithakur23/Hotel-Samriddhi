@@ -8,6 +8,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import { toast } from 'react-toastify';
+import Layout from '../../../Header/Layout';
+
+
 
 const baseURL = "http://localhost:4000/api/v1/categories";
 const allItem = "http://localhost:4000/api/v1/items?Category_Name=";
@@ -16,7 +19,7 @@ const allItem = "http://localhost:4000/api/v1/items?Category_Name=";
 const Order = () => {
   const [get, setGetAll] = useState(null);
   const [table_Number, setTable_Number] = useState('');
-  const [order_Time, setOrder_Time] = useState('');
+  // const [order_Time, setOrder_Time] = useState('');
   const [category_Type, setCategory_Type] = useState('');
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -59,9 +62,7 @@ const Order = () => {
 
   const selectedItemsList = items?.map((item) => (
     <div key={item.Item_Name} className="item-container">
-      {/* <Container>
-        <Row>
-          <Col sm={3}> */}
+   
             <Card style={{ width: "15rem" }}>
               <Card.Body>
                 <Card.Text>
@@ -105,15 +106,13 @@ const Order = () => {
                 </Card.Text>
               </Card.Body>
             </Card>
-          {/* </Col>
-        </Row>
-      </Container> */}
+      
     </div>
   ));
   const submitform = async (event) => {
     event.preventDefault(); // Prevent the default form submission
 
-    if (!table_Number || !order_Time || selectedItems.length === 0) {
+    if (!table_Number || selectedItems.length === 0) {
       toast.error('Please fill in all the required fields and select at least one item.');
       return;
     }
@@ -121,7 +120,7 @@ const Order = () => {
     try {
       await axios.post("http://localhost:4000/api/v1/order/new", {
         Table_Number: table_Number,
-        Order_Time: order_Time,
+        // Order_Time: order_Time,
         Items: selectedItems.map(item => ({
           Item_Name: item.Item_Name,
           Price: item.price,
@@ -137,6 +136,7 @@ const Order = () => {
 
   return (
     <>
+    <Layout />
       <Container style={{ width: "90%", marginTop: "20px" }}>
         <Table striped bordered hover className='main-table'>
           <thead>
@@ -170,7 +170,7 @@ const Order = () => {
           <Row>
             <form className="row g-4 p-3 registration-form">
               <div className="col-md-4 position-relative">
-                <label className="label">Table.no</label>
+                <label className="label">Table Number</label>
                 <input
                   type="text"
                   className="form-control"
@@ -180,7 +180,7 @@ const Order = () => {
                 />
               </div>
 
-              <div className="col-md-4 position-relative">
+              {/* <div className="col-md-4 position-relative">
                 <label className="label">Order Date & Time</label>
                 <input
                   type="datetime-local"
@@ -190,10 +190,10 @@ const Order = () => {
                   onChange={(e) => setOrder_Time(e.target.value)}
                   required
                 />
-              </div>
+              </div> */}
 
               <div className="col-md-4 position-relative">
-                <label className="form-label"> Category </label>
+                <label className="label"> Category </label>
                 <Form.Select
                   name="Room_Type"
                   onChange={(e) => handleCategoriesItem(e.target.value)}

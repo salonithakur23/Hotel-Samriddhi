@@ -9,6 +9,7 @@ import { Link }  from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
 import { useNavigate } from 'react-router-dom'
 import ModalCamp from './ModalCamp';
+import Layout from '../../../../Header/Layout';
 
 
 
@@ -58,6 +59,8 @@ const BookingList = ({post}) => {
   return (
 
     <>
+
+    <Layout />
     <Container className='mt-4' >
         <Table striped bordered hover className='main-table'>
           <thead>

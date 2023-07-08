@@ -6,6 +6,7 @@ import { IoIosCreate } from "react-icons/io";
 import "./RoomService.css"
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Layout from '../../../Header/Layout';
 
 
 
@@ -59,6 +60,8 @@ const ServicesList = () => {
   return (
 
     <>
+
+    <Layout />
       <Container className='main-col' >
         <Table striped bordered hover className='main-table'>
           <thead>

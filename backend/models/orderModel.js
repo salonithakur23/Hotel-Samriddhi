@@ -6,10 +6,15 @@ const OrderSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter the table number"],
   },
-  Order_Time: {
-    type: String,
-    required: [true, "Please enter the order time"],
-  },
+  // Order_Time: {
+  //   type: String,
+  //   required: [true, "Please enter the order time"],
+  // },
+  // Category_Type:{
+  //   type: String,
+  //   required: [true, "Please enter the category Type"],
+
+  // },
   Items: [
     {
       Item_Name: {
@@ -18,11 +23,11 @@ const OrderSchema = new mongoose.Schema({
       },
       Price: {
         type: Number,
-        required: [true, "Please enter the item price"],
+        // required: [true, "Please enter the item price"],
       },
       Quantity: {
         type: Number,
-        required: [true, "Please enter the item quantity"],
+        // required: [true, "Please enter the item quantity"],
       },
     },
   ],

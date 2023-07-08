@@ -7,6 +7,7 @@ import { IoIosCreate } from 'react-icons/io';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Layout from '../../../Header/Layout';
 
 
 const AddCategoryForm = () => {
@@ -34,6 +35,7 @@ const AddCategoryForm = () => {
 
     return (
         <>
+        <Layout />
             <Container style={{ width: "90%", marginTop: "20px" }} >
                 <Table striped bordered hover className='main-table'>
                     <thead>
