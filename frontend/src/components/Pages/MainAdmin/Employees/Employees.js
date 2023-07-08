@@ -6,6 +6,7 @@ import { IoIosCreate } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Layout from '../../../Header/Layout';
 
 
 
@@ -45,7 +46,7 @@ const Employees = () => {
 
     return (
         <>
-
+<Layout />
 
             <Container style={{ width: "90%", marginTop: "20px" }} >
                 <Table striped bordered hover className='main-table'>

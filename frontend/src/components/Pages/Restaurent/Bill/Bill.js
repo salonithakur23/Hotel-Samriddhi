@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row, Table } from 'react-bootstrap';
 import { AiFillDashboard } from 'react-icons/ai';
@@ -7,11 +8,13 @@ import './Bill.css';
 
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Layout from '../../../Header/Layout';
 
 const Bill = () => {
   const { orderId } = useParams();
   const [order, setOrder] = useState(null);
   const [gstAmount, setGstAmount] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState('cash');
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -27,35 +30,11 @@ const Bill = () => {
   }, [orderId]);
   useEffect(() => {
     if (order) {
-      const billAPI = 'http://localhost:4000/api/v1/bills'; // Replace with the actual URL of your Bill API endpoint
-
-      const resbillingData = {
-        orderId: order._id,
-        // Extract other required data from the order object and pass it to the Bill API
-        // ...
-      };
-
-      axios
-        .post(billAPI, resbillingData)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-    }
-  }, [order]);
-  useEffect(() => {
-    if (order) {
       const total = calculateTotal(order.Items);
-      const gst = (total * 5) / 100; // Calculate GST amount
+      const gst = (total * 5) / 100;
       setGstAmount(gst);
     }
   }, [order]);
-
-  if (!order) {
-    return <div>Loading...</div>;
-  }
 
   const calculateTotal = (items) => {
     let total = 0;
@@ -85,10 +64,9 @@ const Bill = () => {
       try {
         const billAPI = 'http://localhost:4000/api/v1/bill/new';
         const total = calculateTotal(order.Items);
-
         const billData = {
           orderId: order._id,
-          resName: 'Hotel Samriddhi',
+          resName: 'Samriddhi Hotel ',
           phoneNumber: '8796541234',
           address: 'Mansrowar',
           gstNumber: '1',
@@ -101,6 +79,7 @@ const Bill = () => {
             quantity: item.Quantity,
             price_after_Quantity: item.Price * item.Quantity,
           })),
+          paymentMethod: paymentMethod, 
         };
 
         const response = await axios.post(billAPI, billData);
@@ -122,15 +101,16 @@ const Bill = () => {
 
   return (
     <>
+    <Layout />
       <Container className="main-col">
         <Table striped bordered hover className="main-table">
           <thead>
             <tr>
-              <th>
-                <h5>
-                  <AiFillDashboard /> &nbsp; Dashboard/ Bill
-                </h5>
-              </th>
+
+              <h5>
+                <AiFillDashboard /> &nbsp; Dashboard/ Bill
+              </h5>
+
             </tr>
           </thead>
         </Table>
@@ -141,7 +121,7 @@ const Bill = () => {
                 <th>
                   <div className="table-div">
                     <Button className="table-btn" variant="light">
-                      <IoIosCreate />&nbsp;<Link to="/order">Create</Link>
+                      <IoIosCreate />&nbsp;<Link to="/res-billing">Create</Link>
                     </Button>
                   </div>
                 </th>
@@ -156,17 +136,17 @@ const Bill = () => {
         <Container>
           <Row>
             <Col sm={4}>
-              <div className="billing-card" id="billing-card">
-                <h3 className="res-name">Hotel Samriddhi</h3>
-                <h5>Phone.no: <span>8796541234</span></h5>
-                <h5>Address: <span>Mansrowar</span></h5>
-                <h5>Gst.no: <span>1</span></h5>
-                <h5>Booking Date&Time: <span>{order.Order_Time}</span></h5>
-                <h5>Table No.: <span>{order.Table_Number}</span></h5>
+              <div className="billing-cards-2" id="billing-card">
+                <h3 className="res-name text-style">Hotel Samriddhi</h3>
+                <h5 className='text-style'>Phone.no: <span>8796541234</span></h5>
+                <h5 className='text-style'>Address: <span>Mansrowar</span></h5>
+                <h5 className='text-style'>Gst.no: <span>1</span></h5>
+                <h5 className='text-style'>Booking Date&Time: <span>{order.Order_Time}</span></h5>
+                <h5 className='text-style'>Table No.: <span>{order.Table_Number}</span></h5>
                 <Table responsive>
                   <table className="table table-bordered border-secondary">
                     <thead>
-                      <tr>
+                      <tr className='text-style'>
                         <th>Item</th>
                         <th>Price</th>
                         <th>Quantity</th>
@@ -175,7 +155,7 @@ const Bill = () => {
                     </thead>
                     <tbody>
                       {order.Items.map((item) => (
-                        <tr key={item._id}>
+                        <tr key={item._id} className='text-style'>
                           <td>{item.Item_Name}</td>
                           <td>{item.Price}</td>
                           <td>{item.Quantity}</td>
@@ -185,15 +165,16 @@ const Bill = () => {
                     </tbody>
                   </table>
                   <hr />
-                  <h5 className="mt-2">
+                  <h5 className="mt-2 text-style">
                     Total Price: <span className="float-end">{calculateTotal(order.Items)}</span>
                   </h5>
-                  <h5 className="mt-2">GST (5%): <span className="float-end">{gstAmount.toFixed(2)}</span></h5>
-                  <h5 className="mt-2">Total (incl. GST): <span className="float-end">{(calculateTotal(order.Items) + gstAmount).toFixed(2)}</span></h5>
+                  <h5 className="mt-2 text-style">GST (5%): <span className="float-end">{gstAmount.toFixed(2)}</span></h5>
+                  <h5 className="mt-2 text-style">Total (incl. GST): <span className="float-end">{(calculateTotal(order.Items) + gstAmount).toFixed(2)}</span></h5>
+                  {/* Display selected payment method */}
+                  <h5 className='text-style'>Payment Method <span className="float-end">{paymentMethod}</span></h5>
                 </Table>
-
-                <div className="d-flex text-center">
-                  <Button className="table-btn d-flex" variant="light" onClick={printBill}>
+                <div>
+                <Button className="table-btns d-flex" variant="light" onClick={printBill}>
                     &#128065;Print Bill
                   </Button>
                   <span className="float-end">
@@ -204,7 +185,19 @@ const Bill = () => {
                 </div>
               </div>
             </Col>
-            <Col sm={4}></Col>
+           
+            <Col sm={4}>
+              {/* Payment Method Form */}
+              <div className="payment-form">
+                <h4 className='text-style'> Select Payment Method:</h4>
+                <select className='select'
+                 onChange={(e) => setPaymentMethod(e.target.value)}>
+                  <option className='text-style'  value={paymentMethod}>Choose</option>
+                  <option value="cash" className='text-style'>Cash</option>
+                  <option value="UPI" className='text-style'>UPI</option>
+                </select>
+              </div>
+            </Col>
             <Col sm={4}></Col>
           </Row>
         </Container>

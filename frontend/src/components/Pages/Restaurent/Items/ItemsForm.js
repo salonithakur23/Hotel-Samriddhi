@@ -4,6 +4,7 @@ import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai';
 import { Link } from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
 import axios from 'axios';
+import Layout from '../../../Header/Layout';
 
 
 const baseURL = "http://localhost:4000/api/v1/items"
@@ -34,6 +35,7 @@ const ItemList = () => {
   return (
 
     <>
+    <Layout />
       <Container className='main-col'  >
         <Table striped bordered hover className='main-table'>
           <thead>

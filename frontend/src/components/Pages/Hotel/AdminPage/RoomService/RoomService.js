@@ -7,12 +7,13 @@ import { IoIosCreate } from 'react-icons/io';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import './RoomService.css'
+import Layout from '../../../../Header/Layout';
 
 const RoomService = () => {
   return (
    <>
    
-   
+   <Layout />
   {/* <div> */}
                 <Container style={{ width: "90%", marginTop: "20px" }} >
                     <Table striped bordered hover className='main-table'>

@@ -103,8 +103,8 @@ const SeeAllCategory = () => {
             </tr>
           </thead>
         </Table>
-        <Row>
-          <Table striped bordered hover>
+        {/* <Row> */}
+          {/* <Table striped bordered hover>
             <thead>
               <tr>
                 <th>
@@ -115,9 +115,9 @@ const SeeAllCategory = () => {
                 </th>
               </tr>
             </thead>
-          </Table>
+          </Table> */}
           <hr />
-        </Row>
+        {/* </Row> */}
       </Container>
 
       <div className='form-div' >

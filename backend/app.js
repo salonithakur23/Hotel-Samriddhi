@@ -31,6 +31,7 @@ const bill = require("./routes/billRoute")
 
 
 
+
 app.use("/api/v1",item);
 app.use("/api/v1",employee);
 app.use("/api/v1",room);
@@ -43,6 +44,7 @@ app.use("/api/v1",bill)
 
 
 // app.use('/api', routes);
+
 
 
 

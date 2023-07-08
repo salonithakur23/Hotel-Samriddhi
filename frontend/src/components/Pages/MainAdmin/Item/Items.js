@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Layout from '../../../Header/Layout';
 
 
 const baseURL = " http://localhost:4000/api/v1/categories"
@@ -60,7 +61,7 @@ const Item = () => {
   }
   return (
     <>
-
+<Layout />
 
       <Container style={{ width: "90%", marginTop: "20px" }} >
         <Table striped bordered hover className='main-table'>

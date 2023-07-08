@@ -1,11 +1,14 @@
 import React from 'react'
-import Layout from '../../../Layout'
 import { Container, Row } from 'react-bootstrap'
+import Layout from '../../Header/Layout'
+
 
 const Home = () => {
   return (
  <>
- <Layout>
+
+
+    <Layout>
      <Container >
       <Row>
       <div className='home-container'>
@@ -13,7 +16,8 @@ const Home = () => {
       </div>
       </Row>
      </Container>
- </Layout>
+     </Layout>
+ 
  
  </>
   )

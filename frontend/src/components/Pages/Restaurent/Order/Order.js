@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import './Order.css';
 import { Button, Col, Container, Row, Table } from 'react-bootstrap';
 import { AiFillDashboard } from 'react-icons/ai';
@@ -8,14 +8,27 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import { toast } from 'react-toastify';
+import ModalCamp from './ModalCamp';
+import Layout from '../../../Header/Layout';
+
+export const Context = createContext();
+
+
 
 const baseURL = "http://localhost:4000/api/v1/categories";
 const allItem = "http://localhost:4000/api/v1/items?Category_Name=";
 
-const Order = () => {
+const Order = ({post}) => {
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState({});
+  const handleModel = () => {
+    setOpen(true);
+    setUser(post);
+  };
+
   const [get, setGetAll] = useState(null);
   const [table_Number, setTable_Number] = useState('');
-  const [order_Time, setOrder_Time] = useState('');
+  // const [order_Time, setOrder_Time] = useState('');
   const [category_Type, setCategory_Type] = useState('');
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -47,11 +60,13 @@ const Order = () => {
       setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
       setItemQuantities((prevItemQuantities) => ({
         ...prevItemQuantities,
-        [item.Item_Name]: 1
+        [item.Item_Name]: 1,
       }));
     } else {
       setSelectedItems((prevSelectedItems) =>
-        prevSelectedItems.filter((selectedItem) => selectedItem !== item)
+        prevSelectedItems.filter(
+          (selectedItem) => selectedItem !== item
+        )
       );
       setItemQuantities((prevItemQuantities) => {
         const updatedQuantities = { ...prevItemQuantities };
@@ -113,20 +128,25 @@ const Order = () => {
   const submitform = async (event) => {
     event.preventDefault(); // Prevent the default form submission
 
-    if (!table_Number || !order_Time || selectedItems.length === 0) {
+    if (!table_Number || selectedItems.length === 0) {
       toast.error('Please fill in all the required fields and select at least one item.');
       return;
     }
 
     try {
-      await axios.post("http://localhost:4000/api/v1/order/new", {
+      const response = await axios.post("http://localhost:4000/api/v1/order/new", {
         Table_Number: table_Number,
-        Order_Time: order_Time,
+        Status: "Order in Progress",
         Items: selectedItems.map(item => ({
           Item_Name: item.Item_Name,
           Price: item.price,
-          Quantity: itemQuantities[item.Item_Name] || 1
-        }))
+          Quantity: itemQuantities[item.Item_Name] || 1,
+        })),
+      });
+
+      const orderId = response.data.order._id;
+      await axios.put(`http://localhost:4000/api/v1/order/${orderId}`, {
+        newStatus: "Order Placed or taken"
       });
       toast.success("Order Submitted Successfully");
       navigate("/res-billing");
@@ -135,14 +155,18 @@ const Order = () => {
     }
   };
 
+
   return (
     <>
+    <Layout />
       <Container style={{ width: "90%", marginTop: "20px" }}>
-        <Table striped bordered hover className='main-table'>
+        <Table striped bordered hover className="main-table">
           <thead>
             <tr>
               <th>
-                <h5><AiFillDashboard /> &nbsp;Dashboard / Add New Order</h5>
+                <h5>
+                  <AiFillDashboard /> &nbsp;Dashboard / Add New Order
+                </h5>
               </th>
             </tr>
           </thead>
@@ -152,9 +176,10 @@ const Order = () => {
             <thead>
               <tr>
                 <th>
-                  <div className='table-div'>
-                    <Button className='table-btn' variant="light">
-                      <IoIosCreate />&nbsp;<Link to="/res-billing">Go Back</Link>
+                  <div className="table-div">
+                    <Button className="table-btn" variant="light">
+                      <IoIosCreate />&nbsp;
+                      <Link to="/res-billing">Go Back</Link>
                     </Button>
                   </div>
                 </th>
@@ -165,12 +190,30 @@ const Order = () => {
         </Row>
       </Container>
 
-      <div className='form-div'>
+      <div className="form-div">
         <Container>
           <Row>
+            <td>
+              <Button
+                onClick={handleModel}
+                variant="success"
+                className="All-order float-end"
+              >
+                Preview
+              </Button>
+              {open && (
+                <ModalCamp
+                  open={open}
+                  setOpen={setOpen}
+                  selectedItems={selectedItems}
+                  itemQuantities={itemQuantities}
+                />
+              )}
+            </td>
+
             <form className="row g-4 p-3 registration-form">
               <div className="col-md-4 position-relative">
-                <label className="label">Table.no</label>
+                <label className="label">Table Number</label>
                 <input
                   type="text"
                   className="form-control"
@@ -181,26 +224,16 @@ const Order = () => {
               </div>
 
               <div className="col-md-4 position-relative">
-                <label className="label">Order Date & Time</label>
-                <input
-                  type="datetime-local"
-                  name="Booking_Date_Time"
-                  className="form-control"
-                  value={order_Time}
-                  onChange={(e) => setOrder_Time(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="col-md-4 position-relative">
-                <label className="form-label"> Category </label>
+                <label className="label"> Category </label>
                 <Form.Select
                   name="Room_Type"
                   onChange={(e) => handleCategoriesItem(e.target.value)}
                 >
                   <option value={category_Type}>Select a category</option>
                   {get?.categories?.map((category) => (
-                    <option key={category.Category_Type}>{category.Category_Type}</option>
+                    <option key={category.Category_Type}>
+                      {category.Category_Type}
+                    </option>
                   ))}
                   <option value="See All">See All</option>
                 </Form.Select>

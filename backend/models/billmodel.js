@@ -54,6 +54,10 @@ const billSchema = new mongoose.Schema({
       }
     },
   ],
+  paymentMethod:{
+    type:String,
+    required:true
+  }
 });
 
 const Bill = mongoose.model('Bill', billSchema);
