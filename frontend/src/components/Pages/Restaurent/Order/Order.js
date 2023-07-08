@@ -9,9 +9,9 @@ import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import { toast } from 'react-toastify';
 import ModalCamp from './ModalCamp';
+import Layout from '../../../Header/Layout';
 
 export const Context = createContext();
-import Layout from '../../../Header/Layout';
 
 
 
@@ -44,9 +44,15 @@ const Order = ({post}) => {
 
   const handleCategoriesItem = (val) => {
     setCategory_Type(val);
-    axios.get(allItem + val).then((response) => {
-      setItems(response.data.items);
-    });
+    if (val === "See All") {
+      axios.get("http://localhost:4000/api/v1/items").then((response) => {
+        setItems(response.data.items);
+      });
+    } else {
+      axios.get(allItem + val).then((response) => {
+        setItems(response.data.items);
+      });
+    }
   };
 
   const handleCheckboxChange = (event, item) => {
@@ -73,56 +79,54 @@ const Order = ({post}) => {
 
   const selectedItemsList = items?.map((item) => (
     <div key={item.Item_Name} className="item-container">
-   
-   <Card style={{ width: "15rem" }}>
-              <Card.Body>
-                <Card.Text>
-                  <Form.Check
-                    aria-label="option 1"
-                    onChange={(e) => handleCheckboxChange(e, item)}
-                  />&nbsp;&nbsp;
-                  <p className="label">
-                    <span><b>Item Name</b></span>- {item.Item_Name}
-                  </p>
-                  <p><span><b>Price</b></span> -{item.price}</p>
-                  <div className="Opretor">
-                    <button
-                      type="button"
-                      className='decrease'
-                      onClick={() => {
-                        if (itemQuantities[item.Item_Name] > 1) {
-                          setItemQuantities((prevItemQuantities) => ({
-                            ...prevItemQuantities,
-                            [item.Item_Name]: prevItemQuantities[item.Item_Name] - 1
-                          }));
-                        }
-                      }}
-                    >
-                      -
-                    </button>
-                    <p className='quantity'>{itemQuantities[item.Item_Name] || 1}</p>
-                    <button
-                      type="button"
-                      className='increase'
-                      onClick={() => {
-                        setItemQuantities((prevItemQuantities) => ({
-                          ...prevItemQuantities,
-                          [item.Item_Name]: (prevItemQuantities[item.Item_Name] || 1) + 1
-                        }));
-                      }}
-                    >
-                      +
-                    </button>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
+      <Card style={{ width: "15rem" }}>
+        <Card.Body>
+          <Card.Text>
+            <Form.Check
+              aria-label="option 1"
+              onChange={(e) => handleCheckboxChange(e, item)}
+            />&nbsp;&nbsp;
+            <p className="label">
+              <span><b>Item Name</b></span>- {item.Item_Name}
+            </p>
+            <p><span><b>Price</b></span> -{item.price}</p>
+            <div className="Opretor">
+              <button
+                type="button"
+                className='decrease'
+                onClick={() => {
+                  if (itemQuantities[item.Item_Name] > 1) {
+                    setItemQuantities((prevItemQuantities) => ({
+                      ...prevItemQuantities,
+                      [item.Item_Name]: prevItemQuantities[item.Item_Name] - 1
+                    }));
+                  }
+                }}
+              >
+                -
+              </button>
+              <p className='quantity'>{itemQuantities[item.Item_Name] || 1}</p>
+              <button
+                type="button"
+                className='increase'
+                onClick={() => {
+                  setItemQuantities((prevItemQuantities) => ({
+                    ...prevItemQuantities,
+                    [item.Item_Name]: (prevItemQuantities[item.Item_Name] || 1) + 1
+                  }));
+                }}
+              >
+                +
+              </button>
+            </div>
+          </Card.Text>
+        </Card.Body>
+      </Card>
     </div>
   ));
 
-
   const submitform = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Prevent the default form submission
 
     if (!table_Number || selectedItems.length === 0) {
       toast.error('Please fill in all the required fields and select at least one item.');
@@ -231,6 +235,7 @@ const Order = ({post}) => {
                       {category.Category_Type}
                     </option>
                   ))}
+                  <option value="See All">See All</option>
                 </Form.Select>
               </div>
 
@@ -241,7 +246,6 @@ const Order = ({post}) => {
                   {selectedItemsList}
                 </div>
               </Container>
-              {/* </Col> */}
 
               <center>
                 <Button
@@ -263,3 +267,5 @@ const Order = ({post}) => {
 };
 
 export default Order;
+
+

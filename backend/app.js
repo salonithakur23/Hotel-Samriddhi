@@ -1,16 +1,19 @@
 const express = require("express");
 const app = express();
+const bodyParser = require('body-parser');
 
+// const routes = require('./routes/routes');
 
-
+const authRoutes = require('./routes/auth');
 
 
 // ADD THIS
 var cors = require('cors');
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
 
-
+app.use('/api/v1/auth', authRoutes);
 
 //all routes import 
 const item= require("./routes/itemRoute");
@@ -22,6 +25,8 @@ const roombooking = require("./routes/roomBookingRoute")
 const order = require("./routes/orderRoute")
 const category = require("./routes/categoryRoute")
 const bill = require("./routes/billRoute")
+// const login = require('/main')
+
 
 
 
@@ -36,6 +41,9 @@ app.use("/api/v1",roombooking);
 app.use("/api/v1",order);
 app.use("/api/v1",category);
 app.use("/api/v1",bill)
+
+
+// app.use('/api', routes);
 
 
 
