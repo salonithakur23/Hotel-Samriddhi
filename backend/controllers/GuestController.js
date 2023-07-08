@@ -14,22 +14,7 @@ exports.createGuest = (async (req, res, next) => {
     });
 });
 
-// get all students
 
-// exports.getAllitems = catchAsyncErrors( async (req, res) => {
-//     to seacrhing 
-
-//     const apiFeature= new ApiFeatures(Student.find(),req.query).search().filter();
-
-//   // ======================================================
-//     const allstudents = await Student.find();
-//       const allstudents = await apiFeature.query;
-
-//     res.status(200).json({
-//       success: true,
-//       allstudents,
-//     });
-//   });
 
 
 exports.getAllGuest = async (req, res) => {

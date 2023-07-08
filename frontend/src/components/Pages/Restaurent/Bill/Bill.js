@@ -28,28 +28,8 @@ const Bill = () => {
   }, [orderId]);
   useEffect(() => {
     if (order) {
-      const billAPI = 'http://localhost:4000/api/v1/bills'; // Replace with the actual URL of your Bill API endpoint
-
-      const resbillingData = {
-        orderId: order._id,
-        // Extract other required data from the order object and pass it to the Bill API
-        // ...
-      };
-
-      axios
-        .post(billAPI, resbillingData)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-    }
-  }, [order]);
-  useEffect(() => {
-    if (order) {
       const total = calculateTotal(order.Items);
-      const gst = (total * 5) / 100; // Calculate GST amount
+      const gst = (total * 5) / 100;
       setGstAmount(gst);
     }
   }, [order]);
@@ -86,10 +66,9 @@ const Bill = () => {
       try {
         const billAPI = 'http://localhost:4000/api/v1/bill/new';
         const total = calculateTotal(order.Items);
-
         const billData = {
           orderId: order._id,
-          resName: 'Hotel Samriddhi',
+          resName: 'Samriddhi Hotel ',
           phoneNumber: '8796541234',
           address: 'Mansrowar',
           gstNumber: '1',
@@ -159,12 +138,12 @@ const Bill = () => {
           <Row>
             <Col sm={4}>
               <div className="billing-card" id="billing-card">
-                <h3 className="res-name">Hotel Samriddhi</h3>
+                <h3 className="res-name">Samriddhi Hotel</h3>
                 <h5>Phone.no: <span>8796541234</span></h5>
                 <h5>Address: <span>Mansrowar</span></h5>
                 <h5>Gst.no: <span>1</span></h5>
-                <h5>Booking Date&Time: <span>{order.Order_Time}</span></h5>
-                <h5>Table No.: <span>{order.Table_Number}</span></h5>
+                <h5>Booking Date&Time: <span> {order.Order_Time}</span></h5>
+                <h5>Table No.: <span> {order.Table_Number}</span></h5>
                 <Table responsive>
                   <table className="table table-bordered border-secondary">
                     <thead>

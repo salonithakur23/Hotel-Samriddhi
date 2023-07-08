@@ -21,7 +21,7 @@ const EditResBilling = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [itemQuantities, setItemQuantities] = useState({});
   const [canSubmit, setCanSubmit] = useState(false);
-  
+
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setGetAll(response.data);
@@ -38,19 +38,38 @@ const EditResBilling = () => {
       setItems(response.data.items);
     });
   };
-
-
-
   const handleCheckboxChange = (event, item) => {
+    const existingItemIndex = selectedItems.findIndex(
+      (selectedItem) => selectedItem.Item_Name === item.Item_Name
+    );
+
     if (event.target.checked) {
-      setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
+      if (existingItemIndex !== -1) {
+        const updatedItems = [...selectedItems];
+        updatedItems[existingItemIndex] = {
+          ...updatedItems[existingItemIndex],
+          Quantity: itemQuantities[item.Item_Name] || 1,
+        };
+        setSelectedItems(updatedItems);
+      } else {
+        setSelectedItems((prevSelectedItems) => [
+          ...prevSelectedItems,
+          {
+            Item_Name: item.Item_Name,
+            price: item.price,
+            Quantity: itemQuantities[item.Item_Name] || 1,
+          },
+        ]);
+      }
       setItemQuantities((prevItemQuantities) => ({
         ...prevItemQuantities,
-        [item.Item_Name]: 1
+        [item.Item_Name]: 1,
       }));
     } else {
       setSelectedItems((prevSelectedItems) =>
-        prevSelectedItems.filter((selectedItem) => selectedItem !== item)
+        prevSelectedItems.filter(
+          (selectedItem) => selectedItem.Item_Name !== item.Item_Name
+        )
       );
       setItemQuantities((prevItemQuantities) => {
         const updatedQuantities = { ...prevItemQuantities };
@@ -60,7 +79,6 @@ const EditResBilling = () => {
     }
     setCanSubmit(event.target.checked);
   };
-
 
   const selectedItemsList = items?.map((item) => (
     <div key={item.Item_Name} className="item-container">
@@ -101,6 +119,7 @@ const EditResBilling = () => {
                           [item.Item_Name]: (prevItemQuantities[item.Item_Name] || 1) + 1
                         }));
                       }}
+
                     >
                       +
                     </button>
@@ -137,14 +156,14 @@ const EditResBilling = () => {
         "Table_Number": Table_Number,
         "Order_Time": Order_Time,
         "Category_Type":Category_Type,
-         Items: selectedItems.map(item => ({
+        Items: selectedItems.map(item => ({
           Item_Name: item.Item_Name,
           Price: item.price,
           Quantity: itemQuantities[item.Item_Name] || 1
         }))
 
       })
-      toast.success("Guest Updated Succesfully")
+      toast.success("Order Updated Succesfully")
       navigate("/order")
     } catch (error) {
       console.log(error.response)
@@ -248,22 +267,9 @@ const EditResBilling = () => {
           </Row>
         </Container>
       </div>
-
-
-
-
-
     </>
 
   )
 }
 
-export default EditResBilling
-
-
-
-
-
-
-
-
+export default EditResBilling;

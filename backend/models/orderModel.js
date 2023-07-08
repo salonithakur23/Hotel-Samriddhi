@@ -6,15 +6,11 @@ const OrderSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter the table number"],
   },
-  // Order_Time: {
-  //   type: String,
-  //   required: [true, "Please enter the order time"],
-  // },
-  // Category_Type:{
-  //   type: String,
-  //   required: [true, "Please enter the category Type"],
+  Status:{
+    type:String,
+    required:true,
 
-  // },
+  },
   Items: [
     {
       Item_Name: {

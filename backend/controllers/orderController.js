@@ -4,11 +4,11 @@ const Order = require("../models/orderModel");
 
 // create student --Admin
 exports.createOrder = (async (req, res, next) => {
-    const student = await Order.create(req.body);
+    const order = await Order.create(req.body);
 
     res.status(201).json({
         success: true,
-        student,
+        order,
     });
 });
 
@@ -50,7 +50,6 @@ exports.updateOrder = async (req, res, next) => {
     let order = await Order.findById(req.params.id);
 
     if (!order) {
-        // return next(new ErrorHandler("Item not found ", 404));
         return res.status(500).json({
             success: false,
             message: "Itme not Found"
@@ -67,6 +66,36 @@ exports.updateOrder = async (req, res, next) => {
     });
 
 }
+exports.updateOrderStatus = async (req, res, next) => {
+  try {
+    const orderId = req.params.id;
+    const { newStatus } = req.body;
+    const updatedOrder = await Order.findByIdAndUpdate(
+      orderId,
+      { Status: newStatus },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({
+        success: false,
+        message: 'Order not found',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      order: updatedOrder,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update order status',
+    });
+  }
+};
+
 
 
 exports.deleteOrder = async (req, res, next) => {
