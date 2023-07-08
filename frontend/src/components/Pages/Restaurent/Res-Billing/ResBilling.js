@@ -121,14 +121,14 @@ const ResBilling = () => {
                     </h5>
                   </Table>
                   <div className="d-flex text-center">
-                  <Link to={`/KOT/${order._id}`}>
+                    <Link to={`/KOT/${order._id}`}>
                       <Button className="table-btn " variant="light">
-                        &#128065; KOT
+                        &#128065;KOT
                       </Button>
                     </Link>
                     <Link to={`/EditResBilling/${order._id}`}>
                       <Button className="table-btn " variant="light">
-                        &#128065; Edit
+                        &#128065;Edit
                       </Button>
                     </Link>
                     <Link to={`/bill/${order._id}`}>
