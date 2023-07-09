@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Table, Button, Form, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -7,7 +6,6 @@ import { IoIosCreate } from 'react-icons/io'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import ModalCamp from '../Order/ModalCamp'
 import Layout from '../../../Header/Layout'
 
 
@@ -15,21 +13,15 @@ import Layout from '../../../Header/Layout'
 const baseURL = "http://localhost:4000/api/v1/categories";
 const allItem = "http://localhost:4000/api/v1/items?Category_Name=";
 
-const EditResBilling = ({post}) => {
 
-  const [open, setOpen] = useState(false);
-  const [user, setUser] = useState({});
-  const handleModel = () => {
-    setOpen(true);
-    setUser(post);
-  };
+const EditResBilling = () => {
 
   const [get, setGetAll] = useState(null);
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [itemQuantities, setItemQuantities] = useState({});
+  const [itemQuantities, setItemQuantities] = useState([]);
   const [canSubmit, setCanSubmit] = useState(false);
-
+  
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setGetAll(response.data);
@@ -46,38 +38,21 @@ const EditResBilling = ({post}) => {
       setItems(response.data.items);
     });
   };
-  const handleCheckboxChange = (event, item) => {
-    const existingItemIndex = selectedItems.findIndex(
-      (selectedItem) => selectedItem.Item_Name === item.Item_Name
-    );
 
+
+
+  const handleCheckboxChange = (event, item) => {
+    console.log(item)
     if (event.target.checked) {
-      if (existingItemIndex !== -1) {
-        const updatedItems = [...selectedItems];
-        updatedItems[existingItemIndex] = {
-          ...updatedItems[existingItemIndex],
-          Quantity: itemQuantities[item.Item_Name] || 1,
-        };
-        setSelectedItems(updatedItems);
-      } else {
-        setSelectedItems((prevSelectedItems) => [
-          ...prevSelectedItems,
-          {
-            Item_Name: item.Item_Name,
-            price: item.price,
-            Quantity: itemQuantities[item.Item_Name] || 1,
-          },
-        ]);
-      }
-      setItemQuantities((prevItemQuantities) => ({
-        ...prevItemQuantities,
-        [item.Item_Name]: 1,
-      }));
+      setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
+      setItemQuantities(() => [
+        ...itemQuantities,
+        item.Item_Name,
+        item.price,
+      ]);
     } else {
-      setSelectedItems((prevSelectedItems) =>
-        prevSelectedItems.filter(
-          (selectedItem) => selectedItem.Item_Name !== item.Item_Name
-        )
+      setItems((prevSelectedItems) =>
+        prevSelectedItems.filter((selectedItem) => selectedItem !== item)
       );
       setItemQuantities((prevItemQuantities) => {
         const updatedQuantities = { ...prevItemQuantities };
@@ -87,6 +62,7 @@ const EditResBilling = ({post}) => {
     }
     setCanSubmit(event.target.checked);
   };
+
 
   const selectedItemsList = items?.map((item) => (
     <div key={item.Item_Name} className="item-container">
@@ -127,7 +103,6 @@ const EditResBilling = ({post}) => {
                           [item.Item_Name]: (prevItemQuantities[item.Item_Name] || 1) + 1
                         }));
                       }}
-
                     >
                       +
                     </button>
@@ -148,15 +123,16 @@ const EditResBilling = ({post}) => {
   console.log(Category_Type,"category")
 
   console.log(specificGuest, "Check id from url")
-  useEffect(() => {
-    axios.get(`http://localhost:4000/api/v1/order/${params.id}`).then((response) => {
-      setSpecificGuest(response.data);
-      setTable_Number(response.data.order.Table_Number);
-      setOrder_Time(response.data.order.Order_Time);
-      setItems(response.data.order.Items);
-      setCategory_Type(response.data.order.Items);
-    })
-  }, [])
+ useEffect(() => {
+  axios.get(`http://localhost:4000/api/v1/order/${params.id}`).then((response) => {
+    setSpecificGuest(response.data);
+    setTable_Number(response.data.order.Table_Number);
+    setOrder_Time(response.data.order.Order_Time);
+    setSelectedItems(response.data.order.Items);
+    setCategory_Type(response.data.order.Category_Type);
+  })
+}, [])
+  
  
   const submitform = () => {
     try {
@@ -164,20 +140,22 @@ const EditResBilling = ({post}) => {
         "Table_Number": Table_Number,
         "Order_Time": Order_Time,
         "Category_Type":Category_Type,
-        Items: selectedItems.map(item => ({
+         Items: selectedItems.map(item => ({
           Item_Name: item.Item_Name,
-          Price: item.price,
+          price: item.price,
           Quantity: itemQuantities[item.Item_Name] || 1
         }))
 
       })
-      toast.success("Order Updated Succesfully")
-      navigate("/order")
+      toast.success("Guest Updated Succesfully")
+      navigate("/res-billing")
     } catch (error) {
       console.log(error.response)
 
     }
   }
+
+  console.log(selectedItems);
   return (
 
     <>
@@ -217,23 +195,6 @@ const EditResBilling = ({post}) => {
       <div className='form-div'>
         <Container>
           <Row>
-          <td>
-              <Button
-                onClick={handleModel}
-                variant="success"
-                className="All-order float-end"
-              >
-                Preview
-              </Button>
-              {open && (
-                <ModalCamp
-                  open={open}
-                  setOpen={setOpen}
-                  selectedItems={selectedItems}
-                  itemQuantities={itemQuantities}
-                />
-              )}
-            </td>
             <form className="row g-4 p-3 registration-form">
               <div className="col-md-4 position-relative">
                 <label className="label">Table Number</label>
@@ -251,7 +212,6 @@ const EditResBilling = ({post}) => {
               <div className="col-md-4 position-relative">
                 <label className="label"> Category </label>
                 <Form.Select
-                  name="Room_Type"
                   onChange={(e) => handleCategoriesItem(e.target.value)}
                 >
                   <option
@@ -292,6 +252,11 @@ const EditResBilling = ({post}) => {
           </Row>
         </Container>
       </div>
+
+
+
+
+
     </>
 
   )
