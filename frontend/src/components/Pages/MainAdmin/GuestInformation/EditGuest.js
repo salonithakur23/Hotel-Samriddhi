@@ -112,12 +112,12 @@ const EditGuest = () => {
               <div className='col-md-4 position-relative'>
                 <label htmlFor='Guest_Name' className='label'>Guest Name</label>
                 <input type='text' className='form-control'
-                 value={Guest_Name}  onChange={(e) => setGuest_Name(e.target.value)}  required />
+                 value={Guest_Name}  onChange={(e) => setGuest_Name(e.target.value)}   />
               </div>
               <div className='col-md-4 position-relative'>
                 <label className='label'>Guest Number</label>
                 <input type='text' name='Guest_Number' className='form-control'
-                value={Guest_Number}   onChange={(e) => setGuest_Number(e.target.value)}   required />
+                value={Guest_Number}   onChange={(e) => setGuest_Number(e.target.value)}    />
               </div>
               <div className='col-md-4 position-relative'>
                 <label className='label'>Address</label>
