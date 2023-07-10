@@ -20,17 +20,18 @@ const ResBilling = () => {
     });
   }, []);
 
+
   const calculateTotal = (items) => {
     let total = 0;
     items.forEach((item) => {
-      total += item.Price * item.Quantity;
+      total += item.price * item.Quantity;
     });
     return total;
   };
 
   const handleKOTClick = async (orderId) => {
     try {
-      const updatedOrder = await axios.put(`http://localhost:4000/api/v1/order/${orderId}`, {
+      const updatedOrder = await axios.put(`http://localhost:4000/api/v1/order/status/${orderId}`, {
         newStatus: "Order in the Kitchen"
       });
       toast.success("Order status updated successfully");
@@ -42,7 +43,7 @@ const ResBilling = () => {
 
   const handleBillClick = async (orderId) => {
     try {
-      const updatedOrder = await axios.put(`http://localhost:4000/api/v1/order/${orderId}`, {
+      const updatedOrder = await axios.put(`http://localhost:4000/api/v1/order/status/${orderId}`, {
         newStatus: " Order Complete"
       });
       toast.success("Order status updated successfully");
@@ -64,11 +65,12 @@ const ResBilling = () => {
     );
   }
 
+console.log(orders)
   return (
 
 
     <>
-    <Layout />
+      <Layout />
       <Container className="main-col">
         <Table striped bordered hover className="main-table">
           <thead>
@@ -119,9 +121,6 @@ const ResBilling = () => {
                     Gst.no : <span>1</span>
                   </h5>
                   <h5>
-                    Order Date&Time :<span> {order.Order_Time}</span>
-                  </h5>
-                  <h5>
                     Table No :<span> {order.Table_Number}</span>
                   </h5>
                   <Table responsive>
@@ -138,9 +137,9 @@ const ResBilling = () => {
                         {order.Items.map((item) => (
                           <tr key={item._id}>
                             <td>{item.Item_Name}</td>
-                            <td>{item.Price}</td>
+                            <td>{item.price}</td>
                             <td>{item.Quantity}</td>
-                            <td>{item.Price * item.Quantity}</td>
+                            <td>{item.price * item.Quantity}</td>
                           </tr>
                         ))}
                       </tbody>

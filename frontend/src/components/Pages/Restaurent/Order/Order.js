@@ -139,15 +139,15 @@ const Order = ({post}) => {
         Status: "Order in Progress",
         Items: selectedItems.map(item => ({
           Item_Name: item.Item_Name,
-          Price: item.price,
+          price: item.price,
           Quantity: itemQuantities[item.Item_Name] || 1,
         })),
       });
 
       const orderId = response.data.order._id;
-      await axios.put(`http://localhost:4000/api/v1/order/${orderId}`, {
-        newStatus: "Order Placed or taken"
-      });
+      // await axios.put(`http://localhost:4000/api/v1/order/status/${orderId}`, {
+      //   newStatus: "Order Placed or taken"
+      // });
       toast.success("Order Submitted Successfully");
       navigate("/res-billing");
     } catch (error) {

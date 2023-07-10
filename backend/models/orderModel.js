@@ -17,7 +17,7 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter the item name"],
       },
-      Price: {
+      price: {
         type: Number,
         // required: [true, "Please enter the item price"],
       },
