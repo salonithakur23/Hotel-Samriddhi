@@ -81,11 +81,10 @@ const Kot = () => {
                         <Col sm={4}>
                             <div className='billing-card' id='billing-card'>
                                 <h3 className='res-name'> Hotel Samriddhi</h3>
-                                <h5>Phone.no: <span>8796541234</span></h5>
+                                <h5>Phone Number: <span>8796541234</span></h5>
                                 <h5 >Address: <span>Mansrowar</span></h5>
-                                <h5>Gst.no: <span>1</span></h5>
-                                <h5>Booking Date & Time: <span>{order.Order_Time}</span></h5>
-                                <h5>Table No: <span>{order.Table_Number}</span></h5>
+                                <h5>Gst Number: <span>1</span></h5>
+                                <h5>Table Number: <span>{order.Table_Number}</span></h5>
                                 <Table responsive>
                                     <table className="table table-bordered border-secondary">
                                         <thead>
@@ -99,7 +98,7 @@ const Kot = () => {
                                             {order.Items.map((item) => (
                                                 <tr key={item._id}>
                                                     <td>{item.Item_Name}</td>
-                                                    <td>{item.Price}</td>
+                                                    <td>{item.price}</td>
                                                     <td>{item.Quantity}</td>
                                                 </tr>
                                             ))}

@@ -48,8 +48,4 @@ app.use("/api/v1",bill)
 
 
 
-
-
-
-
 module.exports = app;

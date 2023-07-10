@@ -13,23 +13,6 @@ exports.createItem = (async (req, res, next) => {
     });
 });
 
-// get all students
-
-// exports.getAllitems = catchAsyncErrors( async (req, res) => {
-//     to seacrhing 
-
-//     const apiFeature= new ApiFeatures(Student.find(),req.query).search().filter();
-
-//   // ======================================================
-//     const allstudents = await Student.find();
-//       const allstudents = await apiFeature.query;
-
-//     res.status(200).json({
-//       success: true,
-//       allstudents,
-//     });
-//   });
-
 
 exports.getAllitems = async (req, res) => {
 
@@ -52,7 +35,7 @@ exports.getItemDetail = async (req, res, next) => {
     if (!item) {
         return res.status(500).json({
             success: false,
-            message: "Itme not Found"
+            message: "Item not Found"
         });
     }
 
@@ -70,7 +53,7 @@ exports.updateitem = async (req, res, next) => {
         // return next(new ErrorHandler("Item not found ", 404));
         return res.status(500).json({
             success: false,
-            message: "Itme not Found"
+            message: "Item not Found"
         });
     }
     item = await Item.findByIdAndUpdate(req.params.id, req.body, {

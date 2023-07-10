@@ -4,12 +4,12 @@ import { Button, Col, Container, Row, Table } from 'react-bootstrap';
 import { AiFillDashboard, AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { IoIosCreate } from 'react-icons/io';
+import {AiFillCloseCircle} from 'react-icons/ai'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Layout from '../../../Header/Layout';
 
 const baseURL = 'http://localhost:4000/api/v1/orders';
-
 
 const ResBilling = () => {
   const [orders, setOrders] = useState([]);
@@ -19,7 +19,6 @@ const ResBilling = () => {
       setOrders(response.data?.orders);
     });
   }, []);
-
 
   const calculateTotal = (items) => {
     let total = 0;
@@ -32,32 +31,47 @@ const ResBilling = () => {
   const handleKOTClick = async (orderId) => {
     try {
       const updatedOrder = await axios.put(`http://localhost:4000/api/v1/order/status/${orderId}`, {
-        newStatus: "Order in the Kitchen"
+        newStatus: 'Order in the Kitchen'
       });
-      toast.success("Order status updated successfully");
+      toast.success('Order status updated successfully');
     } catch (error) {
       console.log(error.response);
-      toast.error("Failed to update order status");
+      toast.error('Failed to update order status');
     }
   };
 
   const handleBillClick = async (orderId) => {
     try {
       const updatedOrder = await axios.put(`http://localhost:4000/api/v1/order/status/${orderId}`, {
-        newStatus: " Order Complete"
+        newStatus: 'Order Complete'
       });
-      toast.success("Order status updated successfully");
+      toast.success('Order status updated successfully');
     } catch (error) {
       console.log(error.response);
-      toast.error("Failed to update order status");
+      toast.error('Failed to update order status');
+    }
+
+  };
+
+  const handleRemoveClick = async (orderId) => {
+    try {
+      await axios.put(`http://localhost:4000/api/v1/order/status/${orderId}`, {
+        newStatus: 'Completed'
+      });
+      toast.success('Order Removes successfully');
+      setOrders(orders.filter((order) => order._id !== orderId));
+    } catch (error) {
+      console.log(error.response);
+      toast.error('Failed to update order status');
     }
   };
 
+  const activeOrders = orders.filter((order) => order.Status !== 'Completed');
 
-  if (orders.length === 0) {
+  if (activeOrders.length === 0) {
     return (
       <div className="no-orders">
-        <h3>There is no order yet.</h3>
+        <h3>There are no active orders.</h3>
         <Button className="table-btn" variant="light">
           <IoIosCreate />&nbsp;<Link to="/order">Create an Order</Link>
         </Button>
@@ -65,10 +79,7 @@ const ResBilling = () => {
     );
   }
 
-console.log(orders)
   return (
-
-
     <>
       <Layout />
       <Container className="main-col">
@@ -104,24 +115,29 @@ console.log(orders)
       <div className="form-div">
         <Container>
           <Row>
-            {orders.map((order) => (
+            {activeOrders.map((order) => (
               <Col sm={4} key={order._id}>
                 <div className="billing-card">
+                  <div className="close-btn-container">
+                    <Button className="close-btn " variant="danger" onClick={() => handleRemoveClick(order._id)}>
+                    <AiFillCloseCircle/>
+                    </Button>
+                  </div>
                   <h5>
                     Status: <span>{order.Status}</span>
                   </h5>
                   <h3 className="res-name">Samriddhi Hotel</h3>
                   <h5>
-                    Phone.no : <span>8796541234</span>
+                    Phone Number: <span>8796541234</span>
                   </h5>
                   <h5>
-                    Address : <span>Mansrowar</span>
+                    Address: <span>Mansrowar</span>
                   </h5>
                   <h5>
-                    Gst.no : <span>1</span>
+                    Gst Number: <span>1</span>
                   </h5>
                   <h5>
-                    Table No :<span> {order.Table_Number}</span>
+                    Table Number: <span>{order.Table_Number}</span>
                   </h5>
                   <Table responsive>
                     <table className="table table-bordered border-secondary">
@@ -179,4 +195,3 @@ console.log(orders)
 };
 
 export default ResBilling;
-

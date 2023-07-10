@@ -6,9 +6,8 @@
   exports.signup = async (req, res) => {
     const { username, password } = req.body;
 
-    try {
-      // Check if user already exists
-      const existingUser = await User.findOne({ username });
+  try {
+    const existingUser = await User.findOne({ username });
 
       if (existingUser) {
         return res.status(409).json({ error: 'Username already exists' });
@@ -43,14 +42,14 @@ exports.login = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Find the user by username
+
     const user = await User.findOne({ username });
 
     if (!user) {
       return res.status(401).json({ error: 'Authentication failed' });
     }
 
-    // Compare passwords
+
     const result = await bcrypt.compare(password, user.password);
 
     if (!result) {
