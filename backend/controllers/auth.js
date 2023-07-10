@@ -27,11 +27,11 @@ exports.signup = async (req, res) => {
     // Generate JWT token
     const token = jwt.sign(
       { userId: savedUser._id, username: savedUser.username },
-      'your-secret-key',
-      { expiresIn: '1h' }
+      'your-secret-key'
     );
 
-    res.status(201).json({ token });
+    res.cookie('token', token, { httpOnly: true });
+    res.status(201).json({ message: 'Signup successful' });
   } catch (err) {
     res.status(500).json({ error: 'Failed to create user' });
   }
@@ -42,29 +42,33 @@ exports.login = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Find the user by username
     const user = await User.findOne({ username });
 
     if (!user) {
       return res.status(401).json({ error: 'Authentication failed' });
     }
 
-    // Compare passwords
     const result = await bcrypt.compare(password, user.password);
 
     if (!result) {
       return res.status(401).json({ error: 'Authentication failed' });
     }
 
-    // Generate JWT token
+    // Generate JWT token without expiration
     const token = jwt.sign(
       { userId: user._id, username: user.username },
-      'your-secret-key',
-      { expiresIn: '1h' }
+      'your-secret-key'
     );
-    res.status(200).json({ message: 'Login successful', token });
-    res.status(200).json({ token });
+
+    res.cookie('token', token, { httpOnly: true });
+    res.status(200).json({ message: 'Login successful' });
   } catch (err) {
     res.status(500).json({ error: 'Failed to authenticate' });
   }
+};
+
+// Logout controller
+exports.logout = (req, res) => {
+  res.clearCookie('token');
+  res.status(200).json({ message: 'Logout successful' });
 };

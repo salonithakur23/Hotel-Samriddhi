@@ -16,6 +16,8 @@ const Bill = () => {
   const [gstAmount, setGstAmount] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState('cash');
 
+
+
   useEffect(() => {
     const fetchOrder = async () => {
       try {
@@ -39,7 +41,7 @@ const Bill = () => {
   const calculateTotal = (items) => {
     let total = 0;
     items.forEach((item) => {
-      total += item.Price * item.Quantity;
+      total += item.price * item.Quantity;
     });
     return total;
   };
@@ -75,7 +77,7 @@ const Bill = () => {
           total: total,
           items: order.Items.map((item) => ({
             item: item.Item_Name,
-            price: item.Price,
+            price: item.price,
             quantity: item.Quantity,
             price_after_Quantity: item.Price * item.Quantity,
           })),
@@ -93,8 +95,9 @@ const Bill = () => {
   const printBill = () => {
     saveBillData();
     handlePrintBill();
+    
   };
-
+ 
   if (!order) {
     return <div>Loading...</div>;
   }
@@ -138,11 +141,10 @@ const Bill = () => {
             <Col sm={4}>
               <div className="billing-cards-2" id="billing-card">
                 <h3 className="res-name text-style">Hotel Samriddhi</h3>
-                <h5 className='text-style'>Phone.no: <span>8796541234</span></h5>
+                <h5 className='text-style'>Phone Number: <span>8796541234</span></h5>
                 <h5 className='text-style'>Address: <span>Mansrowar</span></h5>
-                <h5 className='text-style'>Gst.no: <span>1</span></h5>
-                <h5 className='text-style'>Booking Date&Time: <span>{order.Order_Time}</span></h5>
-                <h5 className='text-style'>Table No.: <span>{order.Table_Number}</span></h5>
+                <h5 className='text-style'>Gst Number: <span>1</span></h5>
+                <h5 className='text-style'>Table Number: <span>{order.Table_Number}</span></h5>
                 <Table responsive>
                   <table className="table table-bordered border-secondary">
                     <thead>
@@ -157,9 +159,9 @@ const Bill = () => {
                       {order.Items.map((item) => (
                         <tr key={item._id} className='text-style'>
                           <td>{item.Item_Name}</td>
-                          <td>{item.Price}</td>
+                          <td>{item.price}</td>
                           <td>{item.Quantity}</td>
-                          <td>{item.Price * item.Quantity}</td>
+                          <td>{item.price * item.Quantity}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -170,7 +172,6 @@ const Bill = () => {
                   </h5>
                   <h5 className="mt-2 text-style">GST (5%): <span className="float-end">{gstAmount.toFixed(2)}</span></h5>
                   <h5 className="mt-2 text-style">Total (incl. GST): <span className="float-end">{(calculateTotal(order.Items) + gstAmount).toFixed(2)}</span></h5>
-                  {/* Display selected payment method */}
                   <h5 className='text-style'>Payment Method <span className="float-end">{paymentMethod}</span></h5>
                 </Table>
                 <div>

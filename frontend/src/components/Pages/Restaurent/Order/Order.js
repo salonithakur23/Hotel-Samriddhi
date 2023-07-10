@@ -229,7 +229,7 @@ const Order = ({post}) => {
                   name="Room_Type"
                   onChange={(e) => handleCategoriesItem(e.target.value)}
                 >
-                  <option value={category_Type}>Select a category</option>
+                  <option value={category_Type} required>Select a category</option>
                   {get?.categories?.map((category) => (
                     <option key={category.Category_Type}>
                       {category.Category_Type}

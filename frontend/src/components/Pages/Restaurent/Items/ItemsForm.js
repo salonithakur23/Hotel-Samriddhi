@@ -21,7 +21,6 @@ const ItemList = () => {
   }, [get])
 
   const deleteData = (id) => {
-    // console.log(id)
     axios.delete(`http://localhost:4000/api/v1/item/${id}`).then(response => {
       alert("Item has been deleted successfully")
     })

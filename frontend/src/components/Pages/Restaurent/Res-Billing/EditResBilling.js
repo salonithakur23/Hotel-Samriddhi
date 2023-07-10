@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import { AiFillDashboard } from 'react-icons/ai';
 import { IoIosCreate } from 'react-icons/io';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Layout from '../../../Header/Layout';
 import ModalCamp from '../Order/ModalCamp';
+import { useNavigate, useParams } from 'react-router-dom'
 
 const baseURL = 'http://localhost:4000/api/v1/categories';
 const allItem = 'http://localhost:4000/api/v1/items?Category_Name=';
@@ -20,6 +20,8 @@ const EditResBilling = ({ post }) => {
     setOpen(true);
     setUser(post);
   };
+
+
 
   const [get, setGetAll] = useState(null);
   const [items, setItems] = useState([]);
@@ -129,9 +131,13 @@ const EditResBilling = ({ post }) => {
   const params = useParams();
   const navigate = useNavigate();
   const [specificGuest, setSpecificGuest] = useState('');
-  const [Table_Number, setTable_Number] = useState(specificGuest.Table_Number);
+  const [Table_Number, setTable_Number] = useState(
+    specificGuest.Table_Number
+  );
   const [Order_Time, setOrder_Time] = useState(specificGuest.Order_Time);
-  const [Category_Type, setCategory_Type] = useState(specificGuest.Category_Type);
+  const [Category_Type, setCategory_Type] = useState(
+    specificGuest.Category_Type
+  );
 
   useEffect(() => {
     axios
@@ -161,18 +167,22 @@ const EditResBilling = ({ post }) => {
       navigate('/res-billing');
     } catch (error) {
       console.log(error.response);
+      toast.error('Failed to update order');
     }
   };
 
   return (
     <>
       <Layout />
-      <Container style={{ width: "90%", marginTop: "20px" }}>
-        <Table striped bordered hover className='main-table'>
+
+      <Container style={{ width: '90%', marginTop: '20px' }}>
+        <Table striped bordered hover className="main-table">
           <thead>
             <tr>
               <th>
-                <h5><AiFillDashboard /> &nbsp;Dashboard / Edit Order</h5>
+                <h5>
+                  <AiFillDashboard /> &nbsp;Dashboard / Edit Order
+                </h5>
               </th>
             </tr>
           </thead>
@@ -182,9 +192,11 @@ const EditResBilling = ({ post }) => {
             <thead>
               <tr>
                 <th>
-                  <div className='table-div'>
-                    <Button className='table-btn' variant="light">
-                      <IoIosCreate />&nbsp;<Link to="/res-billing">Go Back</Link>
+                  <div className="table-div">
+                    <Button className="table-btn" variant="light">
+                      <IoIosCreate />
+                      &nbsp;
+                      <Link to="/res-billing">Go Back</Link>
                     </Button>
                   </div>
                 </th>
@@ -195,7 +207,7 @@ const EditResBilling = ({ post }) => {
         </Row>
       </Container>
 
-      <div className='form-div'>
+      <div className="form-div">
         <Container>
           <Row>
             <td>
@@ -246,9 +258,7 @@ const EditResBilling = ({ post }) => {
               <hr></hr>
 
               <Container>
-                <div className="item-row">
-                  {selectedItemsList}
-                </div>
+                <div className="item-row">{selectedItemsList}</div>
               </Container>
 
               <center>
@@ -257,7 +267,6 @@ const EditResBilling = ({ post }) => {
                   variant="success"
                   type="submit"
                   disabled={!canSubmit}
-                  onClick={submitform}
                 >
                   Submit
                 </Button>
@@ -268,7 +277,10 @@ const EditResBilling = ({ post }) => {
       </div>
     </>
   );
-}
+};
+
+  
+
 
 export default EditResBilling;
 

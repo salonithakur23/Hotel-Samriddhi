@@ -52,7 +52,7 @@ exports.updateOrder = async (req, res, next) => {
     if (!order) {
         return res.status(500).json({
             success: false,
-            message: "Itme not Found"
+            message: "order not Found"
         });
     }
     order = await Order.findByIdAndUpdate(req.params.id, req.body, {
