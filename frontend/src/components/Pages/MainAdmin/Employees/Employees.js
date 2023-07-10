@@ -121,6 +121,7 @@ const Employees = () => {
                                 <label class="form-label">Gender</label>
                                 <Form.Select
                                     value={gender} onChange={(e) => setGender(e.target.value)}
+                                    required
                                 >
                                     <option>Choose</option>
                                     <option value="Male">Male</option>
@@ -132,6 +133,7 @@ const Employees = () => {
                                 <label className="label">DOB</label>
                                 <input type="date" class="form-control"
                                     value={dob} onChange={(e) => setDob(e.target.value)}
+                                    required
                                 />
 
                             </div>
@@ -139,6 +141,7 @@ const Employees = () => {
                                 <label className="label">Role</label>
                                 <input type="text" class="form-control"
                                     value={role} onChange={(e) => setRole(e.target.value)}
+                                    required
                                 />
 
                             </div>
@@ -146,6 +149,7 @@ const Employees = () => {
                                 <label className="label">Salary</label>
                                 <input type="text" class="form-control"
                                     value={salary} onChange={(e) => setSalary(e.target.value)}
+                                    required
                                 />
 
                             </div>

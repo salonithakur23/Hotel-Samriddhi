@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Col, Row, Table, Button } from 'react-bootstrap'
 import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-icons/ai';
 import { IoIosCreate } from 'react-icons/io';
@@ -18,7 +18,7 @@ const ServiceEdit = () => {
     const [specificService, setSpecificService] = useState("");
     const [Service_Name, setService_Name] = useState(specificService.Service_Name);
     const [Service_Charge, setService_Charge] = useState(specificService.Service_Charge);
-   
+
 
     console.log(specificService, "Check id from url")
 
@@ -34,9 +34,9 @@ const ServiceEdit = () => {
     const submitform = () => {
         try {
             axios.put(`http://localhost:4000/api/v1/room-service/${params.id}`, {
-                "Service_Name":Service_Name,
-                "Service_Charge":Service_Charge,
-               
+                "Service_Name": Service_Name,
+                "Service_Charge": Service_Charge,
+
             })
             toast.success("Service Updated Succesfully")
             navigate("/service-list")
@@ -49,38 +49,38 @@ const ServiceEdit = () => {
 
 
 
-  return (
-<>
-<Layout />
- <Container style={{ width: "90%", marginTop: "20px" }} >
-                    <Table striped bordered hover className='main-table'>
+    return (
+        <>
+            <Layout />
+            <Container style={{ width: "90%", marginTop: "20px" }} >
+                <Table striped bordered hover className='main-table'>
+                    <thead>
+                        <tr>
+                            <th><h5><AiFillDashboard /> &nbsp;Dasboard / Edit Service</h5></th>
+                        </tr>
+                    </thead>
+                </Table>
+                <Row>
+                    <Table striped bordered hover>
                         <thead>
                             <tr>
-                                <th><h5><AiFillDashboard /> &nbsp;Dasboard / Edit Service</h5></th>
+                                <th>
+                                    <div className='table-div'>
+
+                                        <Button className='table-btn' variant="light" >
+                                            <IoIosCreate />&nbsp;<Link to="/service-list">Go Back</Link>
+                                        </Button>
+
+                                    </div>
+                                </th>
                             </tr>
                         </thead>
                     </Table>
-                    <Row>
-                        <Table striped bordered hover>
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <div className='table-div'>
+                    <hr />
+                </Row>
+            </Container>
 
-                                            <Button className='table-btn' variant="light" >
-                                                <IoIosCreate />&nbsp;<Link to="/service-list">Go Back</Link>
-                                            </Button>
-
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                        </Table>
-                        <hr />
-                    </Row>
-                </Container>
-        
-                <div className='form-div' >
+            <div className='form-div' >
                 <Container>
                     <Row>
 
@@ -90,49 +90,35 @@ const ServiceEdit = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">Service Name</label>
                                 <input type="text" class="form-control" value={Service_Name}
-                                 onChange={(e) => setService_Name(e.target.value)}
-                                  id="inputname"  required
-                                // value={service_Name} onChange={(e) => setService_Name(e.target.value)} required
-
+                                    onChange={(e) => setService_Name(e.target.value)}
                                 />
-
                             </div>
 
-                           
 
-
-                        <div class="col-md-4 position-relative">
+                            <div class="col-md-4 position-relative">
                                 <label className="label">Service Charges</label>
                                 <input type="text" class="form-control" value={Service_Charge}
-                                 onChange={(e) => setService_Charge(e.target.value)}
-                                 id="inputname"  required
-                                    //  value={servive_Charge} onChange={(e) => setServive_Charge(e.target.value)} required
+                                    onChange={(e) => setService_Charge(e.target.value)}
                                 />
-    
                             </div>
 
                             <center>
-
                                 <Button className="stu_btn"
                                     variant="success"
                                     type="submit"
                                     onClick={submitform}
-                                   
+
                                 >
                                     Submit
                                 </Button>
 
                             </center>
-
                         </form>
                     </Row>
                 </Container>
-                </div>
-
-
-
-</>
-  )
+            </div>
+        </>
+    )
 }
 
 export default ServiceEdit

@@ -1,25 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Table, Button, Form, Card } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { AiFillDashboard } from "react-icons/ai"
-import { IoIosCreate } from 'react-icons/io'
+
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Table, Button, Form, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { AiFillDashboard } from 'react-icons/ai';
+import { IoIosCreate } from 'react-icons/io';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Layout from '../../../Header/Layout'
+import Layout from '../../../Header/Layout';
+import ModalCamp from '../Order/ModalCamp';
 import { useNavigate, useParams } from 'react-router-dom'
 
 const baseURL = 'http://localhost:4000/api/v1/categories';
 const allItem = 'http://localhost:4000/api/v1/items?Category_Name=';
 
+const EditResBilling = ({ post }) => {
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState({});
+  const handleModel = () => {
+    setOpen(true);
+    setUser(post);
+  };
 
-const EditResBilling = () => {
+
 
   const [get, setGetAll] = useState(null);
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [itemQuantities, setItemQuantities] = useState([]);
   const [canSubmit, setCanSubmit] = useState(false);
-  
+
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setGetAll(response.data);
@@ -33,20 +42,19 @@ const EditResBilling = () => {
     });
   };
 
-
-
   const handleCheckboxChange = (event, item) => {
-    console.log(item)
     if (event.target.checked) {
       setSelectedItems((prevSelectedItems) => [...prevSelectedItems, item]);
-      setItemQuantities(() => [
-        ...itemQuantities,
+      setItemQuantities((prevItemQuantities) => [
+        ...prevItemQuantities,
         item.Item_Name,
         item.price,
       ]);
     } else {
-      setItems((prevSelectedItems) =>
-        prevSelectedItems.filter((selectedItem) => selectedItem !== item)
+      setSelectedItems((prevSelectedItems) =>
+        prevSelectedItems.filter(
+          (selectedItem) => selectedItem.Item_Name !== item.Item_Name
+        )
       );
       setItemQuantities((prevItemQuantities) => {
         const updatedQuantities = { ...prevItemQuantities };
@@ -57,55 +65,68 @@ const EditResBilling = () => {
     setCanSubmit(event.target.checked);
   };
 
+  const selectedItemsList = items?.map((item) => {
+    const isChecked = selectedItems.some(
+      (selectedItem) => selectedItem.Item_Name === item.Item_Name
+    );
 
-  const selectedItemsList = items?.map((item) => (
-    <div key={item.Item_Name} className="item-container">
-     
-            <Card style={{ width: "15rem" }}>
-              <Card.Body>
-                <Card.Text>
-                  <Form.Check
-                    aria-label="option 1"
-                    onChange={(e) => handleCheckboxChange(e, item)}
-                  />&nbsp;&nbsp;
-                  <p className="label">
-                    <span><b>Item Name</b></span>- {item.Item_Name}
-                  </p>
-                  <p><span><b>Price</b></span> -{item.price}</p>
-                  <div className="Opretor">
-                    <button
-                      type="button"
-                      className='decrease'
-                      onClick={() => {
-                        if (itemQuantities[item.Item_Name] > 1) {
-                          setItemQuantities((prevItemQuantities) => ({
-                            ...prevItemQuantities,
-                            [item.Item_Name]: prevItemQuantities[item.Item_Name] - 1
-                          }));
-                        }
-                      }}
-                    >
-                      -
-                    </button>
-                    <p className='quantity'>{itemQuantities[item.Item_Name] || 1}</p>
-                    <button
-                      type="button"
-                      className='increase'
-                      onClick={() => {
-                        setItemQuantities((prevItemQuantities) => ({
-                          ...prevItemQuantities,
-                          [item.Item_Name]: (prevItemQuantities[item.Item_Name] || 1) + 1
-                        }));
-                      }}
-                    >
-                      +
-                    </button>
-                  </div>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-    </div>
-  ));
+    return (
+      <div key={item.Item_Name} className="item-container">
+        <Card style={{ width: '15rem' }}>
+          <Card.Body>
+            <Card.Text>
+              <Form.Check
+                aria-label="option 1"
+                onChange={(e) => handleCheckboxChange(e, item)}
+                checked={isChecked}
+              />
+              <p className="label">
+                <span>
+                  <b>Item Name</b>
+                </span>
+                - {item.Item_Name}
+              </p>
+              <p>
+                <span>
+                  <b>Price</b>
+                </span>{' '}
+                -{item.price}
+              </p>
+              <div className="Opretor">
+                <button
+                  type="button"
+                  className="decrease"
+                  onClick={() => {
+                    if (itemQuantities[item.Item_Name] > 1) {
+                      setItemQuantities((prevItemQuantities) => ({
+                        ...prevItemQuantities,
+                        [item.Item_Name]: prevItemQuantities[item.Item_Name] - 1,
+                      }));
+                    }
+                  }}
+                >
+                  -
+                </button>
+                <p className="quantity">{itemQuantities[item.Item_Name] || 1}</p>
+                <button
+                  type="button"
+                  className="increase"
+                  onClick={() => {
+                    setItemQuantities((prevItemQuantities) => ({
+                      ...prevItemQuantities,
+                      [item.Item_Name]: (prevItemQuantities[item.Item_Name] || 1) + 1,
+                    }));
+                  }}
+                >
+                  +
+                </button>
+              </div>
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      </div>
+    );
+  });
 
   const params = useParams();
   const navigate = useNavigate();
@@ -118,42 +139,38 @@ const EditResBilling = () => {
     specificGuest.Category_Type
   );
 
-  console.log(Category_Type,"category")
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/api/v1/order/${params.id}`)
+      .then((response) => {
+        setSpecificGuest(response.data);
+        setTable_Number(response.data.order.Table_Number);
+        setOrder_Time(response.data.order.Order_Time);
+        setSelectedItems(response.data.order.Items);
+        setCategory_Type(response.data.order.Category_Type);
+      });
+  }, []);
 
-  console.log(specificGuest, "Check id from url")
- useEffect(() => {
-  axios.get(`http://localhost:4000/api/v1/order/${params.id}`).then((response) => {
-    setSpecificGuest(response.data);
-    setTable_Number(response.data.order.Table_Number);
-    setOrder_Time(response.data.order.Order_Time);
-    setSelectedItems(response.data.order.Items);
-    setCategory_Type(response.data.order.Category_Type);
-  })
-}, [])
-  
- 
   const submitform = () => {
     try {
       axios.put(`http://localhost:4000/api/v1/order/${params.id}`, {
-        "Table_Number": Table_Number,
-        "Order_Time": Order_Time,
-        "Category_Type":Category_Type,
-         Items: selectedItems.map(item => ({
+        Table_Number: Table_Number,
+        Order_Time: Order_Time,
+        Category_Type: Category_Type,
+        Items: selectedItems.map((item) => ({
           Item_Name: item.Item_Name,
           price: item.price,
-          Quantity: itemQuantities[item.Item_Name] || 1
-        }))
-
-      })
-      toast.success("Guest Updated Succesfully")
-      navigate("/res-billing")
+          Quantity: itemQuantities[item.Item_Name] || 1,
+        })),
+      });
+      toast.success('Guest Updated Successfully');
+      navigate('/res-billing');
     } catch (error) {
       console.log(error.response);
       toast.error('Failed to update order');
     }
-  }
+  };
 
-  console.log(selectedItems);
   return (
     <>
       <Layout />
@@ -193,6 +210,23 @@ const EditResBilling = () => {
       <div className="form-div">
         <Container>
           <Row>
+            <td>
+              <Button
+                onClick={handleModel}
+                variant="success"
+                className="All-order float-end"
+              >
+                Preview
+              </Button>
+              {open && (
+                <ModalCamp
+                  open={open}
+                  setOpen={setOpen}
+                  selectedItems={selectedItems}
+                  itemQuantities={itemQuantities}
+                />
+              )}
+            </td>
             <form className="row g-4 p-3 registration-form">
               <div className="col-md-4 position-relative">
                 <label className="label">Table Number</label>
@@ -205,6 +239,7 @@ const EditResBilling = () => {
               </div>
 
               <div className="col-md-4 position-relative">
+
                 <label className="label"> Category </label>
                 <Form.Select
                   onChange={(e) => handleCategoriesItem(e.target.value)}
@@ -240,11 +275,6 @@ const EditResBilling = () => {
           </Row>
         </Container>
       </div>
-
-
-
-
-
     </>
   );
 };
@@ -253,3 +283,42 @@ const EditResBilling = () => {
 
 
 export default EditResBilling;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
