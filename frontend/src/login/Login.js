@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './login.css'
+import './login.css';
+import Logo from './logo.png'
 
 const Login = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState('');
@@ -56,10 +57,11 @@ const Login = ({ setIsLoggedIn }) => {
         <div className='wrapper'>
           <div className='form-wrapper sign-in'>
             <form onSubmit={handleSubmit}>
+            <div className='logo-container'>
+                <img src={Logo} alt='Logo' className='logo' />
+              </div>
               <h2>Login</h2>
               <div className='input-group'>
-                {/* <label htmlFor=''>Username</label> */}
-                {/* <br /> */}
                 <input
                   type='text'
                   value={username}
