@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Col, Row, Table, Button,Form } from 'react-bootstrap';
+import { Container, Col, Row, Table, Button, Form } from 'react-bootstrap';
 import { AiFillDashboard, } from 'react-icons/ai';
 import { IoIosCreate } from 'react-icons/io';
 import { Link } from 'react-router-dom';
@@ -63,7 +63,7 @@ const EditEmployee = () => {
     return (
         <>
 
-<Layout />
+            <Layout />
             <Container style={{ width: "90%", marginTop: "20px" }} >
                 <Table striped bordered hover className='main-table'>
                     <thead>
