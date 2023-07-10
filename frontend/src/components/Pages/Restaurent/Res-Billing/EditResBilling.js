@@ -4,14 +4,12 @@ import { Link } from 'react-router-dom'
 import { AiFillDashboard } from "react-icons/ai"
 import { IoIosCreate } from 'react-icons/io'
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Layout from '../../../Header/Layout'
+import { useNavigate, useParams } from 'react-router-dom'
 
-
-
-const baseURL = "http://localhost:4000/api/v1/categories";
-const allItem = "http://localhost:4000/api/v1/items?Category_Name=";
+const baseURL = 'http://localhost:4000/api/v1/categories';
+const allItem = 'http://localhost:4000/api/v1/items?Category_Name=';
 
 
 const EditResBilling = () => {
@@ -27,10 +25,6 @@ const EditResBilling = () => {
       setGetAll(response.data);
     });
   }, []);
-
-  
-
-
 
   const handleCategoriesItem = (val) => {
     setCategory_Type(val);
@@ -115,10 +109,14 @@ const EditResBilling = () => {
 
   const params = useParams();
   const navigate = useNavigate();
-  const [specificGuest, setSpecificGuest] = useState("");
-  const [Table_Number, setTable_Number] = useState(specificGuest.Table_Number);
+  const [specificGuest, setSpecificGuest] = useState('');
+  const [Table_Number, setTable_Number] = useState(
+    specificGuest.Table_Number
+  );
   const [Order_Time, setOrder_Time] = useState(specificGuest.Order_Time);
-  const [Category_Type, setCategory_Type] = useState(specificGuest.Category_Type)
+  const [Category_Type, setCategory_Type] = useState(
+    specificGuest.Category_Type
+  );
 
   console.log(Category_Type,"category")
 
@@ -150,26 +148,24 @@ const EditResBilling = () => {
       toast.success("Guest Updated Succesfully")
       navigate("/res-billing")
     } catch (error) {
-      console.log(error.response)
-
+      console.log(error.response);
+      toast.error('Failed to update order');
     }
   }
 
   console.log(selectedItems);
   return (
-
     <>
+      <Layout />
 
-    <Layout />
-
-
-
-      <Container style={{ width: "90%", marginTop: "20px" }}>
-        <Table striped bordered hover className='main-table'>
+      <Container style={{ width: '90%', marginTop: '20px' }}>
+        <Table striped bordered hover className="main-table">
           <thead>
             <tr>
               <th>
-                <h5><AiFillDashboard /> &nbsp;Dashboard / Edit Order</h5>
+                <h5>
+                  <AiFillDashboard /> &nbsp;Dashboard / Edit Order
+                </h5>
               </th>
             </tr>
           </thead>
@@ -179,9 +175,11 @@ const EditResBilling = () => {
             <thead>
               <tr>
                 <th>
-                  <div className='table-div'>
-                    <Button className='table-btn' variant="light">
-                      <IoIosCreate />&nbsp;<Link to="/res-billing">Go Back</Link>
+                  <div className="table-div">
+                    <Button className="table-btn" variant="light">
+                      <IoIosCreate />
+                      &nbsp;
+                      <Link to="/res-billing">Go Back</Link>
                     </Button>
                   </div>
                 </th>
@@ -192,7 +190,7 @@ const EditResBilling = () => {
         </Row>
       </Container>
 
-      <div className='form-div'>
+      <div className="form-div">
         <Container>
           <Row>
             <form className="row g-4 p-3 registration-form">
@@ -203,39 +201,30 @@ const EditResBilling = () => {
                   className="form-control"
                   value={Table_Number}
                   onChange={(e) => setTable_Number(e.target.value)}
-
                 />
               </div>
-
-            
 
               <div className="col-md-4 position-relative">
                 <label className="label"> Category </label>
                 <Form.Select
                   onChange={(e) => handleCategoriesItem(e.target.value)}
                 >
-                  <option
-                    value={Category_Type}
-                  >
-                    Select a category</option>
+                  <option value={Category_Type}>
+                    Select a category
+                  </option>
                   {get?.categories?.map((category) => (
-                    <option key={category.Category_Type}>{category.Category_Type}</option>
+                    <option key={category.Category_Type}>
+                      {category.Category_Type}
+                    </option>
                   ))}
                 </Form.Select>
               </div>
 
               <hr></hr>
 
-
-
-          <Container>
-
-         
-              <div className="item-row">
-                {selectedItemsList}
-                </div>
-                </Container>
-             
+              <Container>
+                <div className="item-row">{selectedItemsList}</div>
+              </Container>
 
               <center>
                 <Button
@@ -243,7 +232,6 @@ const EditResBilling = () => {
                   variant="success"
                   type="submit"
                   disabled={!canSubmit}
-                  onClick={submitform}
                 >
                   Submit
                 </Button>
@@ -258,8 +246,10 @@ const EditResBilling = () => {
 
 
     </>
+  );
+};
 
-  )
-}
+  
+
 
 export default EditResBilling;
