@@ -300,6 +300,8 @@ h2 {
     border-radius: 5px;
     border: none;
     outline: none;
+    background-color: #06C755;
+    margin-bottom: 55px;
 }
 
 .sign-link {
@@ -321,3 +323,8 @@ h2 {
 .sign-link p a:hover {
     text-decoration: underline;
 }  
+
+
+.logo{
+    height: 180px;
+}

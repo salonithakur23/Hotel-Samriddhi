@@ -8,11 +8,14 @@ import {AiFillCloseCircle} from 'react-icons/ai'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Layout from '../../../Header/Layout';
+import { useNavigate } from 'react-router-dom';
 
 const baseURL = 'http://localhost:4000/api/v1/orders';
 
+
 const ResBilling = () => {
   const [orders, setOrders] = useState([]);
+  const navigate= useNavigate();
 
   useEffect(() => {
     axios.get(baseURL).then((response) => {
@@ -72,14 +75,16 @@ const ResBilling = () => {
     return (
       <div className="no-orders">
         <h3>There are no active orders.</h3>
-        <Button className="table-btn" variant="light">
-          <IoIosCreate />&nbsp;<Link to="/order">Create an Order</Link>
+        <Button className="table-btn" variant="light" onClick={()=> navigate("/order")}>
+          <IoIosCreate />&nbsp;
+          Create an Order
         </Button>
       </div>
     );
   }
 
   return (
+    
     <>
       <Layout />
       <Container className="main-col">
@@ -100,8 +105,8 @@ const ResBilling = () => {
               <tr>
                 <th>
                   <div className="table-div">
-                    <Button className="table-btn" variant="light">
-                      <IoIosCreate />&nbsp;<Link to="/order">Create</Link>
+                    <Button className="table-btn" variant="light" onClick={()=> navigate("/order")}>
+                      <IoIosCreate />&nbsp;Create
                     </Button>
                   </div>
                 </th>

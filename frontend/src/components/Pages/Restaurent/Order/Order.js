@@ -77,6 +77,8 @@ const Order = ({post}) => {
     setCanSubmit(event.target.checked);
   };
 
+  
+
   const selectedItemsList = items?.map((item) => (
     <div key={item.Item_Name} className="item-container">
       <Card style={{ width: "15rem" }}>
@@ -177,9 +179,9 @@ const Order = ({post}) => {
               <tr>
                 <th>
                   <div className="table-div">
-                    <Button className="table-btn" variant="light">
+                    <Button className="table-btn" variant="light" onClick={()=> navigate("/res-billing")} >
                       <IoIosCreate />&nbsp;
-                      <Link to="/res-billing">Go Back</Link>
+                       Go Back
                     </Button>
                   </div>
                 </th>

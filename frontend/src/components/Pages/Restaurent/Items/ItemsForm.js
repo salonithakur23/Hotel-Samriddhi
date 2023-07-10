@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
 import axios from 'axios';
 import Layout from '../../../Header/Layout';
+import { toast } from 'react-toastify';
 
 
 const baseURL = "http://localhost:4000/api/v1/items"
@@ -22,7 +23,7 @@ const ItemList = () => {
 
   const deleteData = (id) => {
     axios.delete(`http://localhost:4000/api/v1/item/${id}`).then(response => {
-      alert("Item has been deleted successfully")
+      toast.success("Item has been deleted successfully")
     })
       .catch(error => {
         console.log(error)
@@ -39,31 +40,11 @@ const ItemList = () => {
         <Table striped bordered hover className='main-table'>
           <thead>
             <tr>
-              <th><h5><AiFillDashboard /> &nbsp; Dashboard/ Item-Details</h5></th>
+              <th><h5><AiFillDashboard /> &nbsp; Dashboard / Item-Details</h5></th>
             </tr>
           </thead>
         </Table>
-        <Row>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>
-                  <div className='table-div' >
-
-                    <Button className='table-btn' variant="light" >
-                      <IoIosCreate />&nbsp;<Link to="/items">Create</Link>
-                    </Button>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-          </Table>
-          <hr />
-        </Row>
       </Container>
-
-
-      {/* <div className="post-table"> */}
       <div className='form-div'>
 
         <h5 className="w3-center w3-flat-midnight-blue w3-padding-48 w3-border-blue-grey w3-grey text text-center mb-5 mt-3">Item-Details</h5>
