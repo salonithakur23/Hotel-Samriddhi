@@ -1,24 +1,21 @@
 import React from 'react'
 import { Container, Row } from 'react-bootstrap'
 import Layout from '../../../Header/Layout'
+import '../../Restaurent/RestaurentSidebar.css'
 const ResDashboard = () => {
   return (
-<>
-<Layout />
-<marquee className="mar-bg">
+    <>
+      <Layout />
+      {/* <marquee className="mar-bg">
         <p className='Dash-title'> Welcome to the Dasboard of Our Hotel ! A hotel dashboard is a tool used by hotel management to monitor and analyze various aspects of their hotel's operations. </p>
-      </marquee>
-      <Container >
-        <Row>
-          <div className='dash-img-box'>
-            <video className='dash-img-fill' controls autoPlay>
-              <source src="/img/item-video.mp4" type="video/mp4"/>
-          
-                </video>
-              </div>
-            </Row>
-          </Container>
-</>
+      </marquee> */}
+      
+      <div className='res-dash'>
+        
+        <img className='res-dash-fill' src='/img/Res_Banner.png' />
+      </div>
+    
+    </>
   )
 }
 

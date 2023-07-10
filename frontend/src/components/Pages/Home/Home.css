@@ -1,9 +1,11 @@
 .home-container{
     width: 100% !important;
-    height:200px;
-    background-color: gray;
+    height:550px;
+    background-color: black !important;
+    opacity: 0.9;
 }
 .home-container-fill{
     width: 100%;
     height: 100%;
+
 }
