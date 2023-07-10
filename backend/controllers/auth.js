@@ -1,54 +1,52 @@
-  const bcrypt = require('bcrypt');
-  const jwt = require('jsonwebtoken');
-  const User = require('../models/user');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
-  // Signup controller
-  exports.signup = async (req, res) => {
-    const { username, password } = req.body;
+// Signup controller
+exports.signup = async (req, res) => {
+  const { username, password } = req.body;
 
   try {
+    // Check if user already exists
     const existingUser = await User.findOne({ username });
 
-      if (existingUser) {
-        return res.status(409).json({ error: 'Username already exists' });
-      }
-
-      // Create a new user
-      const newUser = new User({ username });
-
-      // Hash the password
-      const hashedPassword = await bcrypt.hash(password, 10);
-      newUser.password = hashedPassword;
-
-      // Save the user to the database
-      const savedUser = await newUser.save();
-
-      // Generate JWT token
-      const token = jwt.sign(
-        { userId: savedUser._id, username: savedUser.username },
-        'your-secret-key',
-      );
-
-      res.status(201).json({ token });
-    } catch (err) {
-      res.status(500).json({ error: 'Failed to create user' });
+    if (existingUser) {
+      return res.status(409).json({ error: 'Username already exists' });
     }
-  };
 
-  // Login controller
-  // Login controller
+    // Create a new user
+    const newUser = new User({ username });
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+    newUser.password = hashedPassword;
+
+    // Save the user to the database
+    const savedUser = await newUser.save();
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: savedUser._id, username: savedUser.username },
+      'your-secret-key'
+    );
+
+    res.cookie('token', token, { httpOnly: true });
+    res.status(201).json({ message: 'Signup successful' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to create user' });
+  }
+};
+
 // Login controller
 exports.login = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-
     const user = await User.findOne({ username });
 
     if (!user) {
       return res.status(401).json({ error: 'Authentication failed' });
     }
-
 
     const result = await bcrypt.compare(password, user.password);
 
@@ -62,11 +60,15 @@ exports.login = async (req, res) => {
       'your-secret-key'
     );
 
-    // Store the token in local storage
-    localStorage.setItem('token', token);
-
-    res.status(200).json({ message: 'Login successful', token });
+    res.cookie('token', token, { httpOnly: true });
+    res.status(200).json({ message: 'Login successful' });
   } catch (err) {
     res.status(500).json({ error: 'Failed to authenticate' });
   }
+};
+
+// Logout controller
+exports.logout = (req, res) => {
+  res.clearCookie('token');
+  res.status(200).json({ message: 'Logout successful' });
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './login.css'
 
 const Login = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState('');
