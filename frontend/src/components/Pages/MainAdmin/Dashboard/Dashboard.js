@@ -3,6 +3,7 @@ import './Das.css'
 import { Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Layout from '../../../Header/Layout'
+import admin from './admin.jpeg'
 
 const AdminDashboard = () => {
   return (
@@ -14,7 +15,7 @@ const AdminDashboard = () => {
       <Container >
         <Row>
           <div className='dash-img-box'>
-           <img className='dash-img-fill' src='/img/admin.gif' />
+           <img className='dash-img-fill' src={admin} />
               </div>
             </Row>
           </Container>
