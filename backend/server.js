@@ -9,6 +9,7 @@ dotenv.config({path:"config/config.env"})
 
 // connect to database 
 connectDatabase();  
+// app.use('/api', routes);
 
 
 app.listen(process.env.PORT,()=>{
