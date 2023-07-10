@@ -46,22 +46,8 @@ exports.getGuestDetail = async (req, res, next) => {
 };
 
 
-// router.get("/:id", async(req,res)=>{
-    
-//     try{
-//         const GetIDGuest= await Guest.findById(req.body.id);
-//         res.status(200).json(GetIDGuest)
-        
-        
-//     }catch (err){
-//         res.status(500).json(err)
-
-//     }
-// })
-
 exports.deleteGuest = async (req, res, next) => {
 
-    // req.body.student=req.student.id
     const guest = await Guest.findById(req.params.id);
 
     if (!guest) {
@@ -91,7 +77,7 @@ exports.updateGuest = async (req, res, next) => {
         // return next(new ErrorHandler("Item not found ", 404));
         return res.status(500).json({
             success: false,
-            message: "Itme not Found"
+            message: "Guest not found"
         });
     }
     gue1 = await Guest.findByIdAndUpdate(req.params.id, req.body, {

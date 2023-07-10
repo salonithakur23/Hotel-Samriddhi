@@ -1,10 +1,5 @@
 const mongoose = require("mongoose");
 
-//custom url of database
-
-//mongo://localhost:27017/School_management
-
-// =========================================
 
 const connectDatabase=()=>{
     mongoose.connect(process.env.DB_URI,{useNewUrlParser:true,useUnifiedTopology:true,

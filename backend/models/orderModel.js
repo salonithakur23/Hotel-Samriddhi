@@ -15,15 +15,15 @@ const OrderSchema = new mongoose.Schema({
     {
       Item_Name: {
         type: String,
-        required: [true, "Please enter the item name"],
+
       },
       price: {
         type: Number,
-        // required: [true, "Please enter the item price"],
+
       },
       Quantity: {
         type: Number,
-        // required: [true, "Please enter the item quantity"],
+
       },
     },
   ],
