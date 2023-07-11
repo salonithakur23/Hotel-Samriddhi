@@ -17,7 +17,7 @@ exports.createRoomservice = (async (req, res, next) => {
 
 
 exports.getAllRoomservice= async (req, res) => {
-    const service = await Guest.find();
+    const service = await Service.find();
     res.status(200).json({
         success: true,
         service,

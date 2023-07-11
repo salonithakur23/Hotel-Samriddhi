@@ -21,7 +21,8 @@ const Employees = () => {
     const [role, setRole] = useState(null);
     const [salary, setSalary] = useState(null);
 
-    const submitform = () => {
+    const submitform = (event) => {
+        event.preventDefault();
         try {
             axios.post("http://localhost:4000/api/v1/employee/new", {
                 "Employee_Name": employee_Name,
@@ -158,7 +159,8 @@ const Employees = () => {
                                 <Button className="stu_btn"
                                     variant="success"
                                     type="submit"
-                                    onClick={submitform}
+                                    onClick={(event) => submitform(event)}
+                                
                                 >
                                     Submit
                                 </Button>

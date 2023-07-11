@@ -27,7 +27,7 @@ const ListCategory = () => {
     const deleteData = (id) => {
         // console.log(id)
         axios.delete(`http://localhost:4000/api/v1/category/${id}`).then(response => {
-            toast.success("Item deleted Succesfully")
+            toast.success("Category deleted Succesfully")
         })
             .catch(error => {
                 console.log(error)
@@ -35,7 +35,6 @@ const ListCategory = () => {
 
     }
     if (!get) return null;
-    //   List Function end
 
     return (
         <>
