@@ -6,7 +6,6 @@ import HotelSidebar from './components/Pages/Hotel/HotelSidebar';
 import RoomBooking from './components/Pages/Hotel/AdminPage/RoomBooking/RoomBooking';
 import RoomService from './components/Pages/Hotel/AdminPage/RoomService/RoomService';
 import Billing from './components/Pages/Hotel/AdminPage/Billing/Billing';
-import Header from "./components/Header/Header";
 import BookingList from "./components/Pages/Hotel/AdminPage/RoomBooking/BookingList";
 import ServiceList from "./components/Pages/Hotel/AdminPage/RoomService/ServiceList";
 import MainAdminSidebar from "./components/Pages/MainAdmin/MainAdminSidebar/MainAdminSidebar";
@@ -41,6 +40,7 @@ import SeeAllCategory from "./components/Pages/MainAdmin/AddCategory/SeeAllCateg
 import EditEmployee from "./components/Pages/MainAdmin/Employees/EditEmployee";
 import EditResBilling from "./components/Pages/Restaurent/Res-Billing/EditResBilling";
 import Login from "./login/Login";
+import EditRoomBooking from "./components/Pages/Hotel/AdminPage/RoomBooking/EditRoomBooking";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -65,7 +65,7 @@ function App() {
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/hotel-dashboard" element={<PrivateRoute><HotelSidebar><Dashboard /></HotelSidebar></PrivateRoute>} />
           <Route path="/roombooking" element={<PrivateRoute><RoomBooking /> </PrivateRoute>} />
-          <Route path="/booking/:id" element={<PrivateRoute><RoomBooking /> </PrivateRoute>} />
+          <Route path="/Editroombooking/:id" element={<PrivateRoute><EditRoomBooking /> </PrivateRoute>} />
           <Route path="/roomlist" element={<PrivateRoute><HotelSidebar><BookingList /></HotelSidebar></PrivateRoute>} />
           <Route path="/room-service-lists" element={<PrivateRoute><HotelSidebar><ServiceList /></HotelSidebar></PrivateRoute>} />
           <Route path="/rooms" element={<PrivateRoute><HotelSidebar><Rooms /></HotelSidebar></PrivateRoute>} />

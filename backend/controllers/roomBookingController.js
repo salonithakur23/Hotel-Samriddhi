@@ -22,6 +22,23 @@ exports.getAllBooking = async (req, res) => {
 
 }
 
+exports.getSingelBooking = async (req, res, next) => {
+    const book = await Booking.findById(req.params.id);
+
+    if (!book) {
+        return res.status(500).json({
+            success: false,
+            message: "Book not Found"
+        });
+    }
+
+    res.status(200).json({
+        success: true,
+        book,
+    })
+
+};
+
 exports.updateBooking = async (req, res, next) => {
     let book1 = await Booking.findById(req.params.id);
 

@@ -105,7 +105,6 @@ const GuestList = ({ items }) => {
                   <th>Guest Address</th>
                   <th>Action Edit</th>
                   <th>Action Delete</th>
-                  <th>Action View</th>
                 </tr>
               </thead>
               <tbody>
@@ -137,20 +136,7 @@ const GuestList = ({ items }) => {
                     <span className='delete-icon'>&#x2717;</span>Delete
                       </Button>
                     </td>
-                    <td>
-                      <Button className='table-btn' variant="light"
-                        onClick={() => handleModel(items)}
-                      >
-                        &#128065;View
-                      </Button>
-                    </td>
-                    {open && (
-                      <ModalComp
-                        open={open}
-                        setOpen={setOpen}
-                        {...user}
-                      />
-                    )}
+                   
                   </tr>
 
                 ))}

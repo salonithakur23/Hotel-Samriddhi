@@ -15,7 +15,7 @@ main{
 
 }
 .sidebar{
-    /* background-image: linear-gradient(rgb(8, 17, 24), rgb(41, 57, 70)); */
+ 
     background-color: black;
     color: white;
     height: 100vh;
@@ -78,3 +78,6 @@ main{
   border-radius: 50%;
 } */
 
+.dash-title{
+    margin-top: 50px;
+}
