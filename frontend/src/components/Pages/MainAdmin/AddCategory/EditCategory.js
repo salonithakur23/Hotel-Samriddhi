@@ -96,7 +96,7 @@ const EditCategory = () => {
                   type="submit"
                   onClick={(event) => submitForm(event)}
                 >
-                  Submit
+                  Update Category
                 </Button>
               </center>
             </form>

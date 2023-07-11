@@ -97,7 +97,7 @@ const ServiceEdit = () => {
                   type="submit"
                   onClick={(event) => submitform(event)} // Pass the event parameter
                 >
-                  Submit
+                  Update Service
                 </Button>
               </center>
             </form>

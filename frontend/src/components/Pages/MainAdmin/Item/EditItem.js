@@ -138,7 +138,7 @@ const EditItem = () => {
                                     type="submit"
                                     onClick={(event)=>submitform(event)}
                                 >
-                                    Submit
+                                    Update Item
                                 </Button>
 
                             </center>

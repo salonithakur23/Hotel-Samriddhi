@@ -139,7 +139,7 @@ const RoomEdit = () => {
                                     type="submit" 
                                     onClick={(event) => submitform(event)}
                                     >
-                                    Submit
+                                    Update Room
                                 </Button>
                             </center>
                         </form>
