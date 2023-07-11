@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Table, Button, Form, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -8,7 +7,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Layout from '../../../Header/Layout';
 import ModalCamp from '../Order/ModalCamp';
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom';
 
 const baseURL = 'http://localhost:4000/api/v1/categories';
 const allItem = 'http://localhost:4000/api/v1/items?Category_Name=';
@@ -20,8 +19,6 @@ const EditResBilling = ({ post }) => {
     setOpen(true);
     setUser(post);
   };
-
-
 
   const [get, setGetAll] = useState(null);
   const [items, setItems] = useState([]);
@@ -151,7 +148,9 @@ const EditResBilling = ({ post }) => {
       });
   }, []);
 
-  const submitform = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent page reload on form submission
+
     try {
       axios.put(`http://localhost:4000/api/v1/order/${params.id}`, {
         Table_Number: Table_Number,
@@ -227,7 +226,7 @@ const EditResBilling = ({ post }) => {
                 />
               )}
             </td>
-            <form className="row g-4 p-3 registration-form">
+            <form className="row g-4 p-3 registration-form" onSubmit={handleSubmit}>
               <div className="col-md-4 position-relative">
                 <label className="label">Table Number</label>
                 <input
@@ -239,7 +238,6 @@ const EditResBilling = ({ post }) => {
               </div>
 
               <div className="col-md-4 position-relative">
-
                 <label className="label"> Category </label>
                 <Form.Select
                   onChange={(e) => handleCategoriesItem(e.target.value)}
@@ -279,46 +277,4 @@ const EditResBilling = ({ post }) => {
   );
 };
 
-  
-
-
 export default EditResBilling;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

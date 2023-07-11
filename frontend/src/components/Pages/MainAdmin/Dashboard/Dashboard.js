@@ -3,6 +3,7 @@ import './Das.css'
 import { Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Layout from '../../../Header/Layout'
+import admin from './admin.jpeg'
 
 const AdminDashboard = () => {
   return (
