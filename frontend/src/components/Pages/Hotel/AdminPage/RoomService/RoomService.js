@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import HotelSidebar from '../../HotelSidebar';
 import { Container, Col, Row, Table, Button } from 'react-bootstrap';
-import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-icons/ai';
-import { RiArrowGoBackLine } from 'react-icons/ri';
+import { AiFillDashboard } from 'react-icons/ai';
 import { IoIosCreate } from 'react-icons/io';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
