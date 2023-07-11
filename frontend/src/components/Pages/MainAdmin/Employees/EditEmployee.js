@@ -174,7 +174,7 @@ const EditEmployee = () => {
                                     type="submit"
                                     onClick={(event) => submitform(event)}
                                 >
-                                    Submit
+                                    Update Employee
                                 </Button>
 
                             </center>

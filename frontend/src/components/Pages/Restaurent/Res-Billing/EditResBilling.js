@@ -266,7 +266,7 @@ const EditResBilling = ({ post }) => {
                   type="submit"
                   disabled={!canSubmit}
                 >
-                  Submit
+                  Update Bill
                 </Button>
               </center>
             </form>

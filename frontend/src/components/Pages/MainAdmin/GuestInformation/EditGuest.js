@@ -168,7 +168,7 @@ const EditGuest = () => {
                 <Button className='stu_btn' id='button' variant='success' type='submit'
                   onClick={submitform}
                 >
-                  Submit
+                  Update Guest
                 </Button>
               </center>
             </form>
