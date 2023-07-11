@@ -60,8 +60,8 @@ const ItemList = () => {
                     <th>Item Name</th>
                     <th>Price</th>
                     <th>Category Type</th>
-                    <th>Action Edit</th>
-                    <th>Action View</th>
+                    {/* <th>Action Edit</th> */}
+                    {/* <th>Action View</th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -72,7 +72,7 @@ const ItemList = () => {
                       <td>{items.price}</td>
                       <td>{items.Category_Name}</td>
                       {/* <td>keshav</td> */}
-                      <td>
+                      {/* <td>
 
                         <Link to={`/edititem/${items._id}`}>
                           <Button className='table-btn' variant="light" >
@@ -88,7 +88,7 @@ const ItemList = () => {
 
 
 
-                      </td>
+                      </td> */}
 
                       {/* <button className="view-btn">View </button> */}
                     </tr>

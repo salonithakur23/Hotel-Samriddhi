@@ -26,7 +26,8 @@ const EditCategory = () => {
   }, []);
   
 
-  const submitForm = () => {
+  const submitForm = (event) => {
+    event.preventDefault();
     try {
       axios.put(`http://localhost:4000/api/v1/category/${params.id}`, {
         Category_Type: Category_Type,
@@ -93,7 +94,7 @@ const EditCategory = () => {
                   style={{ marginTop: "-120px" }}
                   variant="success"
                   type="submit"
-                  onClick={submitForm}
+                  onClick={(event) => submitForm(event)}
                 >
                   Submit
                 </Button>

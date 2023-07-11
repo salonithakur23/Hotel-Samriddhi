@@ -1,69 +1,56 @@
-
-
-import React, { useState ,useEffect} from 'react'
-// import HotelSidebar from '../../HotelSidebar'
-import { Container, Col, Row, Table, Button } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react';
+import { Container, Col, Row, Table, Button } from 'react-bootstrap';
 import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-icons/ai';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import Form from 'react-bootstrap/Form';
 import { IoIosCreate } from 'react-icons/io';
 import { Link } from 'react-router-dom';
-// import './RoomBooking.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Layout from '../../../Header/Layout';
 
-
-const baseURL = " http://localhost:4000/api/v1/categories"
-
-
+const baseURL = "http://localhost:4000/api/v1/categories";
 
 const Item = () => {
-
-
   const [get, setGetAll] = useState(null);
+  const [item_Name, setItem_Name] = useState("");
+  const [price, setPrice] = useState("");
+  const [category_Type, setCategory_Type] = useState(null);
 
   useEffect(() => {
-      axios.get(baseURL).then((response) => {
-          setGetAll(response.data);
-          // console.log(response)
-      })
-  }, [get])
-
-
-
+    axios.get(baseURL).then((response) => {
+      setGetAll(response.data);
+    });
+  }, []);
 
   const navigate = useNavigate();
-  const [item_Name, setItem_Name] = useState(null);
-  const [price, setPrice] = useState(null);
-  const [category_Name, setCategory_Name]=useState(null)
-  const [category_Type, setCategory_Type]=useState(null)
 
- 
-
-
-  const submitForm = async () => {
+  const submitForm = async (event) => {
+    event.preventDefault();
     try {
-      const itemResponse = await axios.post("http://localhost:4000/api/v1/item/new", {
+      await axios.post("http://localhost:4000/api/v1/item/new", {
         "Item_Name": item_Name,
         "price": price,
-        "Category_Name":category_Type,
-          // "Category_Type":category_Type,
-
+        "Category_Name": category_Type,
       });
       toast.danger("Item Add Successfully");
       navigate("/item-list");
-    } catch (error) {
-      console.log(error.response)
 
+      // Reset the form fields
+      setItem_Name("");
+      setPrice("");
+      setCategory_Type(null);
+    } catch (error) {
+      console.log(error.response);
     }
-  }
+  };
+
   return (
     <>
-<Layout />
+      <Layout />
 
-      <Container style={{ width: "90%", marginTop: "20px" }} >
+      <Container style={{ width: "90%", marginTop: "20px" }}>
         <Table striped bordered hover className='main-table'>
           <thead>
             <tr>
@@ -77,8 +64,7 @@ const Item = () => {
               <tr>
                 <th>
                   <div className='table-div'>
-
-                    <Button className='table-btn' variant="light" >
+                    <Button className='table-btn' variant="light">
                       <IoIosCreate />&nbsp;<Link to="/item-list">Go Back</Link>
                     </Button>
                   </div>
@@ -89,11 +75,10 @@ const Item = () => {
           <hr />
         </Row>
       </Container>
-      {/* form section start */}
-      <div className='form-div' >
+
+      <div className='form-div'>
         <Container>
           <Row>
-
             <form className="row g-4 p-3 registration-form">
               <Link to='/add-category'>
                 <Button variant='success' className='float-end'>Add Category</Button>
@@ -108,7 +93,7 @@ const Item = () => {
                   required
                 />
               </div>
-              
+
               <div className="col-md-4 position-relative">
                 <label className="label">Price</label>
                 <input
@@ -118,76 +103,38 @@ const Item = () => {
                   onChange={(e) => setPrice(e.target.value)}
                   required
                 />
-
               </div>
 
-            
               <div className="col-md-4 position-relative">
                 <label className="label">Category Name</label>
                 <select
-                className="form-control"
-                onChange={(e) => setCategory_Type(e.target.value)}
-                required
+                  className="form-control"
+                  value={category_Type}
+                  onChange={(e) => setCategory_Type(e.target.value)}
+                  required
                 >
-                   <option value={category_Type}>select a category</option>
-                   {get?.categories?.map((items) => (
-                   <option >{items.Category_Type}</option>
-                   ))} 
-                </select> 
+                  <option value="">Select a category</option>
+                  {get?.categories?.map((items) => (
+                    <option key={items._id} value={items.Category_Type}>{items.Category_Type}</option>
+                  ))}
+                </select>
               </div>
               <center>
-
-                <Button className="stu_btn"
+                <Button
+                  className="stu_btn"
                   variant="success"
                   type="submit"
-                  onClick={submitForm}
+                  onClick={(event) => submitForm(event)}
                 >
                   Submit
                 </Button>
-
               </center>
-
             </form>
           </Row>
         </Container>
       </div>
-
-
-
-
     </>
-  )
-}
+  );
+};
 
 export default Item;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
