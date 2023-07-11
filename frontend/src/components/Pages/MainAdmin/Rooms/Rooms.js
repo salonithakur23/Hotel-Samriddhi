@@ -81,7 +81,7 @@ const Room = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">Price.</label>
                                 <input type="text" class="form-control"
-                                  value={price} onChange={(e) => setPrice(e.target.value)}
+                                  value={price} onChange={(e) => setPrice(e.target.value)} required
                                 />
                             </div>
 
@@ -90,7 +90,7 @@ const Room = () => {
                             >
                                 <label class="form-label">Room Type</label>
                                 <Form.Select
-                                  value={room_Type} onChange={(e) => setRoom_Type(e.target.value)}
+                                  value={room_Type} onChange={(e) => setRoom_Type(e.target.value)} required
                                 >
                                     <option>Choose</option>
                                     <option value="Luxury">Luxury</option>
@@ -104,7 +104,7 @@ const Room = () => {
                             <div class="col-md-4 position-relative" >
                                 <label class="form-label">Available/Not-Available</label>
                                 <Form.Select
-                                  value={avilable_Not} onChange={(e) => setAvilable_Not(e.target.value)} 
+                                  value={avilable_Not} onChange={(e) => setAvilable_Not(e.target.value)} required 
                                 >
                                     <option>Choose</option>
                                     <option value="yes">yes</option>

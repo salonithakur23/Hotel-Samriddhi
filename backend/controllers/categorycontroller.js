@@ -2,7 +2,7 @@ const Category = require("../models/categorymodel");
 
 
 
-// create student --Admin
+// create category --Admin
 exports.createCategory = (async (req, res, next) => {
     const category = await Category.create(req.body);
 
@@ -51,7 +51,6 @@ exports.updatecategory = async (req, res, next) => {
     let category = await Category.findById(req.params.id);
 
     if (!category) {
-        // return next(new ErrorHandler("Item not found ", 404));
         return res.status(500).json({
             success: false,
             message: "Category not Found"

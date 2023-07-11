@@ -12,22 +12,7 @@ exports.createService = (async (req, res, next) => {
     });
 });
 
-// get all students
 
-// exports.getAllitems = catchAsyncErrors( async (req, res) => {
-//     to seacrhing 
-
-//     const apiFeature= new ApiFeatures(Student.find(),req.query).search().filter();
-
-//   // ======================================================
-//     const allstudents = await Student.find();
-//       const allstudents = await apiFeature.query;
-
-//     res.status(200).json({
-//       success: true,
-//       allstudents,
-//     });
-//   });
 
 
 exports.getAllServices = async (req, res) => {
@@ -46,7 +31,7 @@ exports.updateService = async (req, res, next) => {
         // return next(new ErrorHandler("Item not found ", 404));
         return res.status(500).json({
             success: false,
-            message: "Room not Found"
+            message: "Room Service not Found"
         });
     }
     ser1 = await Service.findByIdAndUpdate(req.params.id, req.body, {
@@ -69,7 +54,7 @@ exports.getServiceDetail = async (req, res, next) => {
 
         return res.status(500).json({
             success: false,
-            message: "Guest not found",
+            message: "Room Service not Found",
         });
     }
     res.status(200).json({
@@ -87,7 +72,7 @@ exports.deleteService = async (req, res, next) => {
     const service = await Service.findById(req.params.id);
   
     if (!service) {
-      return next(new ErrorHandler("Service not found ", 404));
+      return next(new ErrorHandler("Room Service not Found", 404));
     }
   
     // ==========================================================================
@@ -102,6 +87,6 @@ exports.deleteService = async (req, res, next) => {
   
     res.status(200).json({
       success: true,
-      message: "Service delete successfully",
+      message: "Room Service delete successfully",
     });
   } ;

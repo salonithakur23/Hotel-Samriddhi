@@ -1,6 +1,5 @@
-
-import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from './components/Pages/Home/Home';
 import Dashboard from './components/Pages/Hotel/AdminPage/Dashboard/Dashboard'
 import HotelSidebar from './components/Pages/Hotel/HotelSidebar';
@@ -43,73 +42,66 @@ import EditEmployee from "./components/Pages/MainAdmin/Employees/EditEmployee";
 import EditResBilling from "./components/Pages/Restaurent/Res-Billing/EditResBilling";
 import Login from "./login/Login";
 
-
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if the user is logged in (e.g., by checking a token in local storage)
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token); 
+  }, []);
+
+  // Higher-order component for protected routes
+  const PrivateRoute = ({ children }) => {
+    return isLoggedIn ? children : <Navigate to="/login" />;
+  };
 
   return (
     <>
-    
-     
       <ToastContainer position="top-center" />
-      <Routes>
-
-        <Route>
-        <Route path='/' element={<Login />} />
-
-        {/* <Header /> */}
-          <Route path='/home' element={<Home />} />
-          {/* hotel  sidebar routing start*/}
-          <Route path="hotel-dashboard" element={<HotelSidebar><Dashboard /></HotelSidebar>} />
-          <Route path='/roombooking' element={<RoomBooking />} />
-          <Route path='/booking/:id' element={<RoomBooking />} />
-          <Route path='/roomlist' element={<HotelSidebar><BookingList /></HotelSidebar>} />
-          <Route path="/room-service-lists" element={<HotelSidebar><ServiceList /></HotelSidebar>} />
-          <Route path='/rooms' element={<HotelSidebar><Rooms /></HotelSidebar>} />
-          <Route path='/billing' element={<Billing />} />
-          <Route path='/roomservice' element={<HotelSidebar><RoomService /></HotelSidebar>} />
-          {/* hotel  sidebar routing end*/}
-
-
-          {/* Restaurent  sidebar routing start*/}
-          <Route path="/restaurent-dashboard" element={<RestaurentSidebar><ResDashboard /></RestaurentSidebar>} />
-          <Route path="/order" element={<RestaurentSidebar><Order /></RestaurentSidebar>} />
-          <Route path="/res-items" element={<RestaurentSidebar><ItemsForm /></RestaurentSidebar>} />
-          <Route path="/EditResBilling/:id" element={<RestaurentSidebar><EditResBilling /></RestaurentSidebar>} />
-          <Route path="/res-billing" element={<RestaurentSidebar><ResBilling /></RestaurentSidebar>} />
-          <Route path="/KOT" element={<RestaurentSidebar><Kot /></RestaurentSidebar>} />
-          <Route path="/KOT/:orderId" element={<RestaurentSidebar><Kot /></RestaurentSidebar>} />
-          <Route path="/BILL" element={<RestaurentSidebar><Bill /></RestaurentSidebar>} />
-          <Route path="/bill/:orderId" element={<RestaurentSidebar><Bill /></RestaurentSidebar>} />
-
-          {/* Restaurent  sidebar routing end*/}
-
-
-
-          {/* Admin  sidebar routing start*/}
-          <Route path="/main-admin-dashboard" element={<MainAdminSidebar><AdminDashboard /></MainAdminSidebar>} />
-          <Route path="/items" element={<MainAdminSidebar><Item /></MainAdminSidebar>} />
-          <Route path="/item-list" element={<MainAdminSidebar><ItemList /></MainAdminSidebar>} />
-          <Route path="/edititem/:id" element={<MainAdminSidebar><Edititem /></MainAdminSidebar>} />
-          <Route path="/add-rooms" element={<MainAdminSidebar><Room /></MainAdminSidebar>} />
-          <Route path="/room-list" element={<MainAdminSidebar><RoomList /></MainAdminSidebar>} />
-          <Route path="/roomEdit/:id" element={<MainAdminSidebar><RoomEdit /></MainAdminSidebar>} />
-          <Route path="/services" element={<MainAdminSidebar><AddService /></MainAdminSidebar>} />
-          <Route path="/service-list" element={<MainAdminSidebar><ServicesList /></MainAdminSidebar>} />
-          <Route path="/serviceEdit/:id" element={<MainAdminSidebar><ServiceEdit /></MainAdminSidebar>} />
-          <Route path="/employees" element={<MainAdminSidebar><Employees /></MainAdminSidebar>} />
-          <Route path="/employee-list" element={<MainAdminSidebar><EmployeesList /></MainAdminSidebar>} />
-          <Route path="/EditEmp/:id" element={<MainAdminSidebar><EditEmployee /></MainAdminSidebar>} />
-          <Route path="/add-guest" element={<MainAdminSidebar><Guest /></MainAdminSidebar>} />
-          <Route path="/guest/:id" element={<MainAdminSidebar><EditGuest /></MainAdminSidebar>} />
-          <Route path="/guest-list" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} />
-          <Route path="/view/:id" element={<MainAdminSidebar><GuestList /></MainAdminSidebar>} /> 
-          <Route path="/add-category" element={<MainAdminSidebar><AddCategoryForm /></MainAdminSidebar>} /> 
-          <Route path="/list-category" element={<MainAdminSidebar><ListCategory /></MainAdminSidebar>} /> 
-          <Route path="/Editcategory/:id" element={<MainAdminSidebar><EditCategory /></MainAdminSidebar>} /> 
-          <Route path="/seeallcategory" element={<MainAdminSidebar><SeeAllCategory /></MainAdminSidebar>} /> 
-          {/* Admin  sidebar routing end*/}
-        </Route>
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/hotel-dashboard" element={<PrivateRoute><HotelSidebar><Dashboard /></HotelSidebar></PrivateRoute>} />
+          <Route path="/roombooking" element={<PrivateRoute><RoomBooking /> </PrivateRoute>} />
+          <Route path="/booking/:id" element={<PrivateRoute><RoomBooking /> </PrivateRoute>} />
+          <Route path="/roomlist" element={<PrivateRoute><HotelSidebar><BookingList /></HotelSidebar></PrivateRoute>} />
+          <Route path="/room-service-lists" element={<PrivateRoute><HotelSidebar><ServiceList /></HotelSidebar></PrivateRoute>} />
+          <Route path="/rooms" element={<PrivateRoute><HotelSidebar><Rooms /></HotelSidebar></PrivateRoute>} />
+          <Route path="/billing" element={<PrivateRoute><Billing /></PrivateRoute>} />
+          <Route path="/roomservice" element={<PrivateRoute><HotelSidebar><RoomService /></HotelSidebar></PrivateRoute>} />
+          <Route path="/restaurent-dashboard" element={<PrivateRoute><RestaurentSidebar><ResDashboard /></RestaurentSidebar></PrivateRoute>} />
+          <Route path="/order" element={<PrivateRoute><RestaurentSidebar><Order /></RestaurentSidebar></PrivateRoute>} />
+          <Route path="/res-items" element={<PrivateRoute><RestaurentSidebar><ItemsForm /></RestaurentSidebar></PrivateRoute>} />
+          <Route path="/EditResBilling/:id" element={<PrivateRoute><RestaurentSidebar><EditResBilling /></RestaurentSidebar></PrivateRoute>} />
+          <Route path="/res-billing" element={<PrivateRoute><RestaurentSidebar><ResBilling /></RestaurentSidebar></PrivateRoute>} />
+          <Route path="/KOT" element={<PrivateRoute><RestaurentSidebar><Kot /></RestaurentSidebar></PrivateRoute>} />
+          <Route path="/KOT/:orderId" element={<PrivateRoute><RestaurentSidebar><Kot /></RestaurentSidebar></PrivateRoute>} />
+          <Route path="/BILL" element={<PrivateRoute><RestaurentSidebar><Bill /></RestaurentSidebar></PrivateRoute>} />
+          <Route path="/bill/:orderId" element={<PrivateRoute><RestaurentSidebar><Bill /></RestaurentSidebar></PrivateRoute>} />
+          <Route path="/main-admin-dashboard" element={<PrivateRoute><MainAdminSidebar><AdminDashboard /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/items" element={<PrivateRoute><MainAdminSidebar><Item /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/item-list" element={<PrivateRoute><MainAdminSidebar><ItemList /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/edititem/:id" element={<PrivateRoute><MainAdminSidebar><Edititem /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/add-rooms" element={<PrivateRoute><MainAdminSidebar><Room /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/room-list" element={<PrivateRoute><MainAdminSidebar><RoomList /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/roomEdit/:id" element={<PrivateRoute><MainAdminSidebar><RoomEdit /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/services" element={<PrivateRoute><MainAdminSidebar><AddService /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/service-list" element={<PrivateRoute><MainAdminSidebar><ServicesList /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/serviceEdit/:id" element={<PrivateRoute><MainAdminSidebar><ServiceEdit /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/employees" element={<PrivateRoute><MainAdminSidebar><Employees /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/EditEmp/:id" element={<PrivateRoute><MainAdminSidebar><EditEmployee /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/employee-list" element={<PrivateRoute><MainAdminSidebar><EmployeesList /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/add-guest" element={<PrivateRoute><MainAdminSidebar><Guest /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/guest/:id" element={<PrivateRoute><MainAdminSidebar><EditGuest /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/guest-list" element={<PrivateRoute><MainAdminSidebar><GuestList /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/view/:id" element={<PrivateRoute><MainAdminSidebar><GuestList /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/add-category" element={<PrivateRoute><MainAdminSidebar><AddCategoryForm /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/list-category" element={<PrivateRoute><MainAdminSidebar><ListCategory /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/Editcategory/:id" element={<PrivateRoute><MainAdminSidebar><EditCategory /></MainAdminSidebar></PrivateRoute>} />
+          <Route path="/seeallcategory" element={<PrivateRoute><MainAdminSidebar><SeeAllCategory /></MainAdminSidebar></PrivateRoute>} />
+        </Routes>
     </>
   );
 }

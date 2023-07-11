@@ -122,7 +122,7 @@ const EditItem = () => {
                                 <select
                                     className="form-control"
                                     onChange={(e) => setCategory_Type(e.target.value)}
-                                    required
+                                    
                                 >
                                     <option value={category_Type}>select a category</option>
                                     {get?.categories?.map((items) => (

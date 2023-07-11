@@ -10,20 +10,15 @@ const Dashboard = () => {
 
   return (
     <>
-    <Layout />
-      <marquee className="mar-bg">
-        <p className='Dash-title'> Welcome to the Dasboard of Our Hotel ! A hotel dashboard is a tool used by hotel management to monitor and analyze various aspects of their hotel's operations. </p>
-      </marquee>
-      <Container >
-        <Row>
-          <div className='dash-img-box'>
-           <img className='dash-img-fill' src='/img/hotel-banner.jpg' />
-              </div>
-            </Row>
-          </Container>
+      <Layout />
 
-        </>
-        )
+      <div className='Hotel-dash-box'>
+        <img className='Hotel-dash-fill' src='/img/Hotel_Banner(1).jpg' />
+      </div>
+
+
+    </>
+  )
 }
 
-        export default Dashboard
+export default Dashboard

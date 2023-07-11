@@ -1,7 +1,5 @@
 const Bill = require("../models/billmodel");
 
-
-
 exports.createBill = (async (req, res, next) => {
     const bill = await Bill.create(req.body);
 
@@ -48,7 +46,7 @@ exports.updatebill = async (req, res, next) => {
     let bill = await Bill.findById(req.params.id);
 
     if (!bill) {
-        // return next(new ErrorHandler("Item not found ", 404));
+
         return res.status(500).json({
             success: false,
             message: "Bill not Found"
@@ -69,7 +67,6 @@ exports.updatebill = async (req, res, next) => {
 
 exports.deleteBill = async (req, res, next) => {
 
-    // req.body.student=req.student.id
     console.log(res.params)
     const bill = await Bill.findById(req.params.id);
 

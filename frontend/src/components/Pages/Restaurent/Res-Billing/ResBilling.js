@@ -4,15 +4,18 @@ import { Button, Col, Container, Row, Table } from 'react-bootstrap';
 import { AiFillDashboard, AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { IoIosCreate } from 'react-icons/io';
+import {AiFillCloseCircle} from 'react-icons/ai'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Layout from '../../../Header/Layout';
+import { useNavigate } from 'react-router-dom';
 
 const baseURL = 'http://localhost:4000/api/v1/orders';
 
 
 const ResBilling = () => {
   const [orders, setOrders] = useState([]);
+  const navigate= useNavigate();
 
   useEffect(() => {
     axios.get(baseURL).then((response) => {
@@ -23,52 +26,67 @@ const ResBilling = () => {
   const calculateTotal = (items) => {
     let total = 0;
     items.forEach((item) => {
-      total += item.Price * item.Quantity;
+      total += item.price * item.Quantity;
     });
     return total;
   };
 
   const handleKOTClick = async (orderId) => {
     try {
-      const updatedOrder = await axios.put(`http://localhost:4000/api/v1/order/${orderId}`, {
-        newStatus: "Order in the Kitchen"
+      const updatedOrder = await axios.put(`http://localhost:4000/api/v1/order/status/${orderId}`, {
+        newStatus: 'Order in the Kitchen'
       });
-      toast.success("Order status updated successfully");
+      toast.success('Order status updated successfully');
     } catch (error) {
       console.log(error.response);
-      toast.error("Failed to update order status");
+      toast.error('Failed to update order status');
     }
   };
 
   const handleBillClick = async (orderId) => {
     try {
-      const updatedOrder = await axios.put(`http://localhost:4000/api/v1/order/${orderId}`, {
-        newStatus: " Order Complete"
+      const updatedOrder = await axios.put(`http://localhost:4000/api/v1/order/status/${orderId}`, {
+        newStatus: 'Order Complete'
       });
-      toast.success("Order status updated successfully");
+      toast.success('Order status updated successfully');
     } catch (error) {
       console.log(error.response);
-      toast.error("Failed to update order status");
+      toast.error('Failed to update order status');
+    }
+
+  };
+
+  const handleRemoveClick = async (orderId) => {
+    try {
+      await axios.put(`http://localhost:4000/api/v1/order/status/${orderId}`, {
+        newStatus: 'Completed'
+      });
+      toast.success('Order Removes successfully');
+      setOrders(orders.filter((order) => order._id !== orderId));
+    } catch (error) {
+      console.log(error.response);
+      toast.error('Failed to update order status');
     }
   };
 
+  const activeOrders = orders.filter((order) => order.Status !== 'Completed');
 
-  if (orders.length === 0) {
+  if (activeOrders.length === 0) {
     return (
       <div className="no-orders">
-        <h3>There is no order yet.</h3>
-        <Button className="table-btn" variant="light">
-          <IoIosCreate />&nbsp;<Link to="/order">Create an Order</Link>
+        <h3>There are no active orders.</h3>
+        <Button className="table-btn" variant="light" onClick={()=> navigate("/order")}>
+          <IoIosCreate />&nbsp;
+          Create an Order
         </Button>
       </div>
     );
   }
 
   return (
-
-
+    
     <>
-    <Layout />
+      <Layout />
       <Container className="main-col">
         <Table striped bordered hover className="main-table">
           <thead>
@@ -87,8 +105,8 @@ const ResBilling = () => {
               <tr>
                 <th>
                   <div className="table-div">
-                    <Button className="table-btn" variant="light">
-                      <IoIosCreate />&nbsp;<Link to="/order">Create</Link>
+                    <Button className="table-btn" variant="light" onClick={()=> navigate("/order")}>
+                      <IoIosCreate />&nbsp;Create
                     </Button>
                   </div>
                 </th>
@@ -102,27 +120,29 @@ const ResBilling = () => {
       <div className="form-div">
         <Container>
           <Row>
-            {orders.map((order) => (
+            {activeOrders.map((order) => (
               <Col sm={4} key={order._id}>
                 <div className="billing-card">
+                  <div className="close-btn-container">
+                    <Button className="close-btn " variant="danger" onClick={() => handleRemoveClick(order._id)}>
+                    <AiFillCloseCircle/>
+                    </Button>
+                  </div>
                   <h5>
                     Status: <span>{order.Status}</span>
                   </h5>
                   <h3 className="res-name">Samriddhi Hotel</h3>
                   <h5>
-                    Phone.no : <span>8796541234</span>
+                    Phone Number: <span>8796541234</span>
                   </h5>
                   <h5>
-                    Address : <span>Mansrowar</span>
+                    Address: <span>Mansrowar</span>
                   </h5>
                   <h5>
-                    Gst.no : <span>1</span>
+                    Gst Number: <span>1</span>
                   </h5>
                   <h5>
-                    Order Date&Time :<span> {order.Order_Time}</span>
-                  </h5>
-                  <h5>
-                    Table No :<span> {order.Table_Number}</span>
+                    Table Number: <span>{order.Table_Number}</span>
                   </h5>
                   <Table responsive>
                     <table className="table table-bordered border-secondary">
@@ -138,9 +158,9 @@ const ResBilling = () => {
                         {order.Items.map((item) => (
                           <tr key={item._id}>
                             <td>{item.Item_Name}</td>
-                            <td>{item.Price}</td>
+                            <td>{item.price}</td>
                             <td>{item.Quantity}</td>
-                            <td>{item.Price * item.Quantity}</td>
+                            <td>{item.price * item.Quantity}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -180,4 +200,3 @@ const ResBilling = () => {
 };
 
 export default ResBilling;
-

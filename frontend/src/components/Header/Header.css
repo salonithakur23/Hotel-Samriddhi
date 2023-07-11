@@ -20,6 +20,12 @@
     font-size: 1.2rem;
 }
 
+.logout-button {
+    background-color: #06C755 !important;
+    color: #fff;
+    border: none !important
+}
+
 
 
 
@@ -36,5 +42,5 @@
         height: 100%;
         background-image: linear-gradient(rgb(8, 17, 24), rgb(63, 85, 104));
     }
-    
-  }
+
+}
