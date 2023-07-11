@@ -17,6 +17,7 @@ const Item = () => {
   const [item_Name, setItem_Name] = useState("");
   const [price, setPrice] = useState("");
   const [category_Type, setCategory_Type] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(baseURL).then((response) => {
@@ -24,7 +25,8 @@ const Item = () => {
     });
   }, []);
 
-  const navigate = useNavigate();
+
+
 
   const submitForm = async (event) => {
     event.preventDefault();
@@ -32,7 +34,9 @@ const Item = () => {
       await axios.post("http://localhost:4000/api/v1/item/new", {
         "Item_Name": item_Name,
         "price": price,
-        "Category_Name": category_Type,
+        "Category_Name":category_Type,
+       
+
       });
       toast.danger("Item Add Successfully");
       navigate("/item-list");

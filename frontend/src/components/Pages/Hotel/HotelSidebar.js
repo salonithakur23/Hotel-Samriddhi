@@ -51,7 +51,7 @@ const HotelSidebar = ({children}) => {
       <div style={{width: isOpen ? "200px" : "50px",paddingTop:"20px"}} className='sidebar'>
         <div className='top_section'>
           <p style={{display: isOpen ? "block" : "none"}} className='logo'>
-            <span>Hotel</span>
+            <span className='dash-title'>Hotel</span>
           </p>
           <div style={{marginLeft: isOpen ? "50px" : "15px",paddingTop:"15px"}} className='bars'>
             <FaBars onClick={toggle} />
