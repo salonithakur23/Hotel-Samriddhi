@@ -15,7 +15,8 @@ const AddCategoryForm = () => {
     // form Function start
     const navigate = useNavigate()
     const [category_Type, setCategory_Type] = useState(null);
-    const submitform = () => {
+    const submitform = (event) => {
+        event.preventDefault();
         try {
             axios.post(" http://localhost:4000/api/v1/category/new", {
 
@@ -54,9 +55,6 @@ const AddCategoryForm = () => {
                                         <Button className='table-btn' variant="light" >
                                             <IoIosCreate />&nbsp;<Link to="/list-category">Go Back</Link>
                                         </Button>
-                                        <Button className='table-btn' variant="light" >
-                                            <AiFillEye />&nbsp;<Link to="/seeallcategory">See-All-Category</Link>
-                                        </Button>
                                     </div>
 
                                 </th>
@@ -84,7 +82,8 @@ const AddCategoryForm = () => {
                                     style={{ marginTop: "-120px" }}
                                     variant="success"
                                     type="submit"
-                                    onClick={submitform}
+                                    // onClick={submitform}
+                                    onClick={(event) => submitform(event)}
                                 >
                                   Submit
                                </Button>

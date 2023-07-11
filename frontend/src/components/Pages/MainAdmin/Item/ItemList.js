@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 // import MainLayout from '../../Admin/Pages/MainLayout'
 import { Button, Container, Row, Table } from 'react-bootstrap'
-import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai';
+import { AiFillDashboard, AiFillDelete, AiFillEdit,AiFillEye } from 'react-icons/ai';
+
+
 // import Leave from './Leave'
 import { Link } from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
@@ -70,6 +72,9 @@ const ItemList = ({ items }) => {
 
                     <Button className='table-btn' variant="light" >
                       <IoIosCreate />&nbsp;<Link to="/items">Create</Link>
+                    </Button>
+                    <Button className='table-btn' variant="light" >
+                      <AiFillEye />&nbsp;<Link to="/seeallcategory">See-All-Category-Items</Link>
                     </Button>
                   </div>
                 </th>

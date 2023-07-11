@@ -7,6 +7,9 @@ import Form from 'react-bootstrap/Form';
 import { IoIosCreate } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
+import Layout from '../../../../Header/Layout';
+// import Layout from '../../../Header/Layout';
+
 
 
 
@@ -38,24 +41,6 @@ const SeeAllCategory = () => {
   const [items, setItems] = useState([])
 
 
-
-
-  const submitform = () => {
-    try {
-      axios.post("http://localhost:4000/api/v1/order/new", {
-        "Table_Number": table_Number,
-        "Order_Time": order_Time,
-        // "Category_Name": category_Type,
-
-
-      })
-      alert("Order Submit Successfully")
-      navigate("/res-billing")
-    } catch (error) {
-      console.log(error.response)
-
-    }
-  }
 
   const handleCategoriesItem = (val) => {
     setCategory_Type(val)
@@ -94,7 +79,7 @@ const SeeAllCategory = () => {
 
   return (
     <>
-
+      <Layout />
       <Container style={{ width: "90%", marginTop: "20px" }} >
         <Table striped bordered hover className='main-table'>
           <thead>
