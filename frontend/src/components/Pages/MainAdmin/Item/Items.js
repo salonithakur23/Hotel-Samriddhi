@@ -34,10 +34,9 @@ const Item = () => {
         "price": price,
         "Category_Name": category_Type,
       });
-      toast.danger("Item Add Successfully");
+      toast.success("Item Add Successfully");
       navigate("/item-list");
 
-      // Reset the form fields
       setItem_Name("");
       setPrice("");
       setCategory_Type(null);
