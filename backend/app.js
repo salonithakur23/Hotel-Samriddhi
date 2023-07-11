@@ -35,8 +35,8 @@ const bill = require("./routes/billRoute")
 app.use("/api/v1",item);
 app.use("/api/v1",employee);
 app.use("/api/v1",room);
-app.use("/api/v1",guest);
 app.use("/api/v1",service);
+app.use("/api/v1",roomservice);
 app.use("/api/v1",roombooking);
 app.use("/api/v1",order);
 app.use("/api/v1",category);
