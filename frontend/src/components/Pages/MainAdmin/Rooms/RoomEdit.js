@@ -35,7 +35,8 @@ const RoomEdit = () => {
         })
     }, [])
 
-    const submitform = () => {
+    const submitform = (event) => {
+        event.preventDefault();
         try {
             axios.put(`http://localhost:4000/api/v1/room/${params.id}`, {
                 "Room_Number": Room_Number,
@@ -135,7 +136,9 @@ const RoomEdit = () => {
                             <center>
                                 <Button className="stu_btn"
                                     variant="success"
-                                    type="submit" onClick={submitform}>
+                                    type="submit" 
+                                    onClick={(event) => submitform(event)}
+                                    >
                                     Submit
                                 </Button>
                             </center>
