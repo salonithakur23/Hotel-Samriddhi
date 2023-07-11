@@ -37,7 +37,6 @@ const Item = () => {
   const navigate = useNavigate();
   const [item_Name, setItem_Name] = useState(null);
   const [price, setPrice] = useState(null);
-  const [category_Name, setCategory_Name]=useState(null)
   const [category_Type, setCategory_Type]=useState(null)
 
  
@@ -49,7 +48,7 @@ const Item = () => {
         "Item_Name": item_Name,
         "price": price,
         "Category_Name":category_Type,
-          // "Category_Type":category_Type,
+       
 
       });
       toast.danger("Item Add Successfully");

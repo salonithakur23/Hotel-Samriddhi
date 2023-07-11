@@ -1,64 +1,50 @@
-import React, { useState } from "react";
+
+import React from "react";
 import { Modal, Button, Container, Row, Col } from "react-bootstrap";
 
-
-
-
-
-
-const ModalCamp = ({
-  open,
-  setOpen,
-}) => {
-
-
-
+const ModalCamp = ({ open, setOpen, user }) => {
   return (
-    <>
-      <Modal style={{ width: "100%", height: "100%" }}
-        show={open}
-        onHide={() => setOpen(false)}
-        size="small"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title> &#128968; &nbsp;Room Booking Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-
-          <Container>
-            <Row>
-
-              <Col sm={12}>
-
-              <p>Employee Name</p>
-          <p>Phone Number</p>
-          <p>Gender</p>
-          <p>Salary</p>
-          <p>Role</p>
-          <p>Address</p>
-          <p>D.O.B</p>
-          <p>Email  </p>
-
-
-                <Button className="float-end modal-delete" variant="light"
-                  onClick={() => setOpen(false)}>Delete</Button>
-
-              </Col><br /><br />
-
-
-
-
-            </Row>
-          </Container>
-
-        </Modal.Body>
-
-      </Modal>
-
-
-    </>
+    <Modal
+      style={{ width: "100%", height: "100%" }}
+      show={open}
+      onHide={() => setOpen(false)}
+      size="small"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title> &#128968; &nbsp;Employee Details</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Container>
+          <Row>
+            <Col sm={6}>
+              <p><b>Employee Name:</b></p>
+              <p><b>Phone No:</b> </p>
+              <p><b>Address:</b> </p>
+              <p><b>Email :</b> </p>
+              <p><b>Gender:</b></p>
+              <p><b>Dob</b> </p>
+              <p><b>Role:</b> </p>
+              <p><b>Salary:</b> </p>
+             
+            </Col>
+            <Col sm={6}>
+            <p>{user.Employee_Name}</p>
+              <p> {user.Phone_Number}</p>
+              <p>{user.Address}</p>
+              <p> {user.Email}</p>
+              <p> {user.Gender}</p>
+              <p> {user.Dob}</p>
+              <p> {user.Role}</p>
+              <p> {user.Checkout_Date_Time}</p>
+              <p> {user.Salary}</p>
+         
+            </Col>
+          </Row>
+        </Container>
+      </Modal.Body>
+    </Modal>
   );
 };
 

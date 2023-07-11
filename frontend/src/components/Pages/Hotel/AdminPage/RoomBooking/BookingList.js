@@ -1,71 +1,60 @@
-import React,{useEffect, useState} from 'react'
-// import MainLayout from '../../Admin/Pages/MainLayout'
-import { Button, Container,Row, Table } from 'react-bootstrap'
-import { AiFillDashboard, AiFillDelete, AiFillEdit,  } from 'react-icons/ai'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { fetchleaves } from '../../reducer/action/leaveAction'
-// import Leave from './Leave'
-import { Link }  from "react-router-dom"
+
+import React, { useEffect, useState } from 'react';
+import { Button, Container, Row, Table } from 'react-bootstrap';
+import { AiFillDashboard, AiFillDelete, AiFillEdit } from 'react-icons/ai';
+import { Link } from "react-router-dom";
 import { IoIosCreate } from "react-icons/io";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import ModalCamp from './ModalCamp';
 import Layout from '../../../../Header/Layout';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
+const baseURL = "http://localhost:4000/api/v1/room-bookings";
 
-
-
-
-
-const BookingList = ({post}) => {
-
+const BookingList = ({ post }) => {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState({});
+  const [get, setGetAll] = useState(null);
+  const navigate = useNavigate();
 
-
-  const navigate = useNavigate()
-
-  const handleModel = () => {
+  const handleModal = (post) => {
     setOpen(true);
     setUser(post);
+  };
 
-  }
- 
+  useEffect(() => {
+    axios.get(baseURL)
+      .then((response) => {
+        setGetAll(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [get]);
 
-//   const dispatch = useDispatch()
-//   const leaves = useSelector(state => state.leaves.item)
-//   const leavesStatus = useSelector(state => state.leaves.status)
-//   const error = useSelector(state => state.leaves.error)
+  const deleteData = (id) => {
+    axios.delete(`http://localhost:4000/api/v1/room-booking/${id}`)
+      .then(response => {
+        toast.success("Guest has been deleted successfully");
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
- 
-
-//   useEffect(() => {
-//     if (leavesStatus === 'idle') {
-//       dispatch(fetchleaves())
-//     }
-//   }, [leavesStatus, dispatch])
-
-//   let content
-
-//   if (leavesStatus === 'loading') {
-//     content = <div>Loading...</div>
-//   } else if (leavesStatus === 'succeeded') {
-//     content = leaves.map(leave => <Leave key={leave.id} leave={leave} />)
-//   } else if (leavesStatus === 'failed') {
-//     content = <div>{error}</div>
-//   }
-
-
+  if (!get) return null;
 
   return (
-
     <>
-
-    <Layout />
-    <Container className='mt-4' >
+      <Layout />
+      <Container className='mt-4'>
         <Table striped bordered hover className='main-table'>
           <thead>
             <tr>
-              <th><h5><AiFillDashboard /> &nbsp; Dashboard/ Room-Booking-Details</h5></th>
+              <th>
+                <h5><AiFillDashboard /> &nbsp; Dashboard/ Room-Booking-Details</h5>
+              </th>
             </tr>
           </thead>
         </Table>
@@ -74,9 +63,8 @@ const BookingList = ({post}) => {
             <thead>
               <tr>
                 <th>
-                  <div className='table-div' >
-                 
-                    <Button className='table-btn' variant="light" >
+                  <div className='table-div'>
+                    <Button className='table-btn' variant="light">
                       <IoIosCreate />&nbsp;<Link to="/roombooking">Create</Link>
                     </Button>
                   </div>
@@ -88,82 +76,69 @@ const BookingList = ({post}) => {
         </Row>
       </Container>
 
-
       <div className="post-table">
+        <h5 className="w3-center w3-flat-midnight-blue w3-padding-48 w3-border-blue-grey w3-grey text text-center mb-5 mt-3">Room Booking Details</h5>
+        <Container>
+          <Row>
+            <Table responsive>
+              <table className="table table-bordered border-secondary">
+                <thead>
+                  <tr>
+                    <th>Guest Name</th>
+                    <th>Phone No.</th>
+                    <th>Address</th>
+                    <th>Room No.</th>
+                    <th>Booking Date</th>
+                    <th>Room Type</th>
+                    <th>Action Edit</th>
+                    <th>Action Delete</th>
+                    <th>Action View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {get?.book?.map((items) => (
+                    <tr key={items._id}>
+                      <td>{items.Guest_Name}</td>
+                      <td>{items.Phone_Number}</td>
+                      <td>{items.Address}</td>
+                      <td>{items.Room_Number}</td>
+                      <td>{items.Booking_Date_Time}</td>
+                      <td>{items.Room_BookType}</td>
+                      <td>
+                        <Link to={`/Editroombooking/${items._id}`}>
+                          <Button className='table-btn' variant="light">
+                            &#9998;Edit
+                          </Button>
+                        </Link>
+                      </td>
+                      <td>
+                        <Button className='table-btn' variant="light" onClick={() => { deleteData(items._id) }} value={"Delete"}>
+                          <span className='delete-icon'>&#x2717;</span>Delete
+                        </Button>
+                      </td>
+                      <td>
+                        <Button className='table-btn' variant="light" onClick={() => handleModal(items)}>
+                          &#128065;View
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </Table>
+          </Row>
+        </Container>
+      </div>
 
-<h5 className="w3-center w3-flat-midnight-blue w3-padding-48 w3-border-blue-grey w3-grey text text-center mb-5 mt-3">Room Booking Details</h5>
-<Container>
-  <Row>
-
-
-<Table responsive>
- <table class="table table-bordered border-secondary">
-      <thead>
-        <tr>
-        
-         <th>Guest Name</th>
-          <th>Phone No.</th>
-          <th>Address</th>
-          <th>Room No.</th>
-          <th>Room Type</th>
-          <th>Booking Date</th>
-          <th>Special Request</th>
-          <th>Action Edit</th>
-          <th>Action View</th>
-     </tr>
-      </thead>
-      <tbody>
-      <tr>
-
-<td>keshav</td>
-<td>keshav</td>
-<td>keshav</td>
-<td>keshav</td>
-<td>keshav</td>
-<td>keshav</td>
-<td>keshav</td>
-<td>
-
-  <Link to="/roombooking">
-    <Button className='table-btn' variant="light" 
-      // onClick={() => navigate(`/booking/${""}`)}
-      >
-        &#9998;Edit
-    </Button>   </Link>                 
-</td>
-<td>
-    <Button className='table-btn' variant="light" 
-    onClick={() => handleModel()}
-  >
-        &#128065;View
-        </Button>
-        {open && (
-            <ModalCamp
-            
-              open={open}
-              setOpen={setOpen}
-              // updatePost={updatePost}
-              {...user}
-            />
-          )}
- 
-</td>
-
-{/* <button className="view-btn">View </button> */}
-</tr>
-      </tbody>
-    </table>
-    </Table>
-    </Row>
-</Container>
-
-    </div>
-
-    
-    
-    
+      {open && (
+        <ModalCamp
+          open={open}
+          setOpen={setOpen}
+          user={user}
+        />
+      )}
     </>
+  );
+};
 
-  )
-}
 export default BookingList;

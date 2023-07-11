@@ -5,7 +5,7 @@ const BookingSchema = new mongoose.Schema({
         type: String,
 
     },
-    Guest_Number: {
+    Phone_Number: {
         type: String,
 
     },
@@ -14,11 +14,12 @@ const BookingSchema = new mongoose.Schema({
         type: String,
 
     },
-    Email: {
+
+    Room_Number: {
         type: String,
 
     },
-    Room_Number: {
+    Room_BookType: {
         type: String,
 
     },

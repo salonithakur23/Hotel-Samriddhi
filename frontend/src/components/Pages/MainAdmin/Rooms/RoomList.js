@@ -96,7 +96,7 @@ const RoomList = ({ items }) => {
                   <th>Avaibale</th>
                   <th>Action Edit</th>
                   <th>Action Delete</th>
-                  <th>Action View</th>
+             
                 </tr>
               </thead>
               <tbody>
@@ -123,19 +123,7 @@ const RoomList = ({ items }) => {
                        <span className='delete-icon'>&#x2717;</span>Delete
                       </Button>
                     </td>
-                    <td>
-                      <Button className='table-btn' variant="light"
-                        onClick={() => handleModel()} >
-                        &#128065;View
-                      </Button>
-                      {open && (
-                        <ModalCamp
-                          open={open}
-                          setOpen={setOpen}
-                          {...user}
-                        />
-                      )}
-                    </td>
+                    
                   </tr>
                 ))}
               </tbody>

@@ -17,11 +17,11 @@ const EmployeesList = ({ post }) => {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState({});
   const [get, setGetAll] = useState(null);
-  const handleModel = () => {
+
+  const handleModal = (post) => {
     setOpen(true);
     setUser(post);
-
-  }
+  };
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setGetAll(response.data);
@@ -91,10 +91,11 @@ const EmployeesList = ({ post }) => {
                   <th>Email</th>
                   <th>Gender</th>
                   <th>Dob</th>
-                  <th>Role</th>
-                  <th>Salary</th>
+                  {/* <th>Role</th> */}
+                  {/* <th>Salary</th> */}
                   <th>Action Edit</th>
                   <th>Action Delete</th>
+                  <th>Action View</th>
                 </tr>
               </thead>
               <tbody>
@@ -107,8 +108,8 @@ const EmployeesList = ({ post }) => {
                     <td>{items.Email}</td>
                     <td>{items.Gender}</td>
                     <td>{items.Dob}</td>
-                    <td>{items.Role}</td>
-                    <td>{items.Salary}</td>
+                    {/* <td>{items.Role}</td> */}
+                    {/* <td>{items.Salary}</td> */}
 
                     <td>
                       <Link to={`/EditEmp/${items._id}`}>
@@ -125,21 +126,12 @@ const EmployeesList = ({ post }) => {
                         <span className='delete-icon'>&#x2717;</span>Delete
                       </Button>
                     </td>
+                    <td>
+                        <Button className='table-btn' variant="light" onClick={() => handleModal(items)}>
+                          &#128065;View
+                        </Button>
+                      </td>
 
-                    {/* <td>
-                      <Button className='table-btn' variant="light"
-                        onClick={() => handleModel()}>
-                        &#128065;View
-                      </Button>
-                      {open && (
-                        <ModalCamp
-                          open={open}
-                          setOpen={setOpen}
-                          {...user}
-                        />
-                      )}
-
-                    </td> */}
                   </tr>
                 ))}
               </tbody>
@@ -148,7 +140,13 @@ const EmployeesList = ({ post }) => {
         </Container>
 
       </div>
-
+      {open && (
+        <ModalCamp
+          open={open}
+          setOpen={setOpen}
+          user={user}
+        />
+      )}
 
 
 
