@@ -141,6 +141,11 @@
 }
 
 
+.Item-container{
+    display: flex !important;
+    /* flex-wrap: wrap !important; */
+    margin-top: 20px;
+}
 
 
 
