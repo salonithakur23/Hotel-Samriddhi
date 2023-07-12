@@ -25,6 +25,7 @@ const roombooking = require("./routes/roomBookingRoute")
 const order = require("./routes/orderRoute")
 const category = require("./routes/categoryRoute")
 const bill = require("./routes/billRoute")
+const roomcategory = require("./routes/roomcategoryRoute")
 // const login = require('/main')
 
 
@@ -41,6 +42,7 @@ app.use("/api/v1",roombooking);
 app.use("/api/v1",order);
 app.use("/api/v1",category);
 app.use("/api/v1",bill)
+app.use("/api/v1",roomcategory)
 
 
 // app.use('/api', routes);

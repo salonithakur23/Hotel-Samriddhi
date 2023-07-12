@@ -1,26 +1,52 @@
-import React,{useState} from 'react'
-import { Button, Container, Row, Table } from 'react-bootstrap';
-import { AiFillDashboard, AiFillEdit, } from "react-icons/ai";
-import { IoIosCreate } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Button, Container, Row, Table } from 'react-bootstrap'
+import { AiFillDashboard, AiFillDelete, AiFillEdit, } from 'react-icons/ai'
+import { Link } from "react-router-dom"
+import { IoIosCreate } from "react-icons/io";
 import ModalCamp from './ModalCamp';
-import Layout from "../../../../Header/Layout"
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import Layout from '../../../../Header/Layout';
+
+
+const baseURL = "http://localhost:4000/api/v1/rooms"
 
 
 
-const Rooms = ({post}) => {
+const Rooms = () => {
 
-    const [open, setOpen] = useState(false);
-    const [user, setUser] = useState({});
-    const handleModel = () => {
-      setOpen(true);
-      setUser(post);
-  
+    const [get, setGetAll] = useState(null);
+
+
+
+
+    useEffect(() => {
+        axios.get(baseURL).then((response) => {
+            setGetAll(response.data);
+
+        })
+
+    }, [get])
+
+
+    const deleteData = (id) => {
+
+        axios.delete(`http://localhost:4000/api/v1/room/${id}`).then(response => {
+
+            toast.success("Item has been deleted successfully")
+        })
+            .catch(error => {
+                console.log(error)
+            })
+
     }
+    if (!get) return null;
+
+
     return (
         <>
-        
-        <Layout />
+
+            <Layout />
             <Container style={{ width: "90%", marginTop: "30px" }} >
                 <Table striped bordered hover className='main-table'>
                     <thead>
@@ -50,72 +76,57 @@ const Rooms = ({post}) => {
                 </Row>
             </Container>
 
+            {/* <div className="post-table"> */}
+            <div className='form-div'>
 
-            <div className="post-table">
-
-                {/* <h5 className="w3-center w3-flat-midnight-blue w3-padding-48 w3-border-blue-grey w3-grey text text-center mb-5 mt-3">Item-Details</h5> */}
+                <h5 className="w3-center w3-flat-midnight-blue w3-padding-48 w3-border-blue-grey w3-grey text text-center mb-5 mt-3">Room-Details</h5>
                 <Container>
-                    <Row>
+                    <Table responsive>
+                        <table class="table table-bordered border-secondary">
+                            <thead>
+                                <tr>
+                                    <th>Room No.</th>
+                                    <th>Room Type</th>
+                                    <th>Price</th>
+                                    <th>Avaibale</th>
+                                    <th>Action Edit</th>
+                                    <th>Action Delete</th>
 
-
-                        <Table responsive>
-                            <table class="table table-bordered border-secondary">
-                                <thead>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {get?.rom?.map((items) => (
                                     <tr>
+                                        <td>{items.Room_Number}</td>
+                                        <td>{items.Room_Type}</td>
+                                        <td>{items.Price}</td>
+                                        <td>{items.Avilable_Not}</td>
 
-                                        <th>Item Name</th>
-                                        <th>Image</th>
-                                        <th>Price</th>
-                                        <th>Item Type</th>
-                                        <th>Available/NotAvailable</th>
-                                        <th>Action Edit</th>
-                                        <th>Action View</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-
-                                        <td>keshav</td>
-                                        <td>keshav</td>
-                                        <td>keshav</td>
-                                        <td>keshav</td>
-                                        <td>Yes</td>
                                         <td>
 
-                                            <Link to="/items">
-                                                <Button className='table-btn' variant="light" >
+                                            <Link to={`/roomEdit/${items._id}`}>
+                                                <Button className='table-btn'
+                                                    variant="light" >
                                                     &#9998;Edit
                                                 </Button>
                                             </Link>
                                         </td>
                                         <td>
                                             <Button className='table-btn' variant="light"
-                                            onClick={() => handleModel()} 
+                                                onClick={(e) => { deleteData(items._id) }} value={"Delete"}
                                             >
-                                                &#128065;View
+                                                <span className='delete-icon'>&#x2717;</span>Delete
                                             </Button>
-                                            {open && (
-                                                <ModalCamp
-
-                                                    open={open}
-                                                    setOpen={setOpen}
-                                                    {...user}
-                                                />
-                                            )}
-
                                         </td>
 
-                                        {/* <button className="view-btn">View </button> */}
                                     </tr>
-                                </tbody>
-                            </table>
-                        </Table>
-                    </Row>
+                                ))}
+                            </tbody>
+                        </table>
+                    </Table>
                 </Container>
 
             </div>
-
-
 
 
 
