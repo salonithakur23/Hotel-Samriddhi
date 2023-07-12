@@ -45,7 +45,8 @@ const EditItem = () => {
     }, [])
 
 
-    const submitform = () => {
+    const submitform = (event) => {
+        event.preventDefault();
         try {
             axios.put(`http://localhost:4000/api/v1/item/${params.id}`, {
                 "Item_Name": Item_Name,
@@ -135,9 +136,9 @@ const EditItem = () => {
                                 <Button className="stu_btn"
                                     variant="success"
                                     type="submit"
-                                    onClick={submitform}
+                                    onClick={(event)=>submitform(event)}
                                 >
-                                    Submit
+                                    Update Item
                                 </Button>
 
                             </center>

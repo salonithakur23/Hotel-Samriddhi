@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { Container, Col, Row, Table, Button } from 'react-bootstrap'
 import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-icons/ai';
 import { RiArrowGoBackLine } from 'react-icons/ri';
@@ -19,12 +19,13 @@ const Room = () => {
     const [price, setPrice] = useState(null);
     const [avilable_Not, setAvilable_Not] = useState(null);
 
-    const submitform = () => {
+    const submitform = (event) => {
+        event.preventDefault();
         try {
             axios.post("http://localhost:4000/api/v1/room/new", {
                 "Room_Number": room_Number,
                 "Room_Type": room_Type,
-                "Price":price,
+                "Price": price,
                 "Avilable_Not": avilable_Not,
             })
             toast.success("Room Add Succesfully")
@@ -37,7 +38,7 @@ const Room = () => {
 
     return (
         <>
-<Layout/>
+            <Layout />
 
             <Container style={{ width: "90%", marginTop: "20px" }} >
                 <Table striped bordered hover className='main-table'>
@@ -81,7 +82,7 @@ const Room = () => {
                             <div class="col-md-4 position-relative">
                                 <label className="label">Price.</label>
                                 <input type="text" class="form-control"
-                                  value={price} onChange={(e) => setPrice(e.target.value)} required
+                                    value={price} onChange={(e) => setPrice(e.target.value)} required
                                 />
                             </div>
 
@@ -90,7 +91,7 @@ const Room = () => {
                             >
                                 <label class="form-label">Room Type</label>
                                 <Form.Select
-                                  value={room_Type} onChange={(e) => setRoom_Type(e.target.value)} required
+                                    value={room_Type} onChange={(e) => setRoom_Type(e.target.value)} required
                                 >
                                     <option>Choose</option>
                                     <option value="Luxury">Luxury</option>
@@ -104,7 +105,7 @@ const Room = () => {
                             <div class="col-md-4 position-relative" >
                                 <label class="form-label">Available/Not-Available</label>
                                 <Form.Select
-                                  value={avilable_Not} onChange={(e) => setAvilable_Not(e.target.value)} required 
+                                    value={avilable_Not} onChange={(e) => setAvilable_Not(e.target.value)} required
                                 >
                                     <option>Choose</option>
                                     <option value="yes">yes</option>
@@ -115,7 +116,9 @@ const Room = () => {
                             <center>
                                 <Button className="stu_btn"
                                     variant="success"
-                                    type="submit" onClick={submitform}>
+                                    type="submit"
+                                    onClick={(event) => submitform(event)}
+                                >
                                     Submit
                                 </Button>
                             </center>

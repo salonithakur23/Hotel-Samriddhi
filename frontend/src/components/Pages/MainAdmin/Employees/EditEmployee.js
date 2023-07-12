@@ -19,7 +19,7 @@ const EditEmployee = () => {
     const [Email, setEmail] = useState(specificGuest.Email);
     const [Gender, setGender] = useState(specificGuest.Gender);
     const [Dob, setDob] = useState(specificGuest.Dob);
-    const [Role, setRole] = useState(specificGuest.Room_Number);
+    const [Role, setRole] = useState(specificGuest.Role);
     const [Salary, setSalary] = useState(specificGuest.Salary);
 
     console.log(specificGuest, "Check id from url")
@@ -39,7 +39,9 @@ const EditEmployee = () => {
     }, [])
 
 
-    const submitform = () => {
+    const submitform = (event) => {
+        event.preventDefault();
+        
         try {
             axios.put(`http://localhost:4000/api/v1/employee/${params.id}`, {
                 "Employee_Name": Employee_Name,
@@ -170,9 +172,9 @@ const EditEmployee = () => {
                                 <Button className="stu_btn"
                                     variant="success"
                                     type="submit"
-                                    onClick={submitform}
+                                    onClick={(event) => submitform(event)}
                                 >
-                                    Submit
+                                    Update Employee
                                 </Button>
 
                             </center>
