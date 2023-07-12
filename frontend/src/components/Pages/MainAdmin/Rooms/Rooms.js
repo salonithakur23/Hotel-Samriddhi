@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import { Container, Col, Row, Table, Button } from 'react-bootstrap'
 import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-icons/ai';
 import { RiArrowGoBackLine } from 'react-icons/ri';
@@ -10,8 +10,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import Layout from '../../../Header/Layout';
 
+const baseURL = "http://localhost:4000/api/v1/room-categories";
 
 const Room = () => {
+
+    const [get, setGetAll] = useState(null);
+    useEffect(() => {
+        axios.get(baseURL).then((response) => {
+            setGetAll(response.data);
+        });
+    }, []);
+
 
     const navigate = useNavigate()
     const [room_Number, setRoom_Number] = useState(null);
@@ -70,6 +79,11 @@ const Room = () => {
             <div className='form-div' >
                 <Container>
                     <Row>
+                        <Link to="/room-category">
+                            <Button className='float-end ' variant='success'>
+                                Add-Room-Category
+                            </Button>
+                        </Link>
                         <form className="row g-4 p-3 registration-form" >
 
                             <div class="col-md-4 position-relative">
@@ -94,10 +108,10 @@ const Room = () => {
                                     value={room_Type} onChange={(e) => setRoom_Type(e.target.value)} required
                                 >
                                     <option>Choose</option>
-                                    <option value="Luxury">Luxury</option>
-                                    <option value="Delux">Delux</option>
-                                    <option value="Normal">Normal</option>
-                                    <option value="Super Delux">Super Delux</option>
+                                    {get?.rooms?.map((items) => (
+                                        <option key={items._id} value={items.roomCategory}>{items.roomCategory}</option>
+                                    ))}
+
                                 </Form.Select>
                             </div>
 

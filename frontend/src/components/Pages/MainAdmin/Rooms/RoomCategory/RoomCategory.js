@@ -1,43 +1,45 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Container, Col, Row, Table, Button } from 'react-bootstrap'
-import { AiFillDashboard,  } from 'react-icons/ai';
-// import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
+import Layout from '../../../../Header/Layout'
+import { AiFillDashboard } from 'react-icons/ai';
+import Form from 'react-bootstrap/Form';
 import { IoIosCreate } from 'react-icons/io';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Layout from '../../../Header/Layout';
 
 
-const AddCategoryForm = () => {
+const RoomCategory = () => {
 
-    // form Function start
     const navigate = useNavigate()
-    const [category_Type, setCategory_Type] = useState(null);
+    const [roomCategory, setRoomCategory] = useState(null);
+    const [price, setPrice] = useState(null);
+
     const submitform = (event) => {
         event.preventDefault();
         try {
-            axios.post(" http://localhost:4000/api/v1/category/new", {
+            axios.post(" http://localhost:4000/api/v1/add/category/new", {
 
-                "Category_Type": category_Type,
+                "roomCategory": roomCategory,
+                "price": price
             })
-            toast.success("Item Add Succesfully")
-            navigate("/category-list")
+            toast.success("Room Category Add Succesfully")
+            navigate("/room-category-list")
         } catch (error) {
             console.log(error.response)
 
         }
     }
 
+
     return (
         <>
-        <Layout />
+            <Layout />
             <Container style={{ width: "90%", marginTop: "20px" }} >
                 <Table striped bordered hover className='main-table'>
                     <thead>
                         <tr>
-                            <th><h5><AiFillDashboard /> &nbsp;Dasboard / Add New Category</h5></th>
+                            <th><h5><AiFillDashboard /> &nbsp;Dasboard / Add Room Category</h5></th>
                         </tr>
                     </thead>
                 </Table>
@@ -49,10 +51,9 @@ const AddCategoryForm = () => {
                                     <div className='table-div'>
 
                                         <Button className='table-btn' variant="light" >
-                                            <IoIosCreate />&nbsp;<Link to="/list-category">Go Back</Link>
+                                            <IoIosCreate />&nbsp;<Link to="/room-category-list">Go Back</Link>
                                         </Button>
                                     </div>
-
                                 </th>
                             </tr>
                         </thead>
@@ -60,40 +61,38 @@ const AddCategoryForm = () => {
                     <hr />
                 </Row>
             </Container>
-
             {/* form section start */}
             <div className='form-div' >
                 <Container>
                     <Row>
                         <form className="row g-4 p-3 registration-form" >
                             <div class="col-md-4 position-relative">
-                                <label className="label">Category Name</label>
+                                <label className="label">Room-Category.</label>
                                 <input type="text" class="form-control"
-                                    value={category_Type} onChange={(e) => setCategory_Type(e.target.value)} required
+                                    value={roomCategory} onChange={(e) => setRoomCategory(e.target.value)} id="inputname" required
                                 />
                             </div>
-                            <br />
+                            <div class="col-md-4 position-relative">
+                                <label className="label">Price.</label>
+                                <input type="text" class="form-control"
+                                    value={price} onChange={(e) => setPrice(e.target.value)} required
+                                />
+                            </div>
                             <center>
                                 <Button className="stu_btn"
-                                    style={{ marginTop: "-120px" }}
                                     variant="success"
-                                    type="submit"
-                                    // onClick={submitform}
-                                    onClick={(event) => submitform(event)}
+                                    type="submit" onClick={submitform}
                                 >
-                                  Submit
-                               </Button>
+                                    Submit
+                                </Button>
                             </center>
                         </form>
                     </Row>
                 </Container>
             </div>
-            <br />
-
-
 
         </>
     )
 }
 
-export default AddCategoryForm
+export default RoomCategory

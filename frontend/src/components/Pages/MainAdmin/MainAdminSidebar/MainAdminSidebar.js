@@ -27,13 +27,18 @@ const MainAdminSidebar = ({children}) => {
     },
     {
       path: "/add-category",
-      name: "Category ",
+      name: "Item-Category ",
       icon: <MdOutlineCategory />
     },
     
     {
       path: "/add-rooms",
       name: "Rooms",
+      icon: <MdOutlineMeetingRoom />
+    },
+    {
+      path: "/room-category",
+      name: "Room-Category",
       icon: <MdOutlineMeetingRoom />
     },
      
