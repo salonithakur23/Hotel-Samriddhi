@@ -88,8 +88,10 @@ const BookingList = ({ post }) => {
                     <th>Phone No.</th>
                     <th>Address</th>
                     <th>Room No.</th>
+                   
                     <th>Booking Date</th>
                     <th>Room Type</th>
+                    <th>Price</th>
                     <th>Action Edit</th>
                     <th>Action Delete</th>
                     <th>Action View</th>
@@ -103,7 +105,9 @@ const BookingList = ({ post }) => {
                       <td>{items.Address}</td>
                       <td>{items.Room_Number}</td>
                       <td>{items.Booking_Date_Time}</td>
+                    
                       <td>{items.Room_BookType}</td>
+                      <td>{items.Price}</td>
                       <td>
                         <Link to={`/Editroombooking/${items._id}`}>
                           <Button className='table-btn' variant="light">
