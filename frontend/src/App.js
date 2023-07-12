@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import Home from './components/Pages/Home/Home';
 import Dashboard from './components/Pages/Hotel/AdminPage/Dashboard/Dashboard'
 import HotelSidebar from './components/Pages/Hotel/HotelSidebar';
@@ -19,19 +21,19 @@ import AddService from "./components/Pages/MainAdmin/AddService/AddService";
 import ServicesList from "./components/Pages/MainAdmin/AddService/ServicesList";
 import Employees from "./components/Pages/MainAdmin/Employees/Employees";
 import EmployeesList from "./components/Pages/MainAdmin/Employees/EmployeesList";
-import Guest from "./components/Pages/MainAdmin/GuestInformation/Guest";
+// import Guest from "./components/Pages/MainAdmin/GuestInformation/Guest";
 import GuestList from "./components/Pages/MainAdmin/GuestInformation/GuestList";
 import ResDashboard from "./components/Pages/Restaurent/ResDashboard/ResDashboard";
 import RestaurentSidebar from "./components/Pages/Restaurent/RestaurentSidebar";
 import Rooms from "./components/Pages/Hotel/AdminPage/Rooms/Rooms";
-import EditGuest from "./components/Pages/MainAdmin/GuestInformation/EditGuest";
+// import EditGuest from "./components/Pages/MainAdmin/GuestInformation/EditGuest";
 import ResBilling from './components/Pages/Restaurent/Res-Billing/ResBilling'
 import Order from "./components/Pages/Restaurent/Order/Order";
 import Kot from "./components/Pages/Restaurent/KOT/Kot";
 import Bill from "./components/Pages/Restaurent/Bill/Bill";
 import ItemsForm from "./components/Pages/Restaurent/Items/ItemsForm";
 import ServiceEdit from "./components/Pages/MainAdmin/AddService/ServiceEdit";
-import { ToastContainer } from "react-toastify";
+
 import RoomEdit from "./components/Pages/MainAdmin/Rooms/RoomEdit";
 import AddCategoryForm from "./components/Pages/MainAdmin/AddCategory/AddCategoryForm";
 import EditCategory from "./components/Pages/MainAdmin/AddCategory/EditCategory";
@@ -50,12 +52,10 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Check if the user is logged in (e.g., by checking a token in local storage)
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token); 
   }, []);
 
-  // Higher-order component for protected routes
   const PrivateRoute = ({ children }) => {
     return isLoggedIn ? children : <Navigate to="/login" />;
   };
@@ -99,8 +99,8 @@ function App() {
           <Route path="/employees" element={<PrivateRoute><MainAdminSidebar><Employees /></MainAdminSidebar></PrivateRoute>} />
           <Route path="/EditEmp/:id" element={<PrivateRoute><MainAdminSidebar><EditEmployee /></MainAdminSidebar></PrivateRoute>} />
           <Route path="/employee-list" element={<PrivateRoute><MainAdminSidebar><EmployeesList /></MainAdminSidebar></PrivateRoute>} />
-          <Route path="/add-guest" element={<PrivateRoute><MainAdminSidebar><Guest /></MainAdminSidebar></PrivateRoute>} />
-          <Route path="/guest/:id" element={<PrivateRoute><MainAdminSidebar><EditGuest /></MainAdminSidebar></PrivateRoute>} />
+          {/* <Route path="/add-guest" element={<PrivateRoute><MainAdminSidebar><Guest /></MainAdminSidebar></PrivateRoute>} /> */}
+          {/* <Route path="/guest/:id" element={<PrivateRoute><MainAdminSidebar><EditGuest /></MainAdminSidebar></PrivateRoute>} /> */}
           <Route path="/guest-list" element={<PrivateRoute><MainAdminSidebar><GuestList /></MainAdminSidebar></PrivateRoute>} />
           <Route path="/view/:id" element={<PrivateRoute><MainAdminSidebar><GuestList /></MainAdminSidebar></PrivateRoute>} />
           <Route path="/add-category" element={<PrivateRoute><MainAdminSidebar><AddCategoryForm /></MainAdminSidebar></PrivateRoute>} />
