@@ -48,7 +48,7 @@ const MainAdminSidebar = ({children}) => {
         icon: <FaBookReader />
       },
       {
-        path: "/add-guest",
+        path: "/guest-list",
         name: "Guest Information",
         icon: <IoIosInformationCircle />
       },
