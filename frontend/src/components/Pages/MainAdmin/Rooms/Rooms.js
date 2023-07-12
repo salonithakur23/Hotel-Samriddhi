@@ -28,7 +28,8 @@ const Room = () => {
     const [price, setPrice] = useState(null);
     const [avilable_Not, setAvilable_Not] = useState(null);
 
-    const submitform = () => {
+    const submitform = (event) => {
+        event.preventDefault();
         try {
             axios.post("http://localhost:4000/api/v1/room/new", {
                 "Room_Number": room_Number,
@@ -129,7 +130,9 @@ const Room = () => {
                             <center>
                                 <Button className="stu_btn"
                                     variant="success"
-                                    type="submit" onClick={submitform}>
+                                    type="submit"
+                                    onClick={(event) => submitform(event)}
+                                >
                                     Submit
                                 </Button>
                             </center>

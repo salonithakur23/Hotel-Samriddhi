@@ -22,17 +22,13 @@ const AddCategoryForm = () => {
 
                 "Category_Type": category_Type,
             })
-            toast.danger("Item Add Succesfully")
+            toast.success("Item Add Succesfully")
             navigate("/category-list")
         } catch (error) {
             console.log(error.response)
 
         }
     }
-
-    // form Function end
-
-
 
     return (
         <>

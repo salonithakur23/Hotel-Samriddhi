@@ -40,6 +40,7 @@ import SeeAllCategory from "./components/Pages/MainAdmin/AddCategory/SeeAllCateg
 import EditEmployee from "./components/Pages/MainAdmin/Employees/EditEmployee";
 import EditResBilling from "./components/Pages/Restaurent/Res-Billing/EditResBilling";
 import Login from "./login/Login";
+import EditRoomService from "./components/Pages/Hotel/AdminPage/RoomService/EditRoomService";
 import EditRoomBooking from "./components/Pages/Hotel/AdminPage/RoomBooking/EditRoomBooking";
 import RoomCategory from "./components/Pages/MainAdmin/Rooms/RoomCategory/RoomCategory";
 import RoomCategoryList from "./components/Pages/MainAdmin/Rooms/RoomCategory/RoomCategoryList";
@@ -74,6 +75,8 @@ function App() {
           <Route path="/rooms" element={<PrivateRoute><HotelSidebar><Rooms /></HotelSidebar></PrivateRoute>} />
           <Route path="/billing" element={<PrivateRoute><Billing /></PrivateRoute>} />
           <Route path="/roomservice" element={<PrivateRoute><HotelSidebar><RoomService /></HotelSidebar></PrivateRoute>} />
+          <Route path="/EditRoomService/:id" element={<PrivateRoute><HotelSidebar><EditRoomService /></HotelSidebar></PrivateRoute>} />
+
           <Route path="/restaurent-dashboard" element={<PrivateRoute><RestaurentSidebar><ResDashboard /></RestaurentSidebar></PrivateRoute>} />
           <Route path="/order" element={<PrivateRoute><RestaurentSidebar><Order /></RestaurentSidebar></PrivateRoute>} />
           <Route path="/res-items" element={<PrivateRoute><RestaurentSidebar><ItemsForm /></RestaurentSidebar></PrivateRoute>} />
