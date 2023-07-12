@@ -36,6 +36,7 @@ const RoomBooking = () => {
     const [number_Of_Adults, setNumber_Of_Adults] = useState(null);
     const [special_Request, setSpecial_Request] = useState(null);
     const [room_Type, setRoom_Type] = useState(null)
+    const [price, setPrice] = useState(null)
 
     const submitform = () => {
         try {
@@ -51,6 +52,7 @@ const RoomBooking = () => {
                 "Number_Of_Children": number_Of_Children,
                 "Special_Request": special_Request,
                 "Room_BookType":room_Type,
+                "Price":price,
 
 
             })
@@ -134,6 +136,13 @@ const RoomBooking = () => {
                                     <label className="label">Room No.</label>
                                     <input type="text" class="form-control"
                                         value={room_Number} onChange={(e) => setRoom_Number(e.target.value)}required
+                                    />
+
+                                </div>
+                                <div class="col-md-4 position-relative">
+                                    <label className="label">Price.</label>
+                                    <input type="text" class="form-control"
+                                        // value={price} onChange={(e) => setPrice(e.target.value)}required
                                     />
 
                                 </div>
