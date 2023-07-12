@@ -114,10 +114,10 @@ const RoomEdit = () => {
                                     value={Room_Type}  onChange={(e) => setRoom_Type(e.target.value)}
                                 >
                                     <option>Choose</option>
-                                    <option value="1">Luxury</option>
-                                    <option value="2">Delux</option>
-                                    <option value="3">Normal</option>
-                                    <option value="4">Super Delux</option>
+                                    <option value="Luxury">Luxury</option>
+                                    <option value="Delux">Delux</option>
+                                    <option value="Normal">Normal</option>
+                                    <option value="Super Delux">Super Delux</option>
                                 </Form.Select>
                             </div>
 
@@ -128,8 +128,8 @@ const RoomEdit = () => {
                                     value={Avilable_Not}  onChange={(e) => setAvilable_Not(e.target.value)}
                                 >
                                     <option>Choose</option>
-                                    <option value="1">yes</option>
-                                    <option value="2">No</option>
+                                    <option value="yes">yes</option>
+                                    <option value="No">No</option>
                                 </Form.Select>
                             </div>
 
