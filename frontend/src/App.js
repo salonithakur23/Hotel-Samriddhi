@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import Home from './components/Pages/Home/Home';
 import Dashboard from './components/Pages/Hotel/AdminPage/Dashboard/Dashboard'
 import HotelSidebar from './components/Pages/Hotel/HotelSidebar';
@@ -31,7 +33,7 @@ import Kot from "./components/Pages/Restaurent/KOT/Kot";
 import Bill from "./components/Pages/Restaurent/Bill/Bill";
 import ItemsForm from "./components/Pages/Restaurent/Items/ItemsForm";
 import ServiceEdit from "./components/Pages/MainAdmin/AddService/ServiceEdit";
-import { ToastContainer } from "react-toastify";
+
 import RoomEdit from "./components/Pages/MainAdmin/Rooms/RoomEdit";
 import AddCategoryForm from "./components/Pages/MainAdmin/AddCategory/AddCategoryForm";
 import EditCategory from "./components/Pages/MainAdmin/AddCategory/EditCategory";
@@ -50,12 +52,10 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Check if the user is logged in (e.g., by checking a token in local storage)
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token); 
   }, []);
 
-  // Higher-order component for protected routes
   const PrivateRoute = ({ children }) => {
     return isLoggedIn ? children : <Navigate to="/login" />;
   };
