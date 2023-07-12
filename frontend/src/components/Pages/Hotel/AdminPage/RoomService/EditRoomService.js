@@ -5,72 +5,68 @@ import { AiFillDashboard, AiFillDelete, AiFillEdit, AiFillSetting } from 'react-
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import { IoIosCreate } from 'react-icons/io';
 import Form from 'react-bootstrap/Form';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import './RoomService.css';
 import Layout from '../../../../Header/Layout';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const baseURL = "http://localhost:4000/api/v1/room-services";
 
 
+const EditRoomService = () => {
 
-const RoomService = () => {
-
+    const params = useParams();
     const navigate = useNavigate();
-    const [guestName, setGuestName] = useState(null);
-    const [phoneNumber, setPhoneNumber] = useState(null);
-    const [roomNumber, setRoomNumber] = useState(null);
-    const [serviceDate, setServiceDate] = useState(null);
-    const [service, setService] = useState(null);
-    // const [serviceCharge, setServiceCharge] = useState(null);
-    const [get, setGetAll] = useState(null);
-    const [charge, setCharge] = useState([]);
-    const [selectedServiceCharge, setSelectedServiceCharge] = useState('');
-
-  useEffect(() => {
-    axios.get(baseURL).then((response) => {
-      setGetAll(response.data);
-      console.log(response);
-    });
-  }, []);
-
-  const selectedChargeList = charge?.map((items) => (
-    <div key={items.Service_Charge}>
-      <p>{items.Service_Charge}</p>
-    </div>
-  ));
-
-
-  const submitform = (event) => {
-    event.preventDefault(); // Prevents default form submission
-    try {
-      axios.post('http://localhost:4000/api/v1/guest/new', {
-        "guestName": guestName,
-        "phoneNumber": phoneNumber,
-        "roomNumber": roomNumber,
-        "serviceDate": serviceDate,
-        "service": service,
-        "serviceCharge": selectedServiceCharge,
+    const [specificService, setSpecificService] = useState("");
+    const [guestName, setGuestName] = useState(specificService.guestName);
+    const [phoneNumber, setPhoneNumber] = useState(specificService.phoneNumber);
+    const [roomNumber, setRoomNumber] = useState(specificService.roomNumber);
+    const [serviceDate, setServiceDate] = useState(specificService.serviceDate);
+    const [service, setService] = useState(specificService.service);
+    const [selectedServiceCharge, setSelectedServiceCharge] = useState(specificService.selectedServiceCharge);
+  
+    useEffect(() => {
+      axios.get(`http://localhost:4000/api/v1/guest/${params.id}`).then((response) => {
+        setSpecificService(response.data);
+        setGuestName(response.data.roomservice.guestName);
+        setPhoneNumber(response.data.roomservice.phoneNumber);
+        setRoomNumber(response.data.roomservice.roomNumber);
+        setServiceDate(response.data.roomservice.serviceDate);
+        setService(response.data.roomservice.service);
+        setSelectedServiceCharge(response.data.roomservice.selectedServiceCharge);
       });
-      toast.success('Room-Service Submitted Successfully');
-      navigate('/room-service-lists');
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
+    }, []);
 
 
+    const submitform = (event) => {
+      event.preventDefault(); // Prevents default form submission
+      try {
+        axios.put(`http://localhost:4000/api/v1/guest/${params.id}`, {
+          guestName: guestName,
+          phoneNumber: phoneNumber,
+          roomNumber: roomNumber,
+          serviceDate: serviceDate,
+          service: service,
+          selectedServiceCharge: selectedServiceCharge,
+        });
+        toast.success("Room-Service Updated Succesfully");
+        navigate("/room-service-lists");
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
 
 
   return (
-    <>
-      <Layout />
+
+   <>
+
+   <Layout />
       <Container style={{ width: "90%", marginTop: "20px" }}>
         <Table striped bordered hover className='main-table'>
           <thead>
             <tr>
-              <th><h5><AiFillDashboard /> &nbsp;Dasboard / Add Service</h5></th>
+              <th><h5><AiFillDashboard /> &nbsp;Dasboard / Edit Service</h5></th>
             </tr>
           </thead>
         </Table>
@@ -91,6 +87,8 @@ const RoomService = () => {
           <hr />
         </Row>
       </Container>
+
+
       <div className='form-div'>
         <Container>
           <Row>
@@ -100,44 +98,44 @@ const RoomService = () => {
                 <input type="text" className="form-control" 
                 value={guestName}
                 onChange={(e) => setGuestName(e.target.value)}
+              
                 />
               </div>
               <div className="col-md-4 position-relative">
                 <label className="label">Phone No.</label>
                 <input type="text" className="form-control"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
                  />
               </div>
               <div className="col-md-4 position-relative">
                 <label className="label">Room No.</label>
                 <input type="text" className="form-control" 
-                value={roomNumber}
-                onChange={(e) => setRoomNumber(e.target.value)}
+             value={roomNumber}
+             onChange={(e) => setRoomNumber(e.target.value)}
                 />
 
               </div>
               <div className="col-md-4 position-relative">
                 <label className="label">Service Date</label>
                 <input type="datetime-local" className="form-control" 
-                value={serviceDate}
-                onChange={(e) => setServiceDate(e.target.value)}
+               value={serviceDate}
+               onChange={(e) => setServiceDate(e.target.value)}
                 />
               </div>
 
               <div className="col-md-4 position-relative">
                 <label className="label">Service</label>
-                <Form.Select  onChange={(e) => setSelectedServiceCharge(e.target.value)} 
+                <Form.Select 
+                value={service}
+                onChange={(e) => setService(e.target.value)}
+       
                 >
                   <option 
-                  value={service}
-                  onChange={(e) => setService(e.target.value)}
 
                   >Choose</option>
 
-                  {get?.ser?.map((items) => ( 
-                    <option value={items.Service_Charge}> {items.Service_Name} </option>
-                  ))}
+                 
                 </Form.Select>
               </div>
 
@@ -146,13 +144,11 @@ const RoomService = () => {
                 <label className="label">Service Charges</label>
                 <input
                   type="text"
-                  // value={serviceCharge}
-                  className="form-control"
                   value={selectedServiceCharge}
                   onChange={(e) => setSelectedServiceCharge(e.target.value)}
-
+                  className="form-control"
                 />
-                {selectedChargeList}
+               
               </div>
 
 
@@ -171,8 +167,10 @@ const RoomService = () => {
           </Row>
         </Container>
       </div>
-    </>
-  );
-};
 
-export default RoomService;
+
+   </>
+  )
+}
+
+export default EditRoomService

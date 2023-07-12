@@ -9,12 +9,29 @@ import { Link } from "react-router-dom"
 import { IoIosCreate } from "react-icons/io";
 import ModalCamp from './ModalCamp';
 import Layout from '../../../../Header/Layout';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 
+
+const baseURL = "http://localhost:4000/api/v1/guestservices"
 
 
 const ServiceList = ({ post }) => {
+
+  const [get, setGetAll] = useState(null);
+
+  useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      setGetAll(response.data);
+      console.log(response)
+
+    })
+
+
+  }, [get])
+
 
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState({});
@@ -27,29 +44,22 @@ const ServiceList = ({ post }) => {
 
   }
 
+  const deleteData = (id) => {
+    // console.log(id)
+    axios.delete(`http://localhost:4000/api/v1/guest/${id}`).then(response => {
+      // alert("Service has been deleted successfully")
+      toast.success("Room-Service deleted Succesfully")
+    })
+      .catch(error => {
+        console.log(error)
+      })
 
-  //   const dispatch = useDispatch()
-  //   const leaves = useSelector(state => state.leaves.item)
-  //   const leavesStatus = useSelector(state => state.leaves.status)
-  //   const error = useSelector(state => state.leaves.error)
+  }
+
+  if (!get) return null;
 
 
 
-  //   useEffect(() => {
-  //     if (leavesStatus === 'idle') {
-  //       dispatch(fetchleaves())
-  //     }
-  //   }, [leavesStatus, dispatch])
-
-  //   let content
-
-  //   if (leavesStatus === 'loading') {
-  //     content = <div>Loading...</div>
-  //   } else if (leavesStatus === 'succeeded') {
-  //     content = leaves.map(leave => <Leave key={leave.id} leave={leave} />)
-  //   } else if (leavesStatus === 'failed') {
-  //     content = <div>{error}</div>
-  //   }
 
 
 
@@ -101,32 +111,43 @@ const ServiceList = ({ post }) => {
                     <th>Guest Name</th>
                     <th>Phone No.</th>
                     <th>Room No.</th>
-                    <th>Service Type</th>
                     <th>Service Date</th>
+                    <th>Service Type</th>
                     <th>Service Charges</th>
                     <th>Action Edit</th>
                     <th>Action View</th>
                   </tr>
                 </thead>
                 <tbody>
+                {get?.roomservice?.map((items) => (
                   <tr>
+                    
 
-                    <td>keshav</td>
-                    <td>keshav</td>
-                    <td>keshav</td>
-                    <td>keshav</td>
-                    <td>keshav</td>
-                    <td>keshav</td>
+                    <td>{items.guestName}</td>
+                    <td>{items.phoneNumber}</td>
+                    <td>{items.roomNumber}</td>
+                    <td>{items.serviceDate}</td>
+                    <td>{items.service}</td>
+                    <td>{items.serviceCharge}</td>
 
                     <td>
 
-                      <Link to="/roomservice">
+                      <Link to={`/EditRoomService/${items._id}`}>
+                      {/* to="/EditRoomService/:id"> */}
                         <Button className='table-btn' variant="light" >
                           &#9998;Edit
                         </Button>
                       </Link>
                     </td>
+
                     <td>
+                        <Button className='table-btn' variant="light" 
+                      onClick={(e) => { deleteData(items._id) }}
+                       value={"Delete"} >
+                           <span className='delete-icon'>&#x2717;</span>Delete
+                       </Button>
+                       </td>
+                    {/* <td>
                       <Button className='table-btn' variant="light"
                         onClick={() => handleModel()} >
                         &#128065;View
@@ -136,15 +157,15 @@ const ServiceList = ({ post }) => {
 
                           open={open}
                           setOpen={setOpen}
-                          // updatePost={updatePost}
                           {...user}
                         />
                       )}
 
-                    </td>
+                    </td> */}
 
-                    {/* <button className="view-btn">View </button> */}
+                   
                   </tr>
+                     ))}
                 </tbody>
               </table>
             </Table>
