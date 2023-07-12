@@ -6,7 +6,7 @@ const router=express.Router();
  
 //making routes
 // for all students record
-router.route("/guests").get(getAllRoomservice);
+router.route("/guestservices").get(getAllRoomservice);
 router.route("/guest/new").post(createRoomservice);
 router.route("/guest/:id").put(updateRoomservice).delete(deleteRoomservice).get(getRoomserviceDetails);
 

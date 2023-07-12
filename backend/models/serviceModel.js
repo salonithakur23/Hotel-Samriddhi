@@ -26,4 +26,4 @@ const ServiceSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model("Guest", ServiceSchema);
+module.exports = mongoose.model("RoomService", ServiceSchema);
