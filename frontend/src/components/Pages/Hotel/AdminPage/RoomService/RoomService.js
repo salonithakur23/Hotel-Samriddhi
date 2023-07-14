@@ -10,7 +10,11 @@ import Layout from '../../../../Header/Layout';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+
+
 const baseURL = "http://localhost:4000/api/v1/room-services";
+
+
 
 const RoomService = () => {
   const navigate = useNavigate();
@@ -23,6 +27,8 @@ const RoomService = () => {
   const [charge, setCharge] = useState([]);
   const [selectedServiceCharge, setSelectedServiceCharge] = useState('');
 
+
+  
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setGetAll(response.data);
@@ -144,11 +150,13 @@ const RoomService = () => {
                     setService(e.target.value);
                     getServiceCharge(e.target.value);
                   }}
+                  
                 >
-                  <option>Choose</option>
+                  <option >Choose</option>
                   {get?.ser?.map((items) => (
                     <option key={items._id} value={items.Service_Name}>
                       {items.Service_Name}
+                      
                     </option>
                   ))}
                 </Form.Select>
