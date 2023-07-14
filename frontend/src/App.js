@@ -75,6 +75,7 @@ function App() {
           <Route path="/rooms" element={<PrivateRoute><HotelSidebar><Rooms /></HotelSidebar></PrivateRoute>} />
           <Route path="/billing" element={<PrivateRoute><Billing /></PrivateRoute>} />
           <Route path="/roomservice" element={<PrivateRoute><HotelSidebar><RoomService /></HotelSidebar></PrivateRoute>} />
+          <Route path="/roomservice/:id" element={<PrivateRoute><HotelSidebar><RoomService /></HotelSidebar></PrivateRoute>} />
           <Route path="/EditRoomService/:id" element={<PrivateRoute><HotelSidebar><EditRoomService /></HotelSidebar></PrivateRoute>} />
 
           <Route path="/restaurent-dashboard" element={<PrivateRoute><RestaurentSidebar><ResDashboard /></RestaurentSidebar></PrivateRoute>} />
