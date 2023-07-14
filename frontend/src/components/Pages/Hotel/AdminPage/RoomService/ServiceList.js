@@ -45,9 +45,8 @@ const ServiceList = ({ post }) => {
   }
 
   const deleteData = (id) => {
-    // console.log(id)
-    axios.delete(`http://localhost:4000/api/v1/guest/${id}`).then(response => {
-      // alert("Service has been deleted successfully")
+    axios.delete(`http://localhost:4000/api/v1/guest/${id}`)
+    .then(response => {
       toast.success("Room-Service deleted Succesfully")
     })
       .catch(error => {
