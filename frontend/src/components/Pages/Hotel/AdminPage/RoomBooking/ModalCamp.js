@@ -30,6 +30,7 @@ const ModalCamp = ({ open, setOpen, user }) => {
         <Container>
           <Row>
             <Col sm={6}>
+              
               <p><b>Guest Name:</b></p>
               <p><b>Phone No:</b> </p>
               <p><b>Address:</b> </p>

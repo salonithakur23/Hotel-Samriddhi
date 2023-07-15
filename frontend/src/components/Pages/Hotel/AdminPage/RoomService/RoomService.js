@@ -11,7 +11,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 
-
 const baseURL = "http://localhost:4000/api/v1/room-services";
 
 
@@ -109,8 +108,8 @@ const RoomService = () => {
               <div className='col-md-4 position-relative'>
                 <label className='label'>Guest Name</label>
                 <input
-                  type='text'
                   className='form-control'
+                  // placeholder={guestName}
                   value={guestName}
                   onChange={(e) => setGuestName(e.target.value)}
                 />

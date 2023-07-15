@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,300;1,400&family=Poppins:wght@200;300;400;500;600&display=swap');
 
+
 *{
     margin:0;
     padding: 0;
@@ -9,123 +10,134 @@
 body{
     font-family: poppins ,sans-serif;
 }
+
+
 .containers{
     height:100vh;
-    width:100%;
+    /* width:100%; */
     background-color: white;
     position: relative;
-
 }
 
 .bill-container{
     height: max-content;
-    width:350px !important;
-    /* width: max-content; */
+    width:350px !important;  
     background-color:rgb(245, 209, 209);
     position: absolute;
-    /* top:5rem;
-    left:35rem;
-    transition: tranform(-50 ,-50); */
 }
+
 .header-section{
     display: flex;
     justify-content: space-between;
 }
+
 .text-content{
     text-align: center !important;
     margin: 0;
     padding-left:70px;
     padding-top:10px;
-
 }
+
 .text-content h1 {
-   font-family: poppins,sans-serif;
-   font-size:20px;
+   font-family: sans-serif;
+   font-size:30px;
    color:red;
-   font-weight:800;
+   /* font-weight:800; */
    text-align: center !important;
 
 }
-.text-content span{
+
+/* .text-content span{
     color: black;
     font-size:15px;
     font-weight:bold;
-}
+} */
+
 
 .adress{
     text-align: center;
     margin-top:10px;
-    font-size:12px;
+    font-size:15px;
    
-    
-    
-    
 }
+
+
+
 .border{
      border-bottom:1px solid rgb(0, 0, 0);
      margin:10px  10px 10px 10px;
 }
 
-
 .invoice-no{
      text-align: center;
     margin-top:10px;
     font-size:12px;
-
 }
+
 .order-number{
     display: flex;
     padding:10px;
     justify-content: space-between;
-
 }
+
 .order{
     margin-left:10px;
     text-align: left;
-}
-.order h1{
-    font-size:15px;
-    font-weight:800;
-    text-align: left;
-
-}
-.order p{
-    font-size:10px;
-    font-weight:800;
     
 }
+
+.order h1{
+    font-size:22px;
+    font-weight:800;
+    text-align: left;
+    color: red;
+}
+
+.order p{
+    /* font-size:10px; */
+    font-weight:800;
+    margin-top: 20px;
+}
+
 .timing{
     margin-right:10px;
     padding-top:2px;
 }
+
 .customer-section {
     text-align: left;
     padding-left: 20px;
-
 }
+
 .customer-section h1{
-    color:black;
-    font-size:15px;
+    /* color:black; */
+    font-size:25px;
     font-weight:800;
     text-align: left;
+    color: red;
+    margin-top: 15px;
+    margin-bottom: 20px;
 }
-.customer-section p{
-    font-size:12px;
+
+.customer-section span{
+    /* font-size:12px; */
+    margin-left: 25px;
 }
+
 .Items-name h1{
     font-size:2px;
-
 }
+
 .items-name{
     display: flex;
     align-items: center;
-   
 }
 
 .Items-container{
     padding:20px;
     padding-top:0;
 }
+
 td,
 th,
 tr,
@@ -136,7 +148,7 @@ table {
 
 td.description,
 th.description {
-    width: 350px;
+    /* width: 350px; */
     max-width: 350px;
     padding-top:10px;
     
@@ -147,14 +159,14 @@ td.price,
 th.price {
     width: 110px;
     max-width: 110px;
-    display: flex;
+    /* display: flex; */
     margin-left:1rem;
- 
-    
 }   
+
 .total-amount{
     margin-top: 20px;
 }
+
 .footer h1{
     font-size:20px;
     font-weight:800px;
@@ -162,50 +174,7 @@ th.price {
     padding-top:10px;
 }
 
-.total-price{
-    margin-left: 50px !important;
-}
-/* .print-btn{
-    padding-top:20px;
+
+/* #total-price{
+    margin-left: 180px !important;
 } */
-
-
-
-
-
-/* @media (max-width:768px){
-
-    .container{
-    height:100vh;
-    width:100%;
-    background-color: white;
-    position: relative;
-    }
-    .bill-container{
-        top:15;
-        left:15rem;
-        height:70vh;
-        align-items: center;
-        position: absolute;
-        
-
-    }
-
-}
-@media(max-width:480px){
-     .container{
-    height:100vh;
-    width:100%;
-    background-color: white;
-    position: relative;
-    }
-    .bill-container{
-        top:20px;
-        left:30px;
-         height:95vh;
-        align-items: center;
-        position: absolute;
-
-    }
-}
-    */
