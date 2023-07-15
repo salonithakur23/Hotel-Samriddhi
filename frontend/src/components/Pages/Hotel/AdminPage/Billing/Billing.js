@@ -86,7 +86,8 @@ const Billing = () => {
                                                     </tr>
                                                     
                                                 </tbody>
-                                                <h4 className='mt-3'>Total : <span className="total-price">223</span> </h4>
+                                                <h4 className='mt-4'>Total : <span id='total-price' > 233</span></h4>
+                                          
                                             </table>
                                             
                                         </div>
