@@ -49,7 +49,7 @@ const RoomBooking = () => {
         Number_Of_Adults: number_Of_Adults,
         Number_Of_Children: number_Of_Children,
         Special_Request: special_Request,
-        Room_BookType: room_Type, // Updated: Include the selected room type
+        Room_BookType: room_Type, 
         Price: price,
       });
       toast.success("Room Added Successfully");
