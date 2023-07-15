@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Button, Container, Row, Table } from 'react-bootstrap';
 import { AiFillDashboard, AiFillDelete, AiFillEdit } from 'react-icons/ai';
@@ -10,7 +9,11 @@ import Layout from '../../../../Header/Layout';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+
+
 const baseURL = "http://localhost:4000/api/v1/room-bookings";
+
+
 
 const BookingList = ({ post }) => {
   const [open, setOpen] = useState(false);
@@ -18,10 +21,12 @@ const BookingList = ({ post }) => {
   const [get, setGetAll] = useState(null);
   const navigate = useNavigate();
 
+
   const handleModal = (post) => {
     setOpen(true);
     setUser(post);
   };
+
 
   useEffect(() => {
     axios.get(baseURL)
@@ -32,6 +37,7 @@ const BookingList = ({ post }) => {
         console.log(error);
       });
   }, [get]);
+
 
   const deleteData = (id) => {
     axios.delete(`http://localhost:4000/api/v1/room-booking/${id}`)
@@ -125,6 +131,13 @@ const BookingList = ({ post }) => {
                           &#128065;View
                         </Button>
                       </td>
+                      {/* <td>
+                        <Link to={`/billing/${items._id}`} >
+                        <Button className='table-btn' variant="light">
+                          &#128065;Billing
+                        </Button>
+                        </Link>
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>

@@ -19,6 +19,7 @@ const ModalCamp = ({ open, setOpen, user }) => {
         <Container>
           <Row>
             <Col sm={6}>
+              
               <p><b>Guest Name:</b></p>
               <p><b>Phone No:</b> </p>
               <p><b>Address:</b> </p>
@@ -30,6 +31,7 @@ const ModalCamp = ({ open, setOpen, user }) => {
               <p><b>Number Of Adults:</b> </p>
               <p><b>Number Of Children:</b> </p>
               <p><b>Special Request:</b> </p>
+
             </Col>
             <Col sm={6}>
             <p>{user.Guest_Name}</p>
