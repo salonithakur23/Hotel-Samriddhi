@@ -26,6 +26,8 @@ const RoomService = () => {
   const [charge, setCharge] = useState([]);
   const [selectedServiceCharge, setSelectedServiceCharge] = useState('');
 
+
+  
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setGetAll(response.data);
@@ -147,11 +149,13 @@ const RoomService = () => {
                     setService(e.target.value);
                     getServiceCharge(e.target.value);
                   }}
+                  
                 >
-                  <option>Choose</option>
+                  <option >Choose</option>
                   {get?.ser?.map((items) => (
                     <option key={items._id} value={items.Service_Name}>
                       {items.Service_Name}
+                      
                     </option>
                   ))}
                 </Form.Select>

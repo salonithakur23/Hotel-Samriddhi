@@ -14,8 +14,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const baseURL = "http://localhost:4000/api/v1/rooms"
 
+
 const EditRoomBooking = () => {
 
+    
     const [get, setGetAll] = useState(null);
     
 
@@ -41,7 +43,7 @@ const EditRoomBooking = () => {
     const [Special_Request, setSpecial_Request] = useState(specificGuest.Special_Request);
     const [Room_BookType, setRoom_BookType] = useState(specificGuest.Room_BookType)
     const [room_Type, setRoom_Type] = useState(null)
-
+    const [Price, setPrice] = useState(specificGuest.Price)
 
 
     useEffect(() => {
@@ -58,6 +60,7 @@ const EditRoomBooking = () => {
             setNumber_Of_Adults(response.data.book.Number_Of_Adults);
             setSpecial_Request(response.data.book.Special_Request);
             setRoom_BookType(response.data.book.Room_BookType);
+            setPrice(response.data.book.Price);
         })
     }, [])
 
@@ -75,6 +78,7 @@ const EditRoomBooking = () => {
                 "Number_Of_Children": Number_Of_Children,
                 "Number_Of_Adults": Number_Of_Adults,
                 "Special_Request": Special_Request,
+                "Price": Price,
                 "Room_BookType": room_Type
 
             })
@@ -155,6 +159,13 @@ const EditRoomBooking = () => {
                                     <label className="label">Room No.</label>
                                     <input type="text" class="form-control"
                                         value={Room_Number} onChange={(e) => setRoom_Number(e.target.value)}
+                                    />
+
+                                </div>
+                                <div class="col-md-4 position-relative">
+                                    <label className="label">Price.</label>
+                                    <input type="text" class="form-control"
+                                        value={Price} onChange={(e) => setPrice(e.target.value)}required
                                     />
 
                                 </div>

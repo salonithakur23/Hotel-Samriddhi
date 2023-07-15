@@ -1,8 +1,8 @@
 import React from 'react'
 import './Billing.css'
 import HotelSidebar from '../../HotelSidebar'
-import { Container,  Row, Table} from 'react-bootstrap'
-import { AiFillDashboard} from 'react-icons/ai';
+import { Container, Row, Table } from 'react-bootstrap'
+import { AiFillDashboard } from 'react-icons/ai';
 import Layout from "../../../../Header/Layout"
 
 const Billing = () => {
@@ -53,8 +53,8 @@ const Billing = () => {
                                         <div className="customer-section">
                                             <h1>Stay Details</h1>
                                             <p>Arrival Date : <span>12-12-12</span></p>
-                                            <p>Booking Date : <span>Pooja</span></p>
-                                            <p>Departure Date : <span>Pooja</span></p>
+                                            <p>Booking Date : <span>12-12-12</span></p>
+                                            <p>Departure Date : <span>13-12-12</span></p>
                                             <p>Total Number of days: <span>9</span></p>
                                             <p>Room Type: <span>Delux</span></p>
                                             <p>Number of Rooms: <span>2</span></p>
@@ -76,20 +76,20 @@ const Billing = () => {
                                                         <td className="description">12-12-12</td>
                                                         <td className="price">Food</td>
                                                         <td className="amount">250</td>
-                                                        
+
                                                     </tr>
                                                     <tr>
                                                         <td className="description">12-12-12</td>
                                                         <td className="price">Cofee</td>
                                                         <td className="amount">250</td>
-                                                        
+
                                                     </tr>
-                                                    
+
                                                 </tbody>
                                                 <h4 className='mt-4'>Total : <span id='total-price' > 233</span></h4>
                                           
                                             </table>
-                                            
+
                                         </div>
                                         <div className="border"> </div>
                                         <div className="footer">
