@@ -51,6 +51,22 @@ const BookingSchema = new mongoose.Schema({
         type: String,
 
     },
+    Services: [
+        {
+          Service_Name: {
+            type: String,
+    
+          },
+          Service_Charge: {
+            type: Number,
+    
+          },
+          Date_Time: {
+            type: String,
+    
+          },
+        },
+      ],
 
 
 });
