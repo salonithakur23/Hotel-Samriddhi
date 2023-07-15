@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Container, Row, Table } from 'react-bootstrap';
+import { Button, Container, Row, Table, Modal, Form } from 'react-bootstrap';
 import { AiFillDashboard, AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { Link } from "react-router-dom";
 import { IoIosCreate } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
-import ModalCamp from './ModalCamp';
 import Layout from '../../../../Header/Layout';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import ModalCamp from './ModalCamp';
+import ServiceModal from './SeviceModel/ServiceModal';
 
 
 
@@ -17,8 +18,11 @@ const baseURL = "http://localhost:4000/api/v1/room-bookings";
 
 const BookingList = ({ post }) => {
   const [open, setOpen] = useState(false);
+  const [opens, setOpens] = useState(false);
   const [user, setUser] = useState({});
   const [get, setGetAll] = useState(null);
+  const [showRoomService, setShowRoomService] = useState(false);
+  const [roomServices, setRoomServices] = useState([]);
   const navigate = useNavigate();
 
 
@@ -27,6 +31,10 @@ const BookingList = ({ post }) => {
     setUser(post);
   };
 
+  const handleModals = () => {
+    setOpens(true);
+    // setUser(post);
+  };
 
   useEffect(() => {
     axios.get(baseURL)
@@ -47,6 +55,23 @@ const BookingList = ({ post }) => {
       .catch(error => {
         console.log(error);
       });
+  };
+
+  const openRoomServicePopup = () => {
+    setShowRoomService(true);
+  };
+
+  const closeRoomServicePopup = () => {
+    setShowRoomService(false);
+  };
+
+  const handleRoomServiceChange = (event) => {
+    const { name, checked } = event.target;
+    if (checked) {
+      setRoomServices((prevServices) => [...prevServices, name]);
+    } else {
+      setRoomServices((prevServices) => prevServices.filter((service) => service !== name));
+    }
   };
 
   if (!get) return null;
@@ -94,13 +119,13 @@ const BookingList = ({ post }) => {
                     <th>Phone No.</th>
                     <th>Address</th>
                     <th>Room No.</th>
-
                     <th>Booking Date</th>
                     <th>Room Type</th>
                     <th>Price</th>
                     <th>Action Edit</th>
                     <th>Action Delete</th>
                     <th>Action View</th>
+                    <th>Add-Ser</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -111,7 +136,6 @@ const BookingList = ({ post }) => {
                       <td>{items.Address}</td>
                       <td>{items.Room_Number}</td>
                       <td>{items.Booking_Date_Time}</td>
-
                       <td>{items.Room_BookType}</td>
                       <td>{items.Price}</td>
                       <td>
@@ -131,13 +155,25 @@ const BookingList = ({ post }) => {
                           &#128065;View
                         </Button>
                       </td>
-                      {/* <td>
-                        <Link to={`/billing/${items._id}`} >
-                        <Button className='table-btn' variant="light">
-                          &#128065;Billing
+                      {open && (
+                        <ModalCamp
+                          open={open}
+                          setOpen={setOpen}
+                          user={user}
+                        />
+                      )}
+                      <td>
+                        <Button variant="light" onClick={handleModals}>
+                          Add-Service
                         </Button>
-                        </Link>
-                      </td> */}
+                      </td>
+                      {opens && (
+                        <ServiceModal
+                          opens={opens}
+                          setOpens={setOpens}
+
+                        />
+                      )}
                     </tr>
                   ))}
                 </tbody>
@@ -147,15 +183,55 @@ const BookingList = ({ post }) => {
         </Container>
       </div>
 
-      {open && (
-        <ModalCamp
-          open={open}
-          setOpen={setOpen}
-          user={user}
-        />
-      )}
+
+
+
+
+
+      {/* <Modal show={showRoomService} onHide={closeRoomServicePopup}>
+        <Modal.Header closeButton>
+          <Modal.Title>Room Services</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Check
+              type="checkbox"
+              id="service1"
+              label="Service 1"
+              name="service1"
+              onChange={handleRoomServiceChange}
+              checked={roomServices.includes('service1')}
+            />
+            <Form.Check
+              type="checkbox"
+              id="service2"
+              label="Service 2"
+              name="service2"
+              onChange={handleRoomServiceChange}
+              checked={roomServices.includes('service2')}
+            />
+            <Form.Check
+              type="checkbox"
+              id="service3"
+              label="Service 3"
+              name="service3"
+              onChange={handleRoomServiceChange}
+              checked={roomServices.includes('service3')}
+            />
+          
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeRoomServicePopup}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal> */}
+
+
     </>
   );
 };
 
 export default BookingList;
+
